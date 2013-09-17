@@ -1,17 +1,11 @@
-# Object files
+# Objects/Libs
 *.o
-
-# Libraries
 *.lib
 *.a
 
-# Shared objects (inc. Windows DLLs)
+# Misc
 *.dll
 *.so
-*.so.*
-*.dylib
-
-# Executables
 *.exe
-*.out
-*.app
+
+node_modules
