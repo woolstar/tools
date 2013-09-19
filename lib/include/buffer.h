@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <stdexcept>
+#include <memory>
 
 namespace ltl
 {
@@ -14,14 +15,12 @@ namespace ltl
 			buffer(const void *, size_t) { }
 			buffer(const char *) { }
 
-			virtual ~ buffer() { }
-
 			void *	getbuf(void) const { return rawbuffer_ ; } 
-			size_t	getsize(void) const { return size_ ; }
+			size_t	getsize(void) const { return datasize_ ; }
 
 		protected:
 			void * rawbuffer_ { nullptr } ;
-			size_t	size_ { 0 } ;
+			size_t	datasize_ { 0 } ;
 	} ;
 
 	class	build : public buffer
@@ -56,40 +55,6 @@ namespace ltl
 	template <> void add<16>(build & abuf, unsigned int aval) { abuf.add_u16( aval) ; }
 	template <> void add<32>(build & abuf, unsigned int aval) { abuf.add_u32( aval) ; }
 
-
-	class	build_fixed : public build
-	{
-		public:
-			build_fixed(int asize = 256) ;
-			build_fixed(const buffer &) ;
-
-			~ build_fixed() ; // ... deallocate
-
-		protected:
-			bool	expand(int) { return false ; }	// no expansion
-			// smart pointer holder
-	} ;
-
-	class	build_strict : public build_fixed
-	{
-		protected:
-			bool	expand(int) 
-					// exception on buffer overflow
-				{ throw std::length_error("exceeded fixed buffer") ; }
-	} ;
-
-	class	build_expand : public build
-	{
-		public:
-			build_expand(int ainitialsize = 1024) ;
-			build_expand(const buffer &) ;
-
-			~ build_expand() ;  // ... deallocate
-
-		protected:
-			// smart pointer holder
-	} ;
-
 	template <int asize, typename aTYPE = unsigned char>
 		class build_static : public build
 		{
@@ -103,6 +68,43 @@ namespace ltl
 
 				aTYPE	storage_[asize] ;
 		} ;
+
+	//
+
+	class	build_resource : public build
+	{
+		public:
+			build_resource(size_t asize = 1024) ;
+			build_resource(const buffer & ) ;
+
+			build_resource(build_resource &&) ;
+			build_resource(build_resource &) = delete ;
+
+		protected:
+			std::unique_ptr<unsigned char *>	storage_ ;
+	} ;
+
+		// traits
+
+			// keep buffer restricted to initial size
+	class	build_fixed : virtual public build
+		{ protected: bool	expand(int) { return false ; } } ;
+
+			// exception on buffer overflow
+	class	build_strict : virtual public build_fixed
+		{ protected: bool	expand(int) { throw std::length_error("exceeded buffer") ; } } ;
+
+	class	build_expand : public build
+	{
+		public:
+			build_expand(int ainitialsize = 1024) ;
+			build_expand(const buffer &) ;
+
+			~ build_expand() ;  // ... deallocate
+
+		protected:
+			// smart pointer holder
+	} ;
 
 #if 0
 	// work in progress
