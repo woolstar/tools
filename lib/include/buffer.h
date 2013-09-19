@@ -2,6 +2,7 @@
 #define LTL_BUFFER_ 1
 
 #include <cstddef>
+#include <stdexcept>
 
 namespace ltl
 {
@@ -61,7 +62,6 @@ namespace ltl
 		public:
 			build_fixed(int asize = 256) ;
 			build_fixed(const buffer &) ;
-			build_fixed(const char *, size_t, char) ;
 
 			~ build_fixed() ; // ... deallocate
 
@@ -73,16 +73,9 @@ namespace ltl
 	class	build_strict : public build_fixed
 	{
 		protected:
-			bool	expand(int) { throw 1 ; }	// exception on buffer overflow
-	} ;
-
-		/** not supported in GCC 4.6 */
-	namespace literal
-	{
-		build_fixed operator"" _Hex(char const * astr, size_t alen) 	// hex array to buffer
-		{
-			return build_fixed(astr, alen / 2, 'h') ;
-		}
+			bool	expand(int) 
+					// exception on buffer overflow
+				{ throw std::length_error("exceeded fixed buffer") ; }
 	} ;
 
 	class	build_expand : public build
@@ -97,15 +90,32 @@ namespace ltl
 			// smart pointer holder
 	} ;
 
-	template <int asize, typename aTYPE = char>
+	template <int asize, typename aTYPE = unsigned char>
 		class build_static : public build
 		{
 			public:
-				build_static() : build(storage_, sizeof(storage_)) { }
+				build_static() : build(reinterpret_cast<unsigned char *>(&storage_[0]), sizeof(storage_)) { }
+				build_static(const buffer &) ;
+				build_static(char const * astr, size_t, char aencoding) ;
 
 			protected:
+				bool	expand(int) { return false ; }	// no expansion
+
 				aTYPE	storage_[asize] ;
 		} ;
+
+#if 0
+	// work in progress
+
+		/** not supported in GCC 4.6 */
+	namespace literals
+	{
+		constexpr build_static<>  operator"" _Hex(char const * astr, size_t alen) 	// hex array to buffer
+		{
+			return build_static<(alen/2)-1, unsigned char>(astr, (alen / 2) -1, 'h') ;
+		}
+	} ;
+#endif
 
 } ;
 
