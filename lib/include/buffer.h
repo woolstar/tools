@@ -29,7 +29,7 @@ namespace btl
 			virtual ~ build_base() ;
 
 		protected:
-			build_base() ;
+			build_base() {}
 			unsigned char * fill_, * limit_ ;
 	} ;
 
@@ -82,7 +82,6 @@ namespace btl
 			public:
 				build_static() : build_base(reinterpret_cast<unsigned char *>(storage_), sizeof(storage_)) { }
 				build_static(const buffer & abuf) : build_static() { add( abuf) ; }
-				~ build_static()  {} 
 				// build_static(char const * astr, size_t, char aencoding) ;
 
 			protected:
