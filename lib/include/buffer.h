@@ -11,77 +11,79 @@ namespace btl
 	{
 		public:
 			buffer() { }
-			buffer(void *, size_t) { }
-			buffer(const void *, size_t) { }
-			buffer(const char *) { }
+			buffer(void * aptr, size_t n) : rawbuffer_(aptr), datasize_(n) { }
+			buffer(char *) ;
 
-			void *	getbuf(void) const { return rawbuffer_ ; } 
-			size_t	getsize(void) const { return datasize_ ; }
+			void const *	operator*(void) const { return rawbuffer_ ; }
+			size_t	size(void) const { return datasize_ ; }
 
 		protected:
 			void * rawbuffer_ { nullptr } ;
 			size_t	datasize_ { 0 } ;
 	} ;
 
-	class	build_base
+	class	build_base : public buffer
 	{
 		public:
 			build_base(unsigned char * aptr, size_t amax) : buffer(aptr, 0), fill_(aptr), limit_(aptr + amax) { }
 			virtual ~ build_base() ;
 
 		protected:
+			build_base() ;
 			unsigned char * fill_, * limit_ ;
 	} ;
-
-	template <class ExpansionTrait, typename PrimativeStorage = unsigned char>
-		class	build_methods : public build_base, public ExpansionTrait
-		{
-			public:
-				build_methods &	add(const buffer &) ;
-				build_methods &	add(const char * astr) ;
-
-				build_methods &	add_u8(unsigned char) ;
-				build_methods &	add_u16(unsigned short) ;
-				build_methods &	add_u32(unsigned) ;
-				build_methods &	add_u64(unsigned long long int) ;
-
-				build_methods &	chomp() ;
-				build_methods &	terminate() ;
-
-			protected:
-				template <int abits> friend void add(build &, unsigned int aval) ;
-
-				unsigned char * fill_, * limit_ ;
-		} ;
-
-
-	template <int abits> void add(build_methods &, unsigned int aval) ;
-
-	template <> void add<8>(build_methods & abuf, unsigned int aval) { abuf.add_u8( aval) ; }
-	template <> void add<16>(build_methods & abuf, unsigned int aval) { abuf.add_u16( aval) ; }
-	template <> void add<32>(build_methods & abuf, unsigned int aval) { abuf.add_u32( aval) ; }
 
 		// traits
 
 			// keep buffer restricted to initial size
-	class	build_fixed : virtual public build_base
+	class	expand_fixed : virtual public build_base
 		{ protected: bool expand(int) { return false ; } } ;
 
 			// exception on buffer overflow
-	class	build_strict : virtual public build_base
+	class	expand_strict : virtual public build_base
 		{ protected: bool expand(int) { throw std::length_error("exceeded buffer") ; } } ;
 
 			// attempt to reallocate larger buffer each time
-	class	build_expand : virtual public build_base
-		{ protected: bool expand(int) ; } ;
+	class	expand_alloc : virtual public build_base
+	{
+		protected:
+			bool expand(int) ; 
+			std::unique_ptr<unsigned char *>	storage_ ;
+	} ;
+
+			// add methods
+	template <class ET, typename PSto = unsigned char>
+		class	build_methods : virtual public build_base, public ET
+		{
+			public:
+				build_methods<ET,PSto> &	add(const buffer &) ;
+				build_methods<ET,PSto> &	add(const char * astr) ;
+
+				build_methods<ET,PSto> &	add_u8(unsigned char) ;
+				build_methods<ET,PSto> &	add_u16(unsigned short) ;
+				build_methods<ET,PSto> &	add_u32(unsigned) ;
+				build_methods<ET,PSto> &	add_u64(unsigned long long int) ;
+
+				build_methods<ET,PSto> &	chomp() ;
+				build_methods<ET,PSto> &	terminate() ;
+
+				size_t	remaining(void) const { return limit_ - fill_ ; }
+
+			protected:
+				build_methods() {}	// gets ignored
+		} ;
+
+	// template <> void add<8>(build_methods<> & abuf, unsigned int aval) { abuf.add_u8( aval) ; }
+	// template <> build_methods<> & add<16>(unsigned int aval) { return add_u16(aval) ; }
 
 	template <int asize, typename aTYPE = unsigned char>
-		class build_static : public build_methods<build_fixed>
+		class build_static : public build_methods<expand_fixed>
 		{
 			public:
 				build_static() : build_base(reinterpret_cast<unsigned char *>(storage_), sizeof(storage_)) { }
-				build_static(const buffer &) ;
-				build_static(char const * astr, size_t, char aencoding) ;
+				build_static(const buffer & abuf) : build_static() { add( abuf) ; }
+				~ build_static()  {} 
+				// build_static(char const * astr, size_t, char aencoding) ;
 
 			protected:
 				bool	expand(int) { return false ; }	// no expansion
@@ -91,7 +93,7 @@ namespace btl
 
 	//
 
-	class	build_managed : public build_methods<build_expand>
+	class	build_managed : public build_methods<expand_alloc>
 	{
 		public:
 			build_managed(size_t asize = 1024) ;
@@ -101,6 +103,17 @@ namespace btl
 			build_managed(build_managed &) = delete ;	// use the buffer constructor instead
 
 			build_managed& operator=(build_managed &&) ;
+	} ;
+
+	class	build_fixed : public build_methods<expand_fixed>
+	{
+		public:
+			build_fixed(size_t asize = 1024) ;
+			build_fixed(const buffer & ) ;
+			build_fixed(build_managed &) ;
+
+			build_fixed(build_managed &&) ;
+			build_fixed& operator=(build_fixed &&) ;
 
 		protected:
 			std::unique_ptr<unsigned char *>	storage_ ;
