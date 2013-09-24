@@ -1,6 +1,5 @@
 
-#include <buffer.h>
-#include <buffer_scanner.h>
+#include <buffer>
 
 using	btl::build_base ;
 using	btl::scanner ;
@@ -11,6 +10,6 @@ void	build_base::copy(buffer const & abuf)
 {
 	scanner<sized_storage>	scan( abuf) ;
 
-	while ( scan.size_remaining() && ( fill_ < limit_ ) ) { *( fill_ ++)= * (scan ++ ) ; }
+	while ( scan.hasdata() && ( fill_ < limit_ ) ) { *( fill_ ++)= * (scan ++ ) ; }
 }
 
