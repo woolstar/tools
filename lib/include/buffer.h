@@ -12,14 +12,14 @@ namespace btl
 	{
 		public:
 			buffer() { }
-			buffer(void * aptr, size_t n) : rawbuffer_(aptr), datasize_(n) { }
+			buffer(void const * aptr, size_t n) : rawbuffer_(aptr), datasize_(n) { }
 			buffer(char *) ;
 
 			void const *	operator*(void) const { return rawbuffer_ ; }
 			size_t	size(void) const { return datasize_ ; }
 
 		protected:
-			void * rawbuffer_ { nullptr } ;
+			void const * rawbuffer_ { nullptr } ;
 			size_t	datasize_ { 0 } ;
 	} ;
 
@@ -33,6 +33,9 @@ namespace btl
 		protected:
 			build_base() {}
 			sized_storage * fill_, * limit_ ;
+
+			virtual sized_storage * getbuffer(void) = 0 ;
+			virtual sized_storage const *	getbuffer(void) const = 0 ;
 
 			void	copy(const buffer &) ;
 	} ;
@@ -53,6 +56,9 @@ namespace btl
 		protected:
 			void expand(int) ; 
 			std::unique_ptr<sized_storage []>	storage_ ;
+
+			sized_storage *	getbuffer(void) { return & ( storage_[0] ) ; }
+			sized_storage const *	getbuffer(void) const { return & ( storage_[0] ) ; }
 	} ;
 
 			// add methods
@@ -106,6 +112,8 @@ namespace btl
 
 			protected:
 				bool	expand(int) { return false ; }	// no expansion
+				sized_storage *	getbuffer(void) { return storage_ ; }
+				sized_storage const *	getbuffer(void) const { return storage_ ; }
 
 				sized_storage	storage_[asize] ;
 		} ;
