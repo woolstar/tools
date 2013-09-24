@@ -1,7 +1,7 @@
 #include <buffer.h>
 #include <new>
 
-bool	btl::expand_alloc::expand(int asize)
+void	btl::expand_alloc::expand(int asize)
 {
 	size_t	cur, larger ;
 	sized_storage * cbuf ;
