@@ -146,20 +146,6 @@ namespace btl
 		protected:
 			std::unique_ptr<sized_storage *>	storage_ ;
 	} ;
-
-#if 0
-	// work in progress
-
-		/** not supported in GCC 4.6 */
-	namespace literals
-	{
-		constexpr build_static<>  operator"" _Hex(char const * astr, size_t alen) 	// hex array to buffer
-		{
-			return build_static<(alen/2)-1, sized_storage>(astr, (alen / 2) -1, 'h') ;
-		}
-	} ;
-#endif
-
 } ;
 
 #endif
