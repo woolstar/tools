@@ -22,6 +22,7 @@ namespace btl
 			size_t	datasize_ { 0 } ;
 	} ;
 
+	typedef	unsigned char	sized_storage;
 	class	build_base : public buffer
 	{
 		public:
@@ -30,7 +31,7 @@ namespace btl
 
 		protected:
 			build_base() {}
-			unsigned char * fill_, * limit_ ;
+			sized_storage * fill_, * limit_ ;
 	} ;
 
 		// traits
@@ -48,24 +49,24 @@ namespace btl
 	{
 		protected:
 			bool expand(int) ; 
-			std::unique_ptr<unsigned char *>	storage_ ;
+			std::unique_ptr<sized_storage []>	storage_ ;
 	} ;
 
 			// add methods
-	template <class ET, typename PSto = unsigned char>
-		class	build_methods : virtual public build_base, public ET
+	template <class TRAIT>
+		class	build_methods : virtual public build_base, public TRAIT
 		{
 			public:
-				build_methods<ET,PSto> &	add(const buffer &) ;
-				build_methods<ET,PSto> &	add(const char * astr) ;
+				build_methods<TRAIT> &	add(const buffer &) ;
+				build_methods<TRAIT> &	add(const char * astr) ;
 
-				build_methods<ET,PSto> &	add_u8(unsigned char) ;
-				build_methods<ET,PSto> &	add_u16(unsigned short) ;
-				build_methods<ET,PSto> &	add_u32(unsigned) ;
-				build_methods<ET,PSto> &	add_u64(unsigned long long int) ;
+				build_methods<TRAIT> &	add_u8(unsigned char) ;
+				build_methods<TRAIT> &	add_u16(unsigned short) ;
+				build_methods<TRAIT> &	add_u32(unsigned) ;
+				build_methods<TRAIT> &	add_u64(unsigned long long int) ;
 
-				build_methods<ET,PSto> &	chomp() ;
-				build_methods<ET,PSto> &	terminate() ;
+				build_methods<TRAIT> &	chomp() ;
+				build_methods<TRAIT> &	terminate() ;
 
 				size_t	remaining(void) const { return limit_ - fill_ ; }
 
@@ -76,18 +77,18 @@ namespace btl
 	// template <> void add<8>(build_methods<> & abuf, unsigned int aval) { abuf.add_u8( aval) ; }
 	// template <> build_methods<> & add<16>(unsigned int aval) { return add_u16(aval) ; }
 
-	template <int asize, typename aTYPE = unsigned char>
+	template <int asize>
 		class build_static : public build_methods<expand_fixed>
 		{
 			public:
-				build_static() : build_base(reinterpret_cast<unsigned char *>(storage_), sizeof(storage_)) { }
+				build_static() : build_base(reinterpret_cast<sized_storage *>(storage_), sizeof(storage_)) { }
 				build_static(const buffer & abuf) : build_static() { add( abuf) ; }
 				// build_static(char const * astr, size_t, char aencoding) ;
 
 			protected:
 				bool	expand(int) { return false ; }	// no expansion
 
-				aTYPE	storage_[asize] ;
+				sized_storage	storage_[asize] ;
 		} ;
 
 	//
@@ -115,7 +116,7 @@ namespace btl
 			build_fixed& operator=(build_fixed &&) ;
 
 		protected:
-			std::unique_ptr<unsigned char *>	storage_ ;
+			std::unique_ptr<sized_storage *>	storage_ ;
 	} ;
 
 #if 0
@@ -126,7 +127,7 @@ namespace btl
 	{
 		constexpr build_static<>  operator"" _Hex(char const * astr, size_t alen) 	// hex array to buffer
 		{
-			return build_static<(alen/2)-1, unsigned char>(astr, (alen / 2) -1, 'h') ;
+			return build_static<(alen/2)-1, sized_storage>(astr, (alen / 2) -1, 'h') ;
 		}
 	} ;
 #endif
