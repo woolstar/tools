@@ -1,0 +1,29 @@
+// <buffer> -*- C++ -*-
+
+/***
+ * Copyright (C) 2013 
+ * Video Bits
+ *
+ **/
+
+/** @file include/buffer
+ *  This is a Bridge C++ Library header
+ */
+
+#ifndef _BTL_BUFFER
+#define _BTL_BUFFER 1
+
+#include <cstddef>
+#include <stdexcept>
+#include <memory>
+#include <string.h>
+
+#include <bits/btl_basetypes.h>
+#include <bits/btl_buffer.h>
+#include <bits/btl_build_base.h>
+#include <bits/expand_traits.h>
+#include <bits/build_types.h>
+#include <bits/btl_scanner.h>
+
+#endif
+
