@@ -8,24 +8,6 @@
 
 namespace btl
 {
-	typedef	unsigned char	sized_storage;
-
-	class	build_base : public buffer
-	{
-		public:
-			build_base(unsigned char * aptr, size_t amax) : buffer(aptr, 0), fill_(aptr), limit_(aptr + amax) { }
-			virtual ~ build_base() ;
-
-		protected:
-			build_base() {}
-			sized_storage * fill_, * limit_ ;
-
-			virtual sized_storage * getbuffer(void) = 0 ;
-			virtual sized_storage const *	getbuffer(void) const = 0 ;
-
-			void	copy(const buffer &) ;
-	} ;
-
 		// traits
 
 			// keep buffer restricted to initial size
@@ -80,8 +62,6 @@ namespace btl
 				void	test(size_t) ;
 		} ;
 
-	// template <> void add<8>(build_methods<> & abuf, unsigned int aval) { abuf.add_u8( aval) ; }
-	// template <> build_methods<> & add<16>(unsigned int aval) { return add_u16(aval) ; }
 	template <class TRAIT> void	build_methods<TRAIT>::test(size_t asize)
 	{
 		if ( ( fill_ + asize ) > limit_ )
