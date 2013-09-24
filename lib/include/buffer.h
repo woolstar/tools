@@ -24,6 +24,7 @@ namespace btl
 	} ;
 
 	typedef	unsigned char	sized_storage;
+
 	class	build_base : public buffer
 	{
 		public:
