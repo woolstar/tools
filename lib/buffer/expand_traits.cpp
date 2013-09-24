@@ -6,7 +6,7 @@ void	btl::expand_alloc::expand(int asize)
 	size_t	cur, larger ;
 	sized_storage * cbuf ;
 
-	cbuf= reinterpret_cast<sized_storage *>( rawbuffer_ ) ;
+	cbuf= & ( storage_[0] ) ;
 	cur= limit_ - cbuf ;
 	if ( asize < (cur / 4) ) { asize= cur / 4; }
 	larger= cur + asize ;
