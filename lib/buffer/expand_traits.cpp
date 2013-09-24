@@ -1,4 +1,4 @@
-#include <buffer.h>
+#include <buffer>
 #include <new>
 
 void	btl::expand_alloc::expand(int asize)

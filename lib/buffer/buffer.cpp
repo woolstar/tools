@@ -1,4 +1,4 @@
-#include <buffer.h>
+#include <buffer>
 #include <string.h>
 
 	using btl::buffer ;
