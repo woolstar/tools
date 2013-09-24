@@ -4,7 +4,7 @@ CXX=g++-4.8
 CFLAGS=-std=c++0x -Iinc
 
 OD=../obj
-LIBPATH=../lib
+LIBPATH=../libs
 
 LIBS=buffer.cpp build.cpp build_methods.cpp expand_traits.cpp
 OBJS=$(patsubst %.cpp, $(OD)/%.o, $(LIBS))
@@ -30,4 +30,7 @@ $(LIBPATH):
 
 $(OD)/%.o: %.cpp
 	$(CXX) $(CFLAGS) -o $@ -c $<
+
+clean:
+	rm -fr $(OD) $(LIBPATH)
 
