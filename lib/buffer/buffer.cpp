@@ -3,7 +3,7 @@
 
 	using btl::buffer ;
 
-	buffer::buffer(char * astring) : rawbuffer_( astring)
+	buffer::buffer(char const * astring) : rawbuffer_( astring)
 	{
 		datasize_= ( nullptr == astring ) ? 0 : strlen( astring) ;
 	}
