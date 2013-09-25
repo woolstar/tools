@@ -8,7 +8,7 @@ namespace btl
 		public:
 			buffer() { }
 			buffer(void const * aptr, size_t n) : rawbuffer_(aptr), datasize_(n) { }
-			buffer(char *) ;
+			buffer(char const * astr) ;
 
 			void const *	operator*(void) const { return rawbuffer_ ; }
 			size_t	size(void) const { return datasize_ ; }
