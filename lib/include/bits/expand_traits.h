@@ -31,6 +31,8 @@ namespace btl
 			public:
 				build_methods<TRAIT> &	add(const buffer & abuf) 
 					{ test( abuf.size()) ;  copy( abuf) ;  return * this ; }
+				build_methods<TRAIT> &	add(scanner<sized_storage> & ascan)
+					{ test( ascan.remaining() ) ;  copy( ascan) ;  return * this ; }
 				build_methods<TRAIT> &	add(const char * astr)
 				{
 					int alen= strlen( astr) ;
@@ -40,6 +42,7 @@ namespace btl
 				}
 
 				build_methods<TRAIT> & operator<<(const buffer & abuf) { return add( abuf) ; }
+				build_methods<TRAIT> & operator<<(build_scanner & ascan) { return add( ascan) ; }
 				build_methods<TRAIT> & operator<<(const char * astr) { return add( astr) ; }
 
 				build_methods<TRAIT> &	chomp() 

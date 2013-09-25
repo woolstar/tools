@@ -6,6 +6,7 @@
 namespace btl
 {
 	typedef	unsigned char	sized_storage ;
+	typedef scanner<sized_storage>	build_scanner ;
 
 	class	build_base : public buffer
 	{
