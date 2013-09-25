@@ -32,7 +32,7 @@ namespace btl
 				build_methods<TRAIT> &	add(const buffer & abuf) 
 					{ test( abuf.size()) ;  copy( abuf) ;  return * this ; }
 				build_methods<TRAIT> &	add(scanner<sized_storage> & ascan)
-					{ test( ascan.remaining() ) ;  copy( ascan) ;  return * this ; }
+					{ test( ascan.size() ) ;  copy( ascan) ;  return * this ; }
 				build_methods<TRAIT> &	add(const char * astr)
 				{
 					int alen= strlen( astr) ;
