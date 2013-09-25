@@ -13,3 +13,8 @@ void	build_base::copy(buffer const & abuf)
 	while ( scan.hasdata() && ( fill_ < limit_ ) ) { *( fill_ ++)= * (scan ++ ) ; }
 }
 
+void	build_base::copy(scanner<sized_storage> & ascan)
+{
+	while ( ascan.hasdata() && ( fill_ < limit_ ) ) { *( fill_ ++)= * (ascan ++ ) ; }
+}
+
