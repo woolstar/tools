@@ -39,6 +39,9 @@ namespace btl
 					return * this ;
 				}
 
+				build_methods<TRAIT> & operator<<(const buffer & abuf) { return add( abuf) ; }
+				build_methods<TRAIT> & operator<<(const char * astr) { return add( astr) ; }
+
 				build_methods<TRAIT> &	chomp() 
 					{ if ( datasize_ ) { datasize_ -- ; fill_ -- ; } return * this; } 
 				build_methods<TRAIT> &	terminate()
