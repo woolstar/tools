@@ -30,29 +30,34 @@ namespace btl
 								return buffer (ptr_, asz) ;
 							}
 			const buffer	remaining(void) const
-							{ return buffer(ptr_, (size_t) (limit_ - ptr_)) ; }
+						{ return buffer(ptr_, (size_t) (limit_ - ptr_)) ; }
 
-			const TCHAR *			operator*() const { return * ptr_ ; }
+			const TCHAR *			operator*() const { return ptr_ ; }
 
-			const scanner<TCHAR>&	operator++() { ++ ptr_ ; check() ; return *this ; }
-			const scanner<TCHAR>&	operator--() {
-									if (ptr_ > rawbuffer_) ptr_ --; 
-									return * this ;
-								}
-			const TCHAR *			operator++(int) {
-									if (ptr_ == limit_) return ptr_ ;
-										else return ( ptr_ ++) ;
-								}
-			const scanner<TCHAR>&	operator+=(unsigned int adelt)
-								{ ptr_ += adelt ;  check() ;  return *this ; }
-			const scanner<TCHAR>&	operator-=(unsigned int adelt)
-								{ ptr_ -= adelt ;  checko() ;  return *this ; }
+			scanner<TCHAR>&	operator++() { ++ ptr_ ; check() ; return *this ; }
+			scanner<TCHAR>&	operator--() {
+							if (ptr_ > rawbuffer_) ptr_ --; 
+							return * this ;
+						}
+			const TCHAR *	operator++(int) {
+							if (ptr_ == limit_) return ptr_ ;
+								else return ( ptr_ ++) ;
+						}
+			scanner<TCHAR>&	operator+=(unsigned int adelt)
+					{ ptr_ += adelt ;  check() ;  return *this ; }
+			scanner<TCHAR>&	operator-=(unsigned int adelt)
+					{ ptr_ -= adelt ;  checko() ;  return *this ; }
 
-			void	reset(void) { ptr_= (const TCHAR *) rawbuffer_ ; }
-			void	seek(int aoff) {
-						if ( aoff < 0 ) { ptr_= limit_ + aoff ; checko() ; }
-							else { ptr_= ((const TCHAR *) rawbuffer_) +aoff; check(); }
-					}
+			scanner<TCHAR>&	reset(void) { ptr_= (const TCHAR *) rawbuffer_ ;  return *this ; }
+			scanner<TCHAR>&	seek(int aoff) {
+					ptr_ += aoff ;  if ( aoff < 0 ) { checko() ; } else { check() ; }
+					return * this ;
+				}
+			scanner<TCHAR>&	jump(int aoff) {
+					if ( aoff < 0 ) { ptr_= limit_ + aoff ; checko() ; }
+						else { ptr_= ((const TCHAR *) rawbuffer_) +aoff; check(); }
+					return * this ;
+				}
 			void	setend(void) { ptr_= limit_ ; }
 
 			bool	hasdata(void) const { return ptr_ != limit_ ; }
@@ -94,8 +99,6 @@ namespace btl
 			static void	test(void) ;
 #endif
 	} ;
-
-	typedef	scanner<unsigned char>	byte_scanner ;
 
 } ;
 
