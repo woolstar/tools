@@ -10,11 +10,11 @@ void	build_base::copy(buffer const & abuf)
 {
 	scanner<sized_storage>	scan( abuf) ;
 
-	while ( scan.hasdata() && ( fill_ < limit_ ) ) { *( fill_ ++)= * (scan ++ ) ; }
+	while ( scan.hasdata() && ( fill_ < limit_ ) ) { datasize_ ++ ;  *( fill_ ++)= * (scan ++ ) ; }
 }
 
 void	build_base::copy(scanner<sized_storage> & ascan)
 {
-	while ( ascan.hasdata() && ( fill_ < limit_ ) ) { *( fill_ ++)= * (ascan ++ ) ; }
+	while ( ascan.hasdata() && ( fill_ < limit_ ) ) { datasize_ ++ ;  *( fill_ ++)= * (ascan ++ ) ; }
 }
 
