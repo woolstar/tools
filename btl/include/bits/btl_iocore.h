@@ -24,6 +24,8 @@ namespace btl
 			virtual int	read(build_base &) const ;
 			virtual int	print(const buffer &) const ;
 
+			const io&	operator<<(const buffer & abuf) const { print(abuf) ;  return * this ; }
+
 				// test active
 			bool	isactive(void) const { return active_ ; }
 
