@@ -26,13 +26,13 @@ namespace btl
 				{ }
 
 			const buffer	sub(size_t asz) const {
-								ASSERT(asz <= (limit_ - ptr_)) ;
-								return buffer (ptr_, asz) ;
-							}
+							ASSERT(asz <= (limit_ - ptr_)) ;
+							return buffer (ptr_, asz) ;
+						}
 			const buffer	remaining(void) const
 						{ return buffer(ptr_, (size_t) (limit_ - ptr_)) ; }
 
-			const TCHAR *			operator*() const { return ptr_ ; }
+			const TCHAR *	operator*() const { return ptr_ ; }
 
 			scanner<TCHAR>&	operator++() { ++ ptr_ ; check() ; return *this ; }
 			scanner<TCHAR>&	operator--() {
@@ -48,17 +48,17 @@ namespace btl
 			scanner<TCHAR>&	operator-=(unsigned int adelt)
 					{ ptr_ -= adelt ;  checko() ;  return *this ; }
 
-			scanner<TCHAR>&	reset(void) { ptr_= (const TCHAR *) rawbuffer_ ;  return *this ; }
-			scanner<TCHAR>&	seek(int aoff) {
-					ptr_ += aoff ;  if ( aoff < 0 ) { checko() ; } else { check() ; }
-					return * this ;
-				}
+			scanner<TCHAR>&	set_begin(void) { ptr_= (const TCHAR *) rawbuffer_ ;  return *this ; }
+			scanner<TCHAR>&	set_end(void) { ptr_= limit_ ;  return * this ; }
 			scanner<TCHAR>&	jump(int aoff) {
 					if ( aoff < 0 ) { ptr_= limit_ + aoff ; checko() ; }
 						else { ptr_= ((const TCHAR *) rawbuffer_) +aoff; check(); }
 					return * this ;
 				}
-			void	setend(void) { ptr_= limit_ ; }
+			scanner<TCHAR>&	seek(int aoff) {
+					ptr_ += aoff ;  if ( aoff < 0 ) { checko() ; } else { check() ; }
+					return * this ;
+				}
 
 			bool	hasdata(void) const { return ptr_ != limit_ ; }
 			bool	isdone(void) const { return ptr_ == limit_ ; }
