@@ -1,5 +1,6 @@
 #include <buffer>
 #include <new>
+#include <cstring>
 
 void	btl::expand_alloc::expand(int asize)
 {
@@ -12,6 +13,7 @@ void	btl::expand_alloc::expand(int asize)
 	larger= cur + asize ;
 
 	cbuf= new sized_storage[larger] ;
+	std::memcpy( cbuf, rawbuffer_, datasize_ ) ;
 
 	rawbuffer_= cbuf ;
 	storage_.reset( cbuf ) ;  // frees old memory
