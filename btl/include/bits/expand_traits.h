@@ -45,6 +45,7 @@ namespace btl
 				build_methods<TRAIT> & operator<<(build_scanner & ascan) { return add( ascan) ; }
 				build_methods<TRAIT> & operator<<(const char * astr) { return add( astr) ; }
 
+				build_methods<TRAIT> &	reset(void) { datasize_ = 0, fill_ = (sized_storage *) rawbuffer_ ;  return * this ; }
 				build_methods<TRAIT> &	chomp() 
 					{ if ( datasize_ ) { datasize_ -- ; fill_ -- ; } return * this; } 
 				build_methods<TRAIT> &	terminate()
