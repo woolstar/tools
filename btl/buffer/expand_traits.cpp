@@ -18,7 +18,6 @@ void	btl::expand_alloc::expand(int asize)
 	rawbuffer_= cbuf ;
 	storage_.reset( cbuf ) ;  // frees old memory
 
-	fill_= cbuf + datasize_ ;
-	limit_= cbuf + larger ;
+	fill_replace( cbuf + datasize_) ;  limit_ = cbuf + larger ;
 }
 
