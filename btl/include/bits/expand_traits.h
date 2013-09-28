@@ -57,8 +57,8 @@ namespace btl
 
 	template <class TRAIT> void	build_methods<TRAIT>::test(size_t asize)
 	{
-		if ( ( fill_ + asize ) > limit_ )
-			{ TRAIT::expand( asize - ( limit_ - fill_ )) ; }
+		if ( remaining() < asize ) 
+			{ TRAIT::expand( asize - remaining()) ; }
 	}
 } ;
 
