@@ -16,7 +16,6 @@ namespace btl
 
 		protected:
 			build_base() {}
-			sized_storage * fill_, * limit_ ;
 
 			virtual sized_storage * getbuffer(void) = 0 ;
 			virtual sized_storage const *	getbuffer(void) const = 0 ;
@@ -28,6 +27,23 @@ namespace btl
 			const friend sized_storage * begin(const build_base &) ;
 			friend sized_storage * end(build_base &) ;
 			const friend sized_storage * end(const build_base &) ;
+
+			sized_storage * limit_ ;
+
+		// take care of all operations that affect fill_
+			void	reset(void) { datasize_ = 0 ;  fill_ = (sized_storage *) rawbuffer_ ; }
+			void	reduce(void) { if ( datasize_ ) { datasize_ --, fill_ -- ; } }
+			void	term(void) { if ( fill_ != limit_ ) { *fill_ = '\0' ; } }
+
+			sized_storage *	fill_get(void) const { return fill_ ; }
+			void		fill_replace(sized_storage * afill) { fill_ = afill ; }
+
+		public:
+			size_t	remaining(void) const { return limit_ - fill_ ; }
+
+		private:
+				// fill_ = rawbuffer_ + datasize_ :: so keeping it in sync requires care
+			sized_storage * fill_ ;
 	} ;
 
 	inline sized_storage *	begin(build_base & __va) { return __va.getbuffer() ; }
