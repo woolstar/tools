@@ -13,11 +13,14 @@
 #ifndef _BTL_IO
 #define _BTL_IO 1
 
+#include <cstddef>
+
 #include <bits/btl_basetypes.h>
 #include <bits/btl_buffer.h>
 #include <bits/btl_build_base.h>
 
 #include <bits/btl_iocore.h>
+#include <bits/btl_stdio.h>
 
 #endif
 
