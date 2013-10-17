@@ -3,6 +3,8 @@
 #ifndef _BTL_IOCORE_H
 #define _BTL_IOCORE_H 1
 
+#include <atomic>
+
 namespace btl
 {
 	typedef int	IO_Port ;
@@ -41,6 +43,16 @@ namespace btl
 			IO_Port	port_ ;
 			bool	active_ = false ;
 			ioset	* set_ = nullptr ;
+
+		public:
+			class	Init
+			{
+				public:  Init() ;  ~Init() ;
+				private:
+					std::atomic<int>	refcount_ ;
+
+					friend class io ;
+			} ;
 	} ;
 
 } ;
