@@ -10,6 +10,8 @@ namespace btl
 	{
 		public:
 			ioread( IO_Port ) ;
+			ioread() {}
+
 			int	doread(void) ;
 	} ;
 
@@ -17,6 +19,8 @@ namespace btl
 	{
 		public:
 			iowrite( IO_Port ) ;
+			iowrite() {}
+
 			int	doread(void) { return 0 ; }
 			bool	dowrite(void) ;
 
