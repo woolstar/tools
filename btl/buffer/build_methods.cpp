@@ -21,7 +21,7 @@ build_managed::build_managed(size_t asize)
 	storage_.reset( ( tmpptr = new sized_storage [bufsize] ) ) ;
 
 	rawbuffer_= tmpptr ;
-	fill_replace( tmpptr) ;
+	fill_relocate( tmpptr) ;
 	limit_ = tmpptr + bufsize ;
 }
 
@@ -38,12 +38,12 @@ build_managed::build_managed(build_managed && asrc)
 		// take over settings from source
 	storage_ = std::move( asrc.storage_ ) ;
 	buffer::setup( & storage_[0], asrc.datasize_ ) ;
-	fill_replace( asrc.fill_get()) ;
+	fill_relocate( asrc.fill_get()) ;
 	limit_ = asrc.limit_ ;
 
 		// empty source
 	asrc.buffer::setup( nullptr, 0) ;
-	asrc.fill_replace( nullptr) ;  limit_ = nullptr ;
+	asrc.fill_relocate( nullptr) ;  limit_ = nullptr ;
 }
 
 build_managed &  build_managed::operator=(build_managed && asrc)
@@ -56,11 +56,12 @@ build_managed &  build_managed::operator=(build_managed && asrc)
 			// unique_ptr<>::storage_ takes care of destroying any previous data
 		storage_ = std::move( asrc.storage_ ) ;
 		buffer::setup( & storage_[0], asrc.datasize_ ) ;
-		asrc.fill_replace( nullptr) ;  limit_ = nullptr ;
+		fill_relocate( asrc.fill_get()) ;
+		limit_ = asrc.limit_ ;
 
 			// empty source
 		asrc.buffer::setup( nullptr, 0) ;
-		asrc.fill_replace( nullptr) ;  limit_ = nullptr ;
+		asrc.fill_relocate( nullptr) ;  limit_ = nullptr ;
 	}
 
 	return * this ;
