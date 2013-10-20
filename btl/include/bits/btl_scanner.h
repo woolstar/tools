@@ -60,10 +60,12 @@ namespace btl
 					return * this ;
 				}
 
+				// test active/done
 			bool	hasdata(void) const { return ptr_ != limit_ ; }
-			bool	done(void) const { return ptr_ == limit_ ; }
 			bool	active(void) const { return hasdata() ; }
 			bool	operator()(void) const { return hasdata() ; }
+
+			bool	done(void) const { return ptr_ == limit_ ; }
 
 			size_t	offset(void) const { return ptr_ - (const TCHAR *) rawbuffer_ ; }
 			size_t	size(void) const { return limit_ - ptr_ ; }
