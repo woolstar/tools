@@ -39,7 +39,7 @@ namespace btl
 			sized_storage *	fill_get(void) const { return fill_ ; }
 			void		fill_relocate(sized_storage * afill) { fill_ = afill ; }
 
-			friend	ioread ;
+			friend	io ;
 
 		public:
 			size_t	remaining(void) const { return limit_ - fill_ ; }
