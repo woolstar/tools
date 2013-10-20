@@ -18,7 +18,6 @@ namespace btl
 
 		// io
 	class io ;
-	class ioread ;
 } ;
 
 #endif
