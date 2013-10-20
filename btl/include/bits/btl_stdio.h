@@ -13,6 +13,8 @@ namespace btl
 			ioread() {}
 
 			int	doread(void) ;
+
+			int	read(build_base &) const ;
 	} ;
 
 	class	iowrite : public io
@@ -22,9 +24,6 @@ namespace btl
 			iowrite() {}
 
 			int	doread(void) { return 0 ; }
-			bool	dowrite(void) ;
-
-			int	read(build_base &) const ;
 	} ;
 
 	extern ioread	ioin ;
