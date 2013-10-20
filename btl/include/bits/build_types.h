@@ -21,6 +21,18 @@ namespace btl
 
 	//
 
+	template <typename _uArray>
+		class build_external : public build_methods<expand_fixed>
+		{
+			public:
+				build_external( _uArray & abuffer ) : build_base( abuffer, std::extent< _uArray>::value ), storage_( abuffer ) { }
+
+			private:
+				sized_storage	* storage_ ;
+		} ;
+
+	//
+
 	class	build_managed : public build_methods<expand_alloc>
 	{
 		public:
