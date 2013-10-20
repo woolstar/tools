@@ -6,28 +6,19 @@
 namespace btl
 {
 
-	class	ioread : public io
+	enum IODirection { eReadWrite, eRead, eWrite } ;
+
+	class	iobasic : public io
 	{
 		public:
-			ioread( IO_Port ) ;
-			ioread() {}
-
-			int	doread(void) ;
-
-			int	read(build_base &) const ;
-	} ;
-
-	class	iowrite : public io
-	{
-		public:
-			iowrite( IO_Port ) ;
-			iowrite() {}
+			iobasic( IO_Port, IODirection adir ) ;
+			iobasic() {}
 
 			int	doread(void) { return 0 ; }
 	} ;
 
-	extern ioread	ioin ;
-	extern iowrite	ioout ;
+	extern iobasic	ioin ;
+	extern iobasic	ioout ;
 
 	static io::Init		__init ;
 
