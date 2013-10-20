@@ -34,9 +34,12 @@ namespace btl
 			void	reset(void) { datasize_ = 0 ;  fill_ = (sized_storage *) rawbuffer_ ; }
 			void	reduce(void) { if ( datasize_ ) { datasize_ --, fill_ -- ; } }
 			void	term(void) { if ( fill_ != limit_ ) { *fill_ = '\0' ; } }
+			void	jump(int aoff) { if ( aoff < 0 ) { if ( aoff >= datasize_ ) { reset() ; } else { datasize_ += aoff ;  fill_ += aoff ; } } else { if ( aoff > remaining() ) { aoff= remaining() ; }  datasize_ += aoff ;  fill_ += aoff ; } }
 
 			sized_storage *	fill_get(void) const { return fill_ ; }
-			void		fill_replace(sized_storage * afill) { fill_ = afill ; }
+			void		fill_relocate(sized_storage * afill) { fill_ = afill ; }
+
+			friend	ioread ;
 
 		public:
 			size_t	remaining(void) const { return limit_ - fill_ ; }
