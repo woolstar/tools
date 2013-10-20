@@ -41,7 +41,7 @@ namespace btl
 			virtual IO_Port	getPort() const { return port_ ; }
 
 			IO_Port	port_ ;
-			bool	active_ = false ;
+			mutable bool	active_ = false ;
 			ioset	* set_ = nullptr ;
 
 		public:
