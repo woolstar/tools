@@ -3,13 +3,19 @@ CC=gcc-4.8
 CXX=g++-4.8
 CFLAGS=-std=c++0x -Iinc
 
+CC=clang
+CXX=clang++
+CFLAGS=-std=c++11 -Iinc
+
 OD=../obj
 LIBPATH=../libs
 
 LIBS=buffer.cpp build.cpp build_methods.cpp expand_traits.cpp
 OBJS=$(patsubst %.cpp, $(OD)/%.o, $(LIBS))
 
-$(LIBPATH)/libbuffer.a: $(LIBPATH) $(OD) $(OBJS) $(LIBS)
+TARGET=$(LIBPATH)/libbuffer.a
+
+$(TARGET): $(LIBPATH) $(OD) $(OBJS) $(LIBS)
 	ar rc $(LIBPATH)/libbuffer.a $(OBJS)
 	ranlib $(LIBPATH)/libbuffer.a
 
@@ -32,5 +38,5 @@ $(OD)/%.o: %.cpp
 	$(CXX) $(CFLAGS) -o $@ -c $<
 
 clean:
-	rm -fr $(OD) $(LIBPATH)
+	rm -fr $(OD) $(TARGET)
 
