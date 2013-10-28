@@ -9,7 +9,7 @@ namespace btl
 {
 	typedef int	IO_Port ;
 
-	class	ioset ;
+	class	manage ;
 
 	class	io
 	{
@@ -42,7 +42,7 @@ namespace btl
 
 			IO_Port	port_ ;
 			mutable bool	active_ = false ;
-			ioset	* set_ = nullptr ;
+			manage	* set_ = nullptr ;
 
 		public:
 			class	Init
