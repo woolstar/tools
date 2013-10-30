@@ -21,6 +21,7 @@
 
 #include <bits/btl_iocore.h>
 #include <bits/btl_stdio.h>
+#include <bits/btl_manage.h>
 
 #endif
 
