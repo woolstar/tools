@@ -28,6 +28,6 @@ void	build_base::print(const char * afmt, ...)
 	iret= vsnprintf(reinterpret_cast<char *>( fill_), remaining(), afmt, vl) ;
 	va_end( vl) ;
 
-	if ( iret > 0 ) { fill_ += iret ; }
+	if ( iret > 0 ) { jump( iret ) ; }
 }
 
