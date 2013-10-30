@@ -36,7 +36,7 @@ namespace btl
 
 			void	setup(IO_Port) ;
 
-			friend class	ioset ;
+			friend class	manage ;
 
 			virtual IO_Port	getPort() const { return port_ ; }
 
