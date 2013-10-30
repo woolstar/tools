@@ -27,17 +27,18 @@ namespace btl
 			void	watch(void) ;
 			Results	watch( int amsec ) ;
 
-			bool	isactive(void) const ;
+			void	clean(void) ;
+
+			bool	isactive(void) const { return ! stor_.empty() ; }
 
 		protected:
 			void	scan( int aactive ) ;
 			void	activity( pollfd * ) ;
-			void	clean( void) ;
 
 			std::vector<pollfd>	poll_ ;
 			std::unordered_map<IO_Port, io *>	stor_ ;
 
-			io	* cur_ ;
+			io	* cur_ = NULL ;
 
 	} ;
 } ;
