@@ -44,6 +44,8 @@ namespace btl
 		public:
 			size_t	remaining(void) const { return limit_ - fill_ ; }
 
+			void	print(const char * afmt, ...) ;
+
 		private:
 				// fill_ = rawbuffer_ + datasize_ :: so keeping it in sync requires care
 			sized_storage * fill_ ;
