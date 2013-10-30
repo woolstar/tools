@@ -10,7 +10,7 @@ namespace btl
 		public:
 			buffer() { }
 			buffer(void const * aptr, size_t n) : rawbuffer_(aptr), datasize_(n) { }
-			buffer(const std::string & astr ) : rawbuffer_( astr.c_ptr() ), datasize( astr.length() ) { }
+			buffer(const std::string & astr ) : rawbuffer_( astr.c_str() ), datasize_( astr.length() ) { }
 			buffer(char const * astr) ;
 
 			void const *	operator*(void) const { return rawbuffer_ ; }
