@@ -1,7 +1,7 @@
 namespace btl
 {
 
-	template <class TCHAR> class	scanner : public buffer
+	template <class TCHAR = char> class	scanner : public buffer
 	{
 		public:
 			scanner(const buffer & arec)
