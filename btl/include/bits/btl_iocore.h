@@ -9,22 +9,18 @@ namespace btl
 {
 	typedef int	IO_Port ;
 
-	class	manage ;
-
 	class	io
 	{
 		public:
 			io(IO_Port) ;
-			virtual ~ io() ;
+			~ io() ;
 
-				// specialization
-			virtual int	doread(void) = 0 ;
-			virtual bool	dowrite(void) { return false ; }
+			IO_Port	getPort() const { return port_ ; }
 
 				// io operators
-			virtual void	close(void) ;
-			virtual int	read(build_base &) const ;
-			virtual int	print(const buffer &) const ;
+			void	close(void) ;
+			int	read(build_base &) const ;
+			int	print(const buffer &) const ;
 
 			const io&	operator<<(const buffer & abuf) const { print(abuf) ;  return * this ; }
 
@@ -36,13 +32,8 @@ namespace btl
 
 			void	setup(IO_Port) ;
 
-			friend class	manage ;
-
-			virtual IO_Port	getPort() const { return port_ ; }
-
 			IO_Port	port_ ;
 			mutable bool	active_ = false ;
-			manage	* set_ = nullptr ;
 
 		public:
 			class	Init
@@ -53,6 +44,7 @@ namespace btl
 
 					friend class io ;
 			} ;
+
 	} ;
 
 } ;
