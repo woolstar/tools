@@ -18,6 +18,7 @@ namespace btl
 
 		// io
 	class io ;
+	class manage ;
 } ;
 
 #endif
