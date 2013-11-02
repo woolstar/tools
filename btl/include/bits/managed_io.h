@@ -7,12 +7,17 @@ namespace btl
 	{
 		public:
 			template <typename T>
-				iom( T x ) : handler_( new adapter_t<T>( std::move( x )) {}
+				iom( T x ) : handler_( new adapter_t<T>( std::move( x )) ) {}
 			template <typename T>
-				iom( IO_Port aport, T x ) : io( aport), handler_( new adapter_t<T>( std::move( x )) {}
+				iom( IO_Port aport, T x ) : io( aport), handler_( new adapter_t<T>( std::move( x )) ) {}
 
 			bool	doread( void) { return worker_.doread_( * this) ; }
 			bool	dowrite( void) { return worker_.dowrite_( * this) ; }
+
+		protected:
+			manage *	mgr_ ;
+
+			friend manage ;
 
 		private:
 			struct concept_t {
@@ -22,7 +27,7 @@ namespace btl
 				virtual bool	dowrite_( io & ) const = 0 ;
 			} ;
 
-			template <typename t> adapter_t : public concept_t
+			template <typename T> struct adapter_t : public concept_t
 			{
 				adapter_t( T && x ) : op_( std::move( x)) { }
 
