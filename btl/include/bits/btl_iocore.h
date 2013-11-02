@@ -15,6 +15,13 @@ namespace btl
 			io(IO_Port) ;
 			~ io() ;
 
+			io(io &&) ;
+			io & operator=(io &&) ;
+
+				// no copy const
+			io(const io &) = delete ;
+			io & operator=(const io &) = delete ;
+
 			IO_Port	getPort() const { return port_ ; }
 
 				// io operators
