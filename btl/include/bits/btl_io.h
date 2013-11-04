@@ -54,7 +54,7 @@ namespace btl
 			IO_Port	port_ ;
 			mutable bool	active_ = false ;
 
-		public:
+		private:
 			struct interface_t {
 				virtual ~ interface_t() = default ;
 
@@ -88,7 +88,7 @@ namespace btl
 
 			std::unique_ptr<const interface_t>	interface_ ;
 
-
+		public:
 			class	Init
 			{
 				public:  Init() ;  ~Init() ;
