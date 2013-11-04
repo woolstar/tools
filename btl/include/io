@@ -19,9 +19,14 @@
 #include <bits/btl_buffer.h>
 #include <bits/btl_build_base.h>
 
-#include <bits/btl_iocore.h>
+#include <bits/btl_io.h>
 #include <bits/btl_stdio.h>
+
+#include <bits/managed_io.h>
 #include <bits/btl_manage.h>
+
+#include <bits/socket_traits.h>
+#include <bits/socket_connect.h>
 
 #endif
 

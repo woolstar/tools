@@ -1,6 +1,8 @@
 #ifndef _MANAGED_IO_H
 #define _MANAGED_IO_H 1
 
+#include <memory>
+
 namespace btl
 {
 	class	iom : public io
@@ -11,8 +13,12 @@ namespace btl
 			template <typename T>
 				iom( IO_Port aport, T x ) : io( aport), handler_( new adapter_t<T>( std::move( x )) ) {}
 
-			bool	doread( void) { return worker_.doread_( * this) ; }
-			bool	dowrite( void) { return worker_.dowrite_( * this) ; }
+			~ iom() ;
+
+			bool	doread( void) { return handler_-> doread_( * this) ; }
+			bool	dowrite( void) { return handler_-> dowrite_( * this) ; }
+
+			void	destroy( void) ;
 
 		protected:
 			manage *	mgr_ ;
@@ -23,8 +29,8 @@ namespace btl
 			struct concept_t {
 				virtual ~concept_t() = default ;
 
-				virtual bool	doread_( io & ) const = 0 ;
-				virtual bool	dowrite_( io & ) const = 0 ;
+				virtual bool	doread_( iom & ) const = 0 ;
+				virtual bool	dowrite_( iom & ) const = 0 ;
 			} ;
 
 			template <typename T> struct adapter_t : public concept_t
@@ -37,7 +43,16 @@ namespace btl
 				T op_ ;
 			} ;
 
-			std::unique_ptr<const concept_t> worker_ ;
+			std::unique_ptr<const concept_t> handler_ ;
+	} ;
+
+	class	iom_base_t
+	{
+		public:
+			virtual ~ iom_base_t() { }
+
+			virtual	bool	doread( iom & ) const { return false ; }
+			virtual bool	dowrite( iom & ) const { return false ; }
 	} ;
 } ;
 
