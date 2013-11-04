@@ -18,6 +18,9 @@ namespace btl
 			bool	doread( void) { return handler_-> doread_( * this) ; }
 			bool	dowrite( void) { return handler_-> dowrite_( * this) ; }
 
+			template <typename T>
+				void	adapt( T x ) { handler_.reset( new adapter_t< T >( std::move( x)) ) ; }
+
 			void	destroy( void) ;
 
 		protected:
