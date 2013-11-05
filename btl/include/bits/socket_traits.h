@@ -20,12 +20,13 @@
 
 namespace btl
 {
-	class	socket_t
+	class	socket_if
 	{
 		public:
 			int	read(IO_Port, build_base &) const ;
-			int	print(IO_Port, const buffer &) const ;
-			int	close(IO_Port) const ;
+			int	write(IO_Port, const buffer &) const ;
+			int	control(IO_Port, int, void *) const ;
+			void	close(IO_Port) const ;
 
 				// helpers
 			static unsigned int	getService(const char * aname, const char * atyp = "tcp" ) ;
