@@ -8,18 +8,17 @@ namespace btl
 		// connector, connector_t
 		//
 		//	inbound PF_NET type connections
-		//	listen on a random port, first port selected if available, second as backup
-		//	second form use SO_REUSEADDR to try and use a previously busy port
+		//	listen on a port (or random port if zero)
+		//	optinal argument use SO_REUSEADDR to try and use a previously busy port
 		//	pass result to iom, with connector_t for handler
 		//
 
 	class	connector : public socket_t
 	{
 		public:
-			enum ConstructArg { Reuse = 1, ReuseADDR } ;
+			enum ConstructArg { None = 0, Reuse = 1, ReuseADDR } ;
 
-			static	IO_Socket	listen(int = 0, int = 0) ;
-			static	IO_Socket	listen(int, ConstructArg ) ;
+			static	IO_Socket	listen(int = 0, ConstructArg = None ) ;
 	} ;
 
 	class	connector_t : public iom_base_t
