@@ -23,7 +23,7 @@ namespace btl
 	class	socket_if
 	{
 		public:
-			int	read(IO_Port, build_base &) const ;
+			int	read(IO_Port, bool &, build_base &) const ;
 			int	write(IO_Port, const buffer &) const ;
 			int	control(IO_Port, int, void *) const ;
 			void	close(IO_Port) const ;
