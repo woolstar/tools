@@ -28,11 +28,9 @@ namespace btl
 		protected:
 			friend class manage ;
 
-			IO_Port	getPort() const { return port_ ; }
+			const IO_Port	port_ ;
 
 			bool	active_ = false ;
-
-			const IO_Port	port_ ;
 
 			~ io() { }
 
