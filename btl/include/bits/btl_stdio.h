@@ -11,7 +11,7 @@ namespace btl
 	{
 		public:
 			iobasic( IO_Port ) ;
-			~ iobasic() ;
+			~ iobasic() { close() ; }
 
 				// io operators
 			int	read(build_base & zbuf) ;
