@@ -14,7 +14,6 @@ namespace btl
 	{
 		public:
 			io( IO_Port aport ) : port_( aport), active_( aport >= 0 ) { }
-			~ io() = delete ;
 
 				// no copy const
 			io( const io & ) = delete ;
@@ -34,6 +33,8 @@ namespace btl
 			bool	active_ = false ;
 
 			const IO_Port	port_ ;
+
+			~ io() { }
 
 		public:
 			class	Init
