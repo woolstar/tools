@@ -13,43 +13,55 @@ namespace btl
 	class	io
 	{
 		public:
-			io(IO_Port aport) ;
-			template <typename T> io(IO_Port, T x ) ;
-			~ io() ;
-
-			io(io &&) ;
-			io & operator=(io &&) ;
+			io( IO_Port aport ) : port_( aport), active_( aport >= 0 ) { }
+			~ io() = delete ;
 
 				// no copy const
-			io(const io &) = delete ;
+			io( const io & ) = delete ;
 			io & operator=(const io &) = delete ;
 
-			IO_Port	getPort() const { return port_ ; }
-
-				// io operators
-			int	read(build_base & zbuf) 
-				{ return interface_->read_( port_, active_, zbuf ) ; }
-			int	print(const buffer & abuf) 
-				{ return interface_->write_( port_, abuf) ; }
-			int	ctrl( int icode, void * aptr) 
-				{ return interface_->ctrl_( port_, icode, aptr ) ; }
-			void	close(void)
-				{
-					if ( active_ ) {
-						active_= false ;
-						interface_->close_( port_ ) ;
-					}
-				}
-
-			const io&	operator<<(const buffer & abuf) { print(abuf) ;  return * this ; }
+				// ok, to move an IO
+			io( io && ) = default ;
 
 				// test active
 			bool	isactive(void) const { return active_ ; }
 
 		protected:
-			io() : port_( 0) {}
+			friend class manage ;
 
-			void	setup(IO_Port) ;
+			IO_Port	getPort() const { return port_ ; }
+
+			bool	active_ = false ;
+
+			const IO_Port	port_ ;
+
+		public:
+			class	Init
+			{
+				public:  Init() ;  ~Init() ;
+				private:
+					std::atomic<int>	refcount_ ;
+
+					friend class io ;
+			} ;
+	} ;
+
+	class	iox
+	{
+		public:
+			iox(IO_Port aport) ;
+			template <typename T> iox(IO_Port, T x ) ;
+			~ iox() ;
+
+			iox(io &&) ;
+			iox & operator=(iox &&) ;
+
+				// no copy const
+			iox(const iox &) = delete ;
+			iox & operator=(const iox &) = delete ;
+
+		protected:
+			iox() : port_( 0) {}
 
 			IO_Port	port_ ;
 			mutable bool	active_ = false ;
@@ -62,13 +74,6 @@ namespace btl
 				virtual int	write_( IO_Port, const buffer & ) const = 0 ;
 				virtual int	ctrl_( IO_Port, int icode, void * ) const = 0 ;
 				virtual void	close_( IO_Port ) const = 0 ;
-			} ;
-
-			struct	base_if : public interface_t {
-				int	read_( IO_Port, bool &, build_base & ) const ;
-				int	write_( IO_Port, const buffer & ) const ;
-				int	ctrl_( IO_Port, int icode, void * ) const ;
-				void	close_( IO_Port ) const ;
 			} ;
 
 			template <typename T > struct	adapter_if : public interface_t
@@ -87,17 +92,6 @@ namespace btl
 			} ;
 
 			std::unique_ptr<const interface_t>	interface_ ;
-
-		public:
-			class	Init
-			{
-				public:  Init() ;  ~Init() ;
-				private:
-					std::atomic<int>	refcount_ ;
-
-					friend class io ;
-			} ;
-
 	} ;
 
 } ;
