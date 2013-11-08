@@ -22,7 +22,6 @@
 #include <bits/btl_io.h>
 #include <bits/btl_stdio.h>
 
-#include <bits/managed_io.h>
 #include <bits/btl_manage.h>
 
 #include <bits/socket_traits.h>
