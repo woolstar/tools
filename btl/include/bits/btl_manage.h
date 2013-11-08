@@ -34,9 +34,6 @@ namespace btl
 
 			bool	isactive(void) const { return ! stor_.empty() ; }
 
-		protected:
-			template <typename T> void	replace( T, int amodes = eRead ) ;
-
 		private:
 			struct concept_t {
 				virtual ~concept_t() = default ;
