@@ -49,54 +49,6 @@ namespace btl
 			static void				jump(build_base & abuf, int ioff) { abuf.jump( ioff) ; }
 	} ;
 
-	class	iox
-	{
-		public:
-			iox(IO_Port aport) ;
-			template <typename T> iox(IO_Port, T x ) ;
-			~ iox() ;
-
-			iox(io &&) ;
-			iox & operator=(iox &&) ;
-
-				// no copy const
-			iox(const iox &) = delete ;
-			iox & operator=(const iox &) = delete ;
-
-		protected:
-			iox() : port_( 0) {}
-
-			IO_Port	port_ ;
-			mutable bool	active_ = false ;
-
-		private:
-			struct interface_t {
-				virtual ~ interface_t() = default ;
-
-				virtual int	read_( IO_Port, bool &, build_base & ) const = 0 ;
-				virtual int	write_( IO_Port, const buffer & ) const = 0 ;
-				virtual int	ctrl_( IO_Port, int icode, void * ) const = 0 ;
-				virtual void	close_( IO_Port ) const = 0 ;
-			} ;
-
-			template <typename T > struct	adapter_if : public interface_t
-			{
-				adapter_if( T && x ) : op_( std::move( x)) {}
-
-				int	read_( IO_Port aport, bool & isactive, build_base & zbuf ) const
-					{ return op_.read( aport, isactive, zbuf ) ; }
-				int	write_( IO_Port aport, const buffer & abuf ) const
-					{ return op_.write( aport, abuf ) ; }
-				int	ctrl_( IO_Port aport, int icode, void * aptr ) const
-					{ return op_.ctrl( aport, icode, aptr ) ; }
-				void	close_( IO_Port aport ) const { op_.close( aport) ; }
-
-				T	op_ ;
-			} ;
-
-			std::unique_ptr<const interface_t>	interface_ ;
-	} ;
-
 } ;
 
 #endif
