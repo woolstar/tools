@@ -28,9 +28,8 @@ namespace btl
 					if ( amodes & Modes::eRead ) { tmprec.events |= POLLIN ; }
 					if ( amodes & Modes::eWrite ) { tmprec.events |= POLLOUT ; }
 
-					concept_t * cptr= new manage::adapter_t<T>( *this,  std::move( x)) ;
-
-					stor_.emplace( std::make_pair( iport, std::unique_ptr<const concept_t>( cptr) ) ) ;
+					stor_.emplace( std::make_pair( iport,
+						std::unique_ptr<const concept_t>( new manage::adapter_t<T>( *this,  std::move( x)) ) ) ) ;
 						// look for possible previous record and destroy it
 					auto p= std::find_if( poll_.begin(), poll_.end(),
 											[iport](const pollfd& rec){ return rec.fd == iport ; }) ;
