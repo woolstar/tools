@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 #include <poll.h>
 
 namespace btl
@@ -18,7 +19,24 @@ namespace btl
 				eWrite = ( 1 << 1 ),
 			} ;
 
-			template <typename T> void	monitor( T, int amodes = eRead ) ;
+			template <typename T>
+				void	monitor( T x, int amodes = eRead )
+				{
+					IO_Port	iport = x.port_ ;
+					pollfd tmprec = { iport, 0, 0 } ;
+
+					if ( amodes & Modes::eRead ) { tmprec.events |= POLLIN ; }
+					if ( amodes & Modes::eWrite ) { tmprec.events |= POLLOUT ; }
+
+					concept_t * cptr= new manage::adapter_t<T>( *this,  std::move( x)) ;
+
+					stor_.emplace( std::make_pair( iport, std::unique_ptr<const concept_t>( cptr) ) ) ;
+						// look for possible previous record and destroy it
+					auto p= std::find_if( poll_.begin(), poll_.end(),
+											[iport](const pollfd& rec){ return rec.fd == iport ; }) ;
+					if ( p != poll_.end()) { poll_.erase( p) ; }
+					poll_.push_back( tmprec) ;
+				}
 
 			void	destroy( void ) ;
 
@@ -44,7 +62,17 @@ namespace btl
 				virtual bool	dowrite_() const = 0 ;
 			} ;
 
-			template <typename T> struct adapter_t ;
+			template <typename T> class adapter_t : public concept_t
+			{
+				public:
+					adapter_t( manage & aset, T && x ) : io_( std::move( x)) { io_.mngr( aset) ; }
+
+					bool	isactive_(void) const { return io_.isactive() ; }
+					bool	doread_() const { return io_.doread() ; }
+					bool	dowrite_() const { return io_.dowrite() ; }
+
+					T io_ ;
+			} ;
 
 			void	scan( int aactive ) ;
 			void	activity( int amask, int aport ) ;
@@ -56,4 +84,5 @@ namespace btl
 } ;
 
 #endif
+
 
