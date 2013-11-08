@@ -13,8 +13,10 @@ namespace btl
 			iobasic( IO_Port ) ;
 			~ iobasic() { close() ; }
 
+			iobasic( iobasic && ) = default ;
+
 				// io operators
-			int	read(build_base & zbuf) ;
+			int	read(build_base & zbuf) const ;
 			int	print(const buffer & abuf) const ;
 			int	ctrl( int icode, void * aptr) const ;
 			void	close(void)
