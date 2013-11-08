@@ -20,7 +20,7 @@ namespace btl
 			io & operator=(const io &) = delete ;
 
 				// ok, to move an IO
-			io( io && ) = default ;
+			io( io && ) ;
 
 				// test active
 			bool	isactive(void) const { return active_ ; }
