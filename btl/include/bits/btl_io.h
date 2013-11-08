@@ -29,7 +29,7 @@ namespace btl
 			friend class manage ;
 
 			const IO_Port	port_ ;
-			bool			active_ = false ;
+			mutable bool	active_ = false ;
 
 			~ io() { }
 
