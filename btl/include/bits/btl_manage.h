@@ -29,7 +29,7 @@ namespace btl
 					if ( amodes & Modes::eWrite ) { tmprec.events |= POLLOUT ; }
 
 					stor_.emplace( std::make_pair( iport,
-						std::unique_ptr<const concept_t>( new manage::adapter_t<T>( *this,  std::move( x)) ) ) ) ;
+						std::unique_ptr<const concept_t>( new manage::adapter_t<T>( this, std::move( x)) ) ) ) ;
 						// look for possible previous record and destroy it
 					auto p= std::find_if( poll_.begin(), poll_.end(),
 											[iport](const pollfd& rec){ return rec.fd == iport ; }) ;
@@ -51,6 +51,16 @@ namespace btl
 
 			bool	isactive(void) const { return ! stor_.empty() ; }
 
+					// use this to capture manage link
+			class	link
+			{
+				public:
+					void	mngr( manage * aref ) { mgr_ = aref ; }
+
+				protected:
+					manage * mgr_ = nullptr ;
+			} ;
+
 		private:
 			struct concept_t {
 				virtual ~concept_t() = default ;
@@ -64,7 +74,7 @@ namespace btl
 			template <typename T> class adapter_t : public concept_t
 			{
 				public:
-					adapter_t( manage & aset, T && x ) : io_( std::move( x)) { io_.mngr( aset) ; }
+					adapter_t( manage * aset, T && x ) : io_( std::move( x)) { io_.mngr( aset) ; }
 
 					bool	isactive_(void) const { return io_.isactive() ; }
 					bool	doread_() const { return io_.doread() ; }
