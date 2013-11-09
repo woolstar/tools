@@ -10,6 +10,10 @@
 
 namespace btl
 {
+		// help make our decl neeter
+	using std::move ;
+	using std::make_pair ;
+
 	class	manage 
 	{
 		public:
@@ -27,8 +31,8 @@ namespace btl
 
 					if ( amodes & Modes::eRead ) { tmprec.events |= POLLIN ; }
 					if ( amodes & Modes::eWrite ) { tmprec.events |= POLLOUT ; }
-						
-					stor_.emplace( std::make_pair( iport, make_unique<adapter_t<T>>( this, std::move( x )) ) ) ;
+
+					stor_.emplace( make_pair( iport, make_unique<adapter_t<T>>( this, move( x )) ) ) ;
 
 						// look for possible previous record and destroy it
 					auto p= std::find_if( poll_.begin(), poll_.end(),
@@ -74,7 +78,7 @@ namespace btl
 			template <typename T> class adapter_t : public concept_t
 			{
 				public:
-					adapter_t( manage * aset, T && x ) : io_( std::move( x)) { io_.mngr( aset) ; }
+					adapter_t( manage * aset, T && x ) : io_( move( x)) { io_.mngr( aset) ; }
 
 					bool	isactive_(void) const { return io_.isactive() ; }
 					bool	doread_() const { return io_.doread() ; }
