@@ -5,7 +5,7 @@
 
 namespace btl
 {
-		// connector, connector_t
+		// connector_t
 		//
 		//	inbound PF_NET type connections
 		//	listen on a port (or random port if zero)
@@ -13,19 +13,21 @@ namespace btl
 		//	pass result to iom, with connector_t for handler
 		//
 
-	class	connector : public socket_t
+	class	connector_t : public io, public manage::link
 	{
 		public:
 			enum ConstructArg { None = 0, Reuse = 1, ReuseADDR } ;
 
+			connector(int = 0, ConstructArg = None ) ;
+			~ connector() { close() ; }
+
+			bool	doread(void) const ;
+			bool	dowrite(void) const { return false ; }
+
+			virtual void	connection( IO_Socket ) = 0 ;
+
+		private:
 			static	IO_Socket	listen(int = 0, ConstructArg = None ) ;
-	} ;
-
-	class	connector_t : public iom_base_t
-	{
-		public:
-			bool	doread( iom & ) const ;
-
 	} ;
 
 		// post connect
@@ -34,17 +36,15 @@ namespace btl
 		//	waits for write available, then signals connection on connected(), error() otherwise
 		//
 
-	class	post_connect_t : public iom_base_t
+	class	post_connect_t : public io, public manage::link
 	{
 		public:
 			bool	dowrite( io & ) const ;
 
-			virtual void	connected( iom & ) const = 0 ;
-			virtual void	error( iom & aio ) const { aio.destroy() ; }
-	} ;
+			bool	doread(void) const { return false ; }
+			bool	dowrite(void) const ;
 
-	class	local_connect_t
-	{
+			virtual void	connected( io &, manage * ) = 0 ;
 	} ;
 
 } ;
