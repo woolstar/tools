@@ -27,14 +27,6 @@ namespace btl
 
 			int	read(build_base &) const ;
 			int	write(const buffer &) const ;
-			void	close(void)
-					{
-						if ( active_ ) {
-							active_= false ;
-
-							::close( port_ ) ;
-						}
-					}
 
 				// helpers
 			static unsigned int	getService(const char * aname, const char * atyp = "tcp" ) ;
