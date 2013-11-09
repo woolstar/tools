@@ -20,13 +20,21 @@
 
 namespace btl
 {
-	class	socket_if
+	class	socket : public io
 	{
 		public:
-			int	read(IO_Port, bool &, build_base &) const ;
-			int	write(IO_Port, const buffer &) const ;
-			int	control(IO_Port, int, void *) const ;
-			void	close(IO_Port) const ;
+			~ socket() { close() ; }
+
+			int	read(build_base &) const ;
+			int	write(const buffer &) const ;
+			void	close(void)
+					{
+						if ( active_ ) {
+							active_= false ;
+
+							::close( port_ ) ;
+						}
+					}
 
 				// helpers
 			static unsigned int	getService(const char * aname, const char * atyp = "tcp" ) ;
@@ -36,6 +44,8 @@ namespace btl
 			typedef IO_Port	IO_Socket ;
 
 		protected:
+			int	control(int, void *) const ;
+
 				// PF_INET
 			static IO_Socket	connect(const char *, int, int = 0) ;
 			static IO_Socket	connect(const struct in_addr *, int, int = 0 ) ;
