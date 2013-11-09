@@ -22,12 +22,13 @@ namespace btl
 			~ connector() { close() ; }
 
 			bool	doread(void) const ;
-			bool	dowrite(void) const { return false ; }
 
-			virtual void	connection( IO_Socket ) = 0 ;
+			//	leave off dowrite() for subclass to implement and specialize
 
 		private:
 			static	IO_Socket	listen(int = 0, ConstructArg = None ) ;
+
+			IO_Socket	accept() ;
 	} ;
 
 		// post connect
