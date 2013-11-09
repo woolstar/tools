@@ -24,8 +24,8 @@
 
 #include <bits/btl_manage.h>
 
-#include <bits/socket_traits.h>
-#include <bits/socket_connect.h>
+#include <bits/socket_io.h>
+#include <bits/manage_connect.h>
 
 #endif
 
