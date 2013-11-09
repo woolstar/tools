@@ -6,6 +6,8 @@
 #include <atomic>
 #include <memory>
 
+#include <unistd.h>
+
 namespace btl
 {
 	typedef int	IO_Port ;
@@ -24,6 +26,15 @@ namespace btl
 
 				// test active
 			bool	isactive(void) const { return active_ ; }
+
+				// close up port_
+			void	close(void)
+					{
+						if ( active_ ) {
+							active_= false ;
+							::close( port_ ) ;
+						}
+					}
 
 		protected:
 			friend class manage ;

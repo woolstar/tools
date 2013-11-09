@@ -3,8 +3,6 @@
 #ifndef _BTL_STDIO_H
 #define _BTL_STDIO_H 1
 
-#include <unistd.h>
-
 namespace btl
 {
 	class	iobasic : public io
@@ -19,14 +17,6 @@ namespace btl
 			int	read(build_base & zbuf) const ;
 			int	print(const buffer & abuf) const ;
 			int	ctrl( int icode, void * aptr) const ;
-			void	close(void)
-					{
-						if ( active_ ) {
-							active_= false ;
-
-							::close( port_ ) ;
-						}
-					}
 
 			const iobasic&	operator<<(const buffer & abuf) const { print(abuf) ;  return * this ; }
 	} ;
