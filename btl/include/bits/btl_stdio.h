@@ -20,13 +20,13 @@ namespace btl
 			int	print(const buffer & abuf) const ;
 			int	ctrl( int icode, void * aptr) const ;
 			void	close(void)
-				{
-					if ( active_ ) {
-						active_= false ;
+					{
+						if ( active_ ) {
+							active_= false ;
 
-						::close( port_ ) ;
+							::close( port_ ) ;
+						}
 					}
-				}
 
 			const iobasic&	operator<<(const buffer & abuf) const { print(abuf) ;  return * this ; }
 	} ;
