@@ -13,17 +13,13 @@ namespace btl
 		//	pass result to iom, with connector_t for handler
 		//
 
-	class	connector_t : public io, public manage::link
+	class	connector_t : public io
 	{
 		public:
 			enum ConstructArg { None = 0, Reuse = 1, ReuseADDR } ;
 
-			connector(int = 0, ConstructArg = None ) ;
-			~ connector() { close() ; }
-
-			bool	doread(void) const ;
-
-			//	leave off dowrite() for subclass to implement and specialize
+			connector_t(int = 0, ConstructArg = None ) ;
+			~ connector_t() { close() ; }
 
 		private:
 			static	IO_Socket	listen(int = 0, ConstructArg = None ) ;
@@ -31,20 +27,51 @@ namespace btl
 			IO_Socket	accept() ;
 	} ;
 
-	template <class C>	class connector : public connector_t
+	class	local_connector_t : public io
 	{
 		public:
-			connector( int = 0, connector_t::ConstructArg = None ) ;
+			local_connector_t( long = 0 ) ;
+			local_connector_t( const char * apath ) ;
+
+			~ local_connector_t() { close() ; }
+
+		private:
+
+			IO_Socket	accept() ;
+
+	} ;
+
+	template <class C, typename T> class connector : public manage::link
+	{
+		public:
+			connector( T x ) : conn_( move( x )), port_( x.port_ ) { }
+
+			bool	isactive(void) const { return conn_.isactive() ; }
+			bool	doread(void) const { conn_.close() ;  return false ; }
 
 			bool	dowrite(void) const
 			{
-				IO_Socket tmpsock= accept() ;
+				IO_Socket tmpsock= conn_.accept() ;
+				if ( tmpsock < 0 )
+					return false ;
 
-				if ( tmpsock < 0 ) return false ;
 				mgr_ -> monitor( C( tmpsock)) ;
 				return true ;
 			}
+
+			const IO_Port	port_ ;
+
+		private:
+			T	conn_ ;
 	} ;
+
+		// helper function to automatically determine T
+		//	call with make_connector<user_client_class>( connector_object ) ;
+		//
+
+	template <class C, typename T>
+		connector<C,T> make_connector( T x ) { return connector<C,T>( move( x) ) ; }
+
 
 		// post connect
 		//
@@ -58,9 +85,6 @@ namespace btl
 			bool	dowrite( io & ) const ;
 
 			bool	doread(void) const { return false ; }
-			bool	dowrite(void) const ;
-
-			virtual void	connected( io &, manage * ) = 0 ;
 	} ;
 
 } ;
