@@ -31,6 +31,21 @@ namespace btl
 			IO_Socket	accept() ;
 	} ;
 
+	template <class C>	class connector : public connector_t
+	{
+		public:
+			connector( int = 0, connector_t::ConstructArg = None ) ;
+
+			bool	dowrite(void) const
+			{
+				IO_Socket tmpsock= accept() ;
+
+				if ( tmpsock < 0 ) return false ;
+				mgr_ -> monitor( C( tmpsock)) ;
+				return true ;
+			}
+	} ;
+
 		// post connect
 		//
 		//	handle outbound async connect
