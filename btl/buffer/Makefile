@@ -1,6 +1,6 @@
 
-CC=gcc-4.8
-CXX=g++-4.8
+CC=gcc
+CXX=g++
 CFLAGS=-std=c++0x -Iinc
 
 CC=clang
