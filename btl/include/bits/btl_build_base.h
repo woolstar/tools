@@ -14,6 +14,9 @@ namespace btl
 			build_base(unsigned char * aptr, size_t amax) : buffer(aptr, 0), fill_(aptr), limit_(aptr + amax) { }
 			virtual ~ build_base() ;
 
+			size_t	remaining(void) const { return limit_ - fill_ ; }
+			void	print(const char * afmt, ...) ;
+
 		protected:
 			build_base() {}
 
@@ -40,11 +43,6 @@ namespace btl
 			void		fill_relocate(sized_storage * afill) { fill_ = afill ; }
 
 			friend	io ;
-
-		public:
-			size_t	remaining(void) const { return limit_ - fill_ ; }
-
-			void	print(const char * afmt, ...) ;
 
 		private:
 				// fill_ = rawbuffer_ + datasize_ :: so keeping it in sync requires care
