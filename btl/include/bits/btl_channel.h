@@ -43,6 +43,8 @@ namespace btl
 					}
 				}
 
+			void remove( channel_if * ) ;
+
 		private:
 			channel_if * first_ = nullptr , * last_ = nullptr ;
 	} ;
