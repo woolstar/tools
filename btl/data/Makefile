@@ -13,11 +13,11 @@ LIBPATH=../libs
 LIBS=buffer.cpp build.cpp build_methods.cpp expand_traits.cpp
 OBJS=$(patsubst %.cpp, $(OD)/%.o, $(LIBS))
 
-TARGET=$(LIBPATH)/libbuffer.a
+TARGET=$(LIBPATH)/libdata.a
 
 $(TARGET): $(LIBPATH) $(OD) $(OBJS) $(LIBS)
-	ar rc $(LIBPATH)/libbuffer.a $(OBJS)
-	ranlib $(LIBPATH)/libbuffer.a
+	ar rc $(LIBPATH)/libdata.a $(OBJS)
+	ranlib $(LIBPATH)/libdata.a
 
 
 $(OD):
