@@ -1,0 +1,24 @@
+// <container> -*- C++ -*-
+
+/***
+ * Copyright (C) 2013 
+ * Video Bits
+ *
+ **/
+
+/** @file include/container
+ *  This is a Bridge C++ Library header
+ */
+
+#ifndef _BTL_DATA
+#define _BTL_DATA 1
+
+#include <cstddef>
+
+#include <bits/btl_basetypes.h>
+
+#include <bits/list_iterator.h>
+#include <bits/btl_list.h>
+
+#endif
+
