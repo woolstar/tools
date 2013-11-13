@@ -150,6 +150,8 @@ namespace btl
 			void	clear(void) {
 						range	iptr( span()) ;
 						while ( iptr() ) { delete iptr.ptr_ ;  ++ iptr ; }
+
+						first_= last_= nullptr ;
 					}
 
 		private:
