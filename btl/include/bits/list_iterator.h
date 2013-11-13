@@ -24,11 +24,12 @@ namespace btl
 				bool		operator==(const _List_iterator_Base & ai) const { return ai.ptr_ == ptr_ ; }
 				bool		operator!=(const _List_iterator_Base & ai) const { return ai.ptr_ != ptr_ ; }
 
-					typedef int	difference_type ;
-					typedef std::forward_iterator_tag	iterator_category ;
-					typedef _Tp		value_type ;
-					typedef _Tp *	pointer ;
-					typedef _Tp &	reference ;
+				typedef int		difference_type ;
+				typedef _Tp		value_type ;
+				typedef _Tp *	pointer ;
+				typedef _Tp &	reference ;
+
+				typedef std::forward_iterator_tag	iterator_category ;
 
 				_Tp *	ptr_ ;
 				_Tp	* const limit_ ;
