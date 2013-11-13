@@ -161,5 +161,15 @@ namespace btl
 
 } ;
 
+		// things to add (copying std::list)
+		//
+		//	merge()
+		//	splice()
+		//	remove()
+		//	reverse()
+		//	unique()
+		//	sort()
+		//
+
 #endif
 
