@@ -108,6 +108,8 @@ namespace btl
 						last_= aptr, last_ -> next_= nullptr ;
 					}
 
+			safe_list &	operator<<( _Tp * aptr) { push_back( aptr) ;  return * this ; }
+
 			iterator	begin(void) { return iterator( first_ ) ; }
 			iterator	end(void) { return iterator() ; }
 
