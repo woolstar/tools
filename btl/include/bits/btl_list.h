@@ -56,18 +56,42 @@ namespace btl
 
 				public:
 					iterator() : _Base( nullptr) { }
-					iterator( _Tp * aptr, _Tp * alim = nullptr) : _Base( aptr, alim)
-						{ next_ = ( _Base::limit_ != _Base::ptr_ ) ? _Base::ptr_-> next() : _Base::limit_ ; }
+					iterator( _Tp * aptr) : _Base( aptr) { next_ = ( aptr ) ? _Base::ptr_-> next() : nullptr ; }
 
 					iterator( const iterator & asrc ) = default ;
 
-					void	step( void) { _Base::ptr_= next_ ;  if ( _Base::limit_ != next_ ) { listable::step( next_ ) ; } }
+					void	step( void) { _Base::ptr_= next_ ;  if ( next_ ) { listable::step( next_ ) ; } }
 
 				private:
 					_Tp *	next_ = nullptr ;
 			} ;
 
 			class	const_iterator ;
+
+			typedef __detail::_List_range_Base< _Tp >	_Range ;
+			typedef __detail::_List_range_Base< const _Tp >	_constRange ;
+
+			class	range : public _Range
+			{
+				public:
+					range	operator++() { step() ;  return * this ; }
+					range	operator++(int) { range itmp( * this) ;  step() ;  return itmp ; }
+
+				public:
+					range() : _Range( nullptr) { }
+					range( _Tp * aptr, _Tp * alim = nullptr) : _Range( aptr, alim)
+						{ next_ = ( _Range::limit_ != _Range::ptr_ ) ? _Range::ptr_-> next() : _Range::limit_ ; }
+					range( const_iterator itbegin, const_iterator itend ) : range( itbegin.ptr_, itend.ptr_ ) { }
+
+					range( const range & asrc ) = default ;
+
+					void	step( void) { _Range::ptr_= next_ ;  if ( _Range::limit_ != next_ ) { listable::step( next_ ) ; } }
+
+				private:
+					_Tp *	next_ = nullptr ;
+			} ;
+
+			class	const_range ;
 			class	reverse_iterator ;
 			class	const_reverse_iterator ;
 
@@ -87,6 +111,9 @@ namespace btl
 			iterator	begin(void) { return iterator( first_ ) ; }
 			iterator	end(void) { return iterator() ; }
 
+			range	span(void) { return range( first_, nullptr) ; }
+			const_range	span(void) const { return const_range( first_, nullptr ) ; }
+
 			reverse_iterator	rbegin(void) { return reverse_iterator( last_ ) ; }
 			reverse_iterator	rend(void) { return reverse_iterator() ; }
 
@@ -104,16 +131,41 @@ namespace btl
 			bool	empty(void) const { return ( nullptr == first_ ) ; }
 			size_t	size(void) const {
 						size_t	ct ;
-						const_iterator	iptr( begin()) ;
+						const_range	iptr( span()) ;
 
 						for ( ct= 0 ; ( iptr() ) ; ++ iptr, ++ ct ) { }
 						return ct ;
 					}
 
+			iterator	erase( const_iterator iptr ) {
+							_Tp * p= iptr.ptr_ ;
+
+							if ( p ) { untie_pointer( p ) ;  delete p ; }
+							return iterator( ++ iptr) ;
+						}
+			// iterator	erase( range )
+				
 			void	clear(void) {
-						iterator	iptr( begin()) ;
-						while ( iptr() ) { delete * iptr ;  ++ iptr ; }
+						range	iptr( span()) ;
+						while ( iptr() ) { delete iptr.ptr_ ;  ++ iptr ; }
 					}
+
+		private:
+			void	untie_pointer( _Tp * aptr )
+			{
+				if ( aptr )
+				{
+					if ( aptr-> prev_ ) { aptr-> prev_-> next_= aptr-> next_ ; }
+						else { if ( first_ == aptr ) { first_= aptr-> next_ ;  if (first_) { first_-> prev_= nullptr ; } } }
+					aptr -> prev_= nullptr ;
+					if ( aptr-> next_ ) { aptr-> next_-> prev_= aptr-> prev_ ; }
+						else { if ( last_ == aptr ) { last_= aptr-> prev_ ;  if ( last_ ) { last_-> next_= nullptr ; } } }
+					aptr-> next_= nullptr ;
+				}
+			}
+			void	untie_range( _Tp * afirst, _Tp * alast)
+			{
+			}
 
 		public:
 
@@ -125,12 +177,30 @@ namespace btl
 
 				public:
 					const_iterator() : _constBase( nullptr) { }
-					const_iterator( _Tp * aptr, _Tp * alim = nullptr) : _constBase( aptr, alim)
-						{ next_ = ( _constBase::limit_ != _constBase::ptr_ ) ? _constBase::ptr_-> next() : _constBase::limit_ ; }
+					const_iterator( _Tp * aptr) : _constBase( aptr) { next_ = ( aptr ) ? _Base::ptr_-> next() : nullptr ; }
 
 					const_iterator( const const_iterator & asrc ) = default ;
 
 					void	step( void) { _constBase::ptr_= next_ ;  if ( _constBase::limit_ != next_ ) { listable::step( next_ ) ; } }
+
+				private:
+					const _Tp *	next_ = nullptr ;
+			} ;
+
+			class	const_range : public _constRange
+			{
+				public:
+					const_range	operator++() { step() ;  return * this ; }
+					const_range	operator++(int) { range itmp( * this) ;  step() ;  return itmp ; }
+
+				public:
+					const_range() : _constRange( nullptr) { }
+					const_range( _Tp * aptr, _Tp * alim = nullptr) : _constRange( aptr, alim)
+						{ next_ = ( _constRange::limit_ != _constRange::ptr_ ) ? _constRange::ptr_-> next() : _constRange::limit_ ; }
+
+					const_range( const const_range & asrc ) = default ;
+
+					void	step( void) { _constRange::ptr_= next_ ;  if ( _constRange::limit_ != next_ ) { listable::step( next_ ) ; } }
 
 				private:
 					const _Tp *	next_ = nullptr ;
@@ -144,12 +214,11 @@ namespace btl
 
 				public:
 					reverse_iterator() : _Base( nullptr) { }
-					reverse_iterator( _Tp * aptr, _Tp * alim = nullptr) : _Base( aptr, alim)
-						{ prev_ = ( _Base::limit_ != _Base::ptr_ ) ? _Base::ptr_-> prior() : _Base::limit_ ; }
+					reverse_iterator( _Tp * aptr ) : _Base( aptr ) { prev_ = ( aptr ) ? _Base::ptr_-> prior() : nullptr ; }
 
 					reverse_iterator( const reverse_iterator & asrc ) = default ;
 
-					void	rstep( void) { _Base::ptr_= prev_ ;  if ( _Base::limit_ != prev_ ) { listable::back( prev_ ) ; } }
+					void	rstep( void) { _Base::ptr_= prev_ ;  if ( prev_ ) { listable::back( prev_ ) ; } }
 
 				private:
 					_Tp *	prev_ = nullptr ;
