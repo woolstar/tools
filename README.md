@@ -9,5 +9,5 @@ Code libraries, templates and executables
 	towards the goals of STL (RAII, generics, containers) while still giving "to the metal"
 	access over memory allocation.
 
-	include, buffer, io
+	include, data, io
 
