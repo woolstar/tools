@@ -3,11 +3,13 @@
 #ifndef _BTL_CHANNEL_H
 #define _BTL_CHANNEL_H 1
 
+#include <container>
+
 namespace btl
 {
 	class	feeder ;
 
-	class channel_if
+	class channel_if : protected safe_list<channel_if>::listable
 	{
 		public:
 			channel_if( feeder & afeed ) : base_( afeed ) {}
@@ -22,8 +24,6 @@ namespace btl
 			feeder &	base_ ;
 
 			friend feeder ;
-
-			channel_if	* prev_ = nullptr, * next_ = nullptr ;
 	} ;
 
 	class	feeder
@@ -33,20 +33,15 @@ namespace btl
 
 			template <class T, class... Args>
 				emplace_back(Args&& ... args)
-				{
-					channel_if * tmpptr = new T(* this, std::forward<Args>(args)...) ;
-					if ( nullptr == first_ ) { first_= last_= tmpptr ; }
-					else
-					{
-						last_-> next_= tmpptr, tmpptr-> prev_ = last_ ;
-						last_= tmpptr ;
-					}
-				}
+					{ list_ << new T(* this, std::forward<Args>(args)...) ; }
 
-			void remove( channel_if * ) ;
+			void remove( channel_if * aptr ) {
+						if ( & ( aptr-> base_ ) != this ) return ;
+						list_.erase( aptr ) ;
+					}
 
 		private:
-			channel_if * first_ = nullptr , * last_ = nullptr ;
+			safe_list<channel_if>	list_ ;
 	} ;
 
 } ;
