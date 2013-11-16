@@ -20,6 +20,7 @@
 #include <bits/btl_build_base.h>
 
 #include <bits/btl_shim.h>	// fill in make_unique until c++1y
+#include <bits/btl_list.h>
 
 #include <bits/btl_io.h>
 #include <bits/btl_stdio.h>
@@ -28,6 +29,8 @@
 
 #include <bits/socket_io.h>
 #include <bits/manage_connect.h>
+
+#include <bits/btl_chain.h>
 
 #endif
 
