@@ -25,6 +25,7 @@ namespace btl
 
 			void	copy(const buffer &) ;
 			void	copy(scanner<sized_storage> &) ;
+			void	copy(scanner<sized_storage> &, size_t) ;
 
 			friend sized_storage * begin(build_base &) ;
 			const friend sized_storage * begin(const build_base &) ;
