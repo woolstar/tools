@@ -135,7 +135,7 @@ namespace btl
 						size_t	ct ;
 						const_range	iptr( span()) ;
 
-						for ( ct= 0 ; ( iptr() ) ; ++ iptr, ++ ct ) { }
+						for ( ct= 0 ; ( iptr ) ; ++ iptr, ++ ct ) { }
 						return ct ;
 					}
 
@@ -149,7 +149,7 @@ namespace btl
 				
 			void	clear(void) {
 						range	iptr( span()) ;
-						while ( iptr() ) { delete iptr.ptr_ ;  ++ iptr ; }
+						while ( iptr ) { delete iptr.ptr_ ;  ++ iptr ; }
 
 						first_= last_= nullptr ;
 					}
