@@ -19,6 +19,11 @@ void	build_base::copy(scanner<sized_storage> & ascan)
 	while ( ascan && ( fill_ != limit_ ) ) { datasize_ ++ ;  *( fill_ ++)= * (ascan ++ ) ; }
 }
 
+void	build_base::copy(scanner<sized_storage> & ascan, size_t asz)
+{
+	while ( ascan && asz && ( fill_ != limit_ ) ) { datasize_ ++ ;  *( fill_ ++)= * (ascan ++ ) ;  -- asz ; }
+}
+
 void	build_base::print(const char * afmt, ...)
 {
 	va_list vl ;
