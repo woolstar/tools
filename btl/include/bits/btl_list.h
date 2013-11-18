@@ -159,10 +159,10 @@ namespace btl
 			{
 				if ( aptr )
 				{
-					if ( aptr-> prev_ ) { aptr-> prev_-> next_= aptr-> next_ ; }
+					if ( aptr-> prior() ) { aptr-> prev_-> next_= aptr-> next_ ; }
 						else { if ( first_ == aptr ) { first_= aptr-> next_ ;  if (first_) { first_-> prev_= nullptr ; } } }
 					aptr -> prev_= nullptr ;
-					if ( aptr-> next_ ) { aptr-> next_-> prev_= aptr-> prev_ ; }
+					if ( aptr-> next() ) { aptr-> next_-> prev_= aptr-> prev_ ; }
 						else { if ( last_ == aptr ) { last_= aptr-> prev_ ;  if ( last_ ) { last_-> next_= nullptr ; } } }
 					aptr-> next_= nullptr ;
 				}
