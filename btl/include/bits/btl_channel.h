@@ -9,7 +9,7 @@ namespace btl
 {
 	class	feeder ;
 
-	class channel_if : protected safe_list<channel_if>::listable
+	class channel_if : public safe_list<channel_if>::listable
 	{
 		public:
 			channel_if( feeder & afeed ) : base_( afeed ) {}
@@ -32,7 +32,7 @@ namespace btl
 			void	data( const buffer &) ;
 
 			template <class T, class... Args>
-				emplace_back(Args&& ... args)
+				void emplace_back(Args&& ... args)
 					{ list_ << new T(* this, std::forward<Args>(args)...) ; }
 
 			void remove( channel_if * aptr ) {
