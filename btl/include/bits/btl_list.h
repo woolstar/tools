@@ -139,7 +139,7 @@ namespace btl
 						return ct ;
 					}
 
-			iterator	erase( const_iterator iptr ) {
+			iterator	erase( iterator iptr ) {
 							_Tp * p= iptr.ptr_ ;
 
 							if ( p ) { untie_pointer( p ) ;  delete p ; }
