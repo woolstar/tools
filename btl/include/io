@@ -30,6 +30,7 @@
 #include <bits/manage_connect.h>
 
 #include <bits/btl_channel.h>
+#include <bits/channel_format.h>
 
 #endif
 
