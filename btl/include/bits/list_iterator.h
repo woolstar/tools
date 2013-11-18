@@ -31,29 +31,38 @@ namespace btl
 			_Tp *	ptr_ ;
 		} ;
 
-		template < typename _Tp > struct	_List_range_Base
+		template < typename _Tp > class	_List_range_Base
 		{
-			_List_range_Base( _Tp * aptr, _Tp * alim = nullptr ) : ptr_( aptr), limit_( alim) { }
+			private:
+				class	IsValid { void operator delete(void *) ; } ;
 
-			bool	operator()() const { return (( limit_ != ptr_ ) && ( nullptr != ptr_ )) ; }
+			public:
+				_List_range_Base( _Tp * aptr, _Tp * alim = nullptr ) : ptr_( aptr), limit_( alim) { }
 
-			_Tp & 	operator*() const { return * ptr_ ; }
-			_Tp * 	operator->() const { return ptr_ ; }
+				operator const IsValid *() const {
+					static IsValid _sentinal ;
+					return (( limit_ != ptr_ ) && ( nullptr != ptr_ )) ? & _sentinal : nullptr ;
+				}
+				// bool	operator()() const { return (( limit_ != ptr_ ) && ( nullptr != ptr_ )) ; }
 
-			bool		operator==(_List_range_Base & ai) const { return ai.ptr_ == ptr_ ; }
-			bool		operator!=(_List_range_Base & ai) const { return ai.ptr_ != ptr_ ; }
-			bool		operator==(const _List_range_Base & ai) const { return ai.ptr_ == ptr_ ; }
-			bool		operator!=(const _List_range_Base & ai) const { return ai.ptr_ != ptr_ ; }
+				_Tp & 	operator*() const { return * ptr_ ; }
+				_Tp * 	operator->() const { return ptr_ ; }
 
-			typedef int		difference_type ;
-			typedef _Tp		value_type ;
-			typedef _Tp *	pointer ;
-			typedef _Tp &	reference ;
+				bool		operator==(_List_range_Base & ai) const { return ai.ptr_ == ptr_ ; }
+				bool		operator!=(_List_range_Base & ai) const { return ai.ptr_ != ptr_ ; }
+				bool		operator==(const _List_range_Base & ai) const { return ai.ptr_ == ptr_ ; }
+				bool		operator!=(const _List_range_Base & ai) const { return ai.ptr_ != ptr_ ; }
 
-			typedef std::forward_iterator_tag	iterator_category ;
+				typedef int		difference_type ;
+				typedef _Tp		value_type ;
+				typedef _Tp *	pointer ;
+				typedef _Tp &	reference ;
 
-			_Tp *	ptr_ ;
-			_Tp	* const limit_ ;
+				typedef std::forward_iterator_tag	iterator_category ;
+
+				_Tp *	ptr_ ;
+				_Tp	* const limit_ ;
+
 		} ;
 	} ;
 } ;
