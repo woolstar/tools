@@ -39,7 +39,9 @@ namespace btl
 		class	channel_buffered_scanner : public channel_if, public ScannerType
 		{
 			public:
-				channel_buffered_scanner( feeder & afeed ) : formatter_(), channel_if( afeed ) { }
+				template< typename... Args >
+					channel_buffered_scanner( feeder & afeed, Args&&... args)
+						: formatter_(std::forward<Args>(args)...), channel_if( afeed ) { }
 
 				void	data( const buffer & adata ) ;
 
@@ -51,24 +53,25 @@ namespace btl
 				StorageType	buffer_ ;
 		} ;
 
-	template <class ScanT, class StorT> void	channel_buffered_scanner<ScanT, StorT>::data( const buffer & adata )
-	{
-		scanner<>	scanref( adata) ;
-		size_t use_sz, fill_sz ;
-
-		while ( scanref )
+	template <class ScanT, class StorT>
+		void	channel_buffered_scanner<ScanT, StorT>::data( const buffer & adata )
 		{
-			if ( ( use_sz= formatter_.scan( scanref) ) > 0 ) {
-				fill_sz= buffer_.size() ;
-				buffer_.add( scanref, use_sz ) ;
-				if ( fill_sz == buffer_.size() ) // unable to pack any more data into buffer_
-					{ if ( fill_sz ) { do_msg() ; } else { signal( 0 ) ; } }
+			scanner<>	scanref( adata) ;
+			size_t use_sz, fill_sz ;
+
+			while ( scanref )
+			{
+				if ( ( use_sz= formatter_.scan( scanref) ) > 0 ) {
+					fill_sz= buffer_.size() ;
+					buffer_.add( scanref, use_sz ) ;
+					if ( fill_sz == buffer_.size() ) // unable to pack any more data into buffer_
+						{ if ( fill_sz ) { do_msg() ; } else { signal( 0 ) ; } }
+				}
+				else
+				if ( ! use_sz ) { do_msg() ; }
+					else { signal( use_sz ) ; }	// error
 			}
-			else
-			if ( ! use_sz ) { do_msg() ; }
-				else { signal( use_sz ) ; }	// error
 		}
-	}
 
 	// great place to use template metaprogramming to do storage version that handles exceptions
 
