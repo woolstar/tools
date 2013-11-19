@@ -3,12 +3,12 @@
 
 namespace btl
 {
-	template <int asize>
-		class build_static : public build_methods<expand_fixed>
+	template <int asize, class ExpandTrait = expand_fixed>
+		class build_static : public build_methods<ExpandTrait>
 		{
 			public:
 				build_static() : build_base(reinterpret_cast<sized_storage *>(storage_), sizeof(storage_)) { }
-				build_static(const buffer & abuf) : build_static() { add( abuf) ; }
+				build_static(const buffer & abuf) : build_static() { build_methods<ExpandTrait>::add( abuf) ; }
 				// build_static(char const * astr, size_t, char aencoding) ;
 
 			protected:
@@ -21,8 +21,8 @@ namespace btl
 
 	//
 
-	template <typename _uArray>
-		class build_external : public build_methods<expand_fixed>
+	template <typename _uArray, class ExpandTrait = expand_fixed>
+		class build_external : public build_methods<ExpandTrait>
 		{
 			public:
 				build_external( _uArray & abuffer ) : build_base( abuffer, std::extent< _uArray>::value ), storage_( abuffer ) { }
