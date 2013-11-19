@@ -7,10 +7,16 @@
 
 namespace btl
 {
+	template <char...> struct CtrlVec ;
+	template <char c> struct CtrlVec<c>
+		{ static_assert( ( c < 0x20 ), "Only for control characters" ) ;  enum { mask = ( 1 << c ) } ; } ;
+	template <char c, char... cs> struct CtrlVec<c, cs...>
+		{ static_assert( ( c < 0x20 ), "Only for control characters" ) ;  enum { mask = ( 1 << c) | CtrlVec<cs...>::mask } ; } ;
+
 	class	channel_text_scanf
 	{
 		public:
-			channel_text_scanf( unsigned int eolvec = ( ( 1 << '\n' ) | (1 << '\r') ) ) ;
+			channel_text_scanf( unsigned int eolvec = ( CtrlVec<'\n','\r'>::mask ) ) ;
 
 		protected:
 			void	reset(void) ;
@@ -53,6 +59,9 @@ namespace btl
 				StorageType	buffer_ ;
 		} ;
 
+	////
+	// - details
+
 	template <class ScanT, class StorT>
 		void	channel_buffered_scanner<ScanT, StorT>::data( const buffer & adata )
 		{
@@ -75,6 +84,7 @@ namespace btl
 
 	// great place to use template metaprogramming to do storage version that handles exceptions
 
+	static_assert( CtrlVec<'\0', '', ''>::mask == 0x7, "") ;
 } ;
 
 #endif
