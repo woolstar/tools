@@ -16,11 +16,13 @@ namespace btl
 	class	channel_text_scanf
 	{
 		public:
-			channel_text_scanf( unsigned int eolvec = ( CtrlVec<'\n','\r'>::mask ) ) ;
+			channel_text_scanf( unsigned int eolvec = ( CtrlVec<'\n','\r'>::mask ) ) : eolv_( eolvec ) { reset() ; }
 
 		protected:
-			void	reset(void) ;
-			void	scan( const buffer &, scanner<> & ) ;
+			void	reset(void) { curv_ = 0 ; }
+			size_t	scan( const buffer &, scanner<> &) ;
+
+			unsigned int	curv_ ;
 
 			const static int	kEOLMax = 31 ;
 			const unsigned int	eolv_ ;
@@ -33,7 +35,9 @@ namespace btl
 
 		protected:
 			void	reset(void) ;
-			void	scan( const buffer &, scanner<> & ) ;
+			size_t	scan( const buffer &, scanner<> & ) ;
+
+			void	decode( const buffer & ) ;
 
 			bool	in_header = true ;
 			int		msg_code, msg_length ;
