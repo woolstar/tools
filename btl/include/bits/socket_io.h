@@ -26,6 +26,7 @@ namespace btl
 			~ socket() { close() ; }
 
 			int	read(build_base &) const ;
+			int read_from(build_base &, struct sockaddr &) const ;
 			int	write(const buffer &) const ;
 
 				// helpers
