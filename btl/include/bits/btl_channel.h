@@ -3,6 +3,7 @@
 #ifndef _BTL_CHANNEL_H
 #define _BTL_CHANNEL_H 1
 
+#include <buffer>
 #include <container>
 
 namespace btl
@@ -43,6 +44,27 @@ namespace btl
 		private:
 			safe_list<channel_if>	list_ ;
 	} ;
+
+	template <class Tio, class Tbuffer = build_static<2048>>
+		class	feeder_connection_m : public manage::link
+		{
+			public:
+				feeder_connection_m(Tio && aio)
+					: dest_(make_unique<feeder>()), io_( std::move( aio)) { }
+
+				bool	isactive(void) const { return io_.isactive() ; }
+				bool	doread_() const
+				{
+
+				}
+				bool	dowrite_() const { return false ; }
+
+				std::unique_ptr<feeder>	dest_ ;
+
+			private:
+				Tio		io_ ;
+				Tbuffer	buffer_ ;
+		} ;
 
 } ;
 
