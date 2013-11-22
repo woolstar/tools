@@ -10,7 +10,8 @@ CFLAGS=-std=c++11 -Iinc
 OD=../obj
 LIBPATH=../libs
 
-LIBS=io_core.cpp io_basic.cpp io_init.cpp io_manage.cpp channel_scan.cpp socket.cpp
+LIBS=io_core.cpp io_basic.cpp io_init.cpp io_manage.cpp \
+	channel_base.cpp channel_scan.cpp
 OBJS=$(patsubst %.cpp, $(OD)/%.o, $(LIBS))
 
 TARGET=$(LIBPATH)/libio.a
