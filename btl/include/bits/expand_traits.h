@@ -31,9 +31,9 @@ namespace btl
 			public:
 				build_methods<TRAIT> &	add(const buffer & abuf) 
 					{ test( abuf.size()) ;  copy( abuf) ;  return * this ; }
-				build_methods<TRAIT> &	add(scanner<sized_storage> & ascan)
+				build_methods<TRAIT> &	add(scanner<> & ascan)
 					{ test( ascan.size() ) ;  copy( ascan) ;  return * this ; }
-				build_methods<TRAIT> &	add(scanner<sized_storage> & ascan, size_t asz )
+				build_methods<TRAIT> &	add(scanner<> & ascan, size_t asz )
 					{ test( asz ) ;  copy( ascan, asz ) ;  return * this ; }
 				build_methods<TRAIT> &	add(const char * astr)
 				{
