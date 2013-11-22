@@ -55,24 +55,24 @@ namespace btl
 					: dest_(make_unique<feeder>()), Tio( move( aio)) { }
 				feeder_connection_m(feeder_connection_m && afeedcon)
 					: Tio( move( afeedcon)),
-						dest_( move( afeedcon.dest_ )),
-						buffer_( afeedcon.buffer_ )
+						dest_( move( afeedcon.dest_ ))
 					{ }
-
-					// cloned from IO for manager
-				// bool	isactive(void) const { return io_.isactive() ; }
-				// const IO_Port port_ ;
 
 				bool	doread() const
 				{
-					return false ;
+					Tbuffer	buffer_ ;
+					size_t iread= Tio::read( buffer_ ) ;
+
+					if ( iread < 1 )
+						return false ;
+
+					dest_->data( buffer_) ;
+					buffer_.reset() ;
+					return true ;
 				}
 				bool	dowrite() const { return false ; }
 
 				std::unique_ptr<feeder>	dest_ ;
-
-			private:
-				Tbuffer	buffer_ ;
 		} ;
 
 } ;
