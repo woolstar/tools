@@ -54,7 +54,7 @@ namespace btl
 					iterator	operator++() { step() ;  return * this ; }
 					iterator	operator++(int) { iterator itmp( * this) ;  step() ;  return itmp ; }
 
-				public:
+				public: // detail
 					iterator() : _Base( nullptr) { }
 					iterator( _Tp * aptr) : _Base( aptr) { next_ = ( aptr ) ? _Base::ptr_-> next() : nullptr ; }
 
@@ -77,7 +77,7 @@ namespace btl
 					range	operator++() { step() ;  return * this ; }
 					range	operator++(int) { range itmp( * this) ;  step() ;  return itmp ; }
 
-				public:
+				public: // detail
 					range() : _Range( nullptr) { }
 					range( _Tp * aptr, _Tp * alim = nullptr) : _Range( aptr, alim)
 						{ next_ = ( _Range::limit_ != _Range::ptr_ ) ? _Range::ptr_-> next() : _Range::limit_ ; }
@@ -171,7 +171,7 @@ namespace btl
 			{
 			}
 
-		public:
+		public: // more detail
 
 			class	const_iterator : public _constBase
 			{
