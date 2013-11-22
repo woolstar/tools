@@ -23,6 +23,7 @@ namespace btl
 
 	extern iobasic	ioin ;
 	extern iobasic	ioout ;
+	extern iobasic	ioerr ;
 
 	static io::Init		__init ;
 
