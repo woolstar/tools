@@ -24,8 +24,8 @@ namespace btl
 			virtual sized_storage const *	getbuffer(void) const = 0 ;
 
 			void	copy(const buffer &) ;
-			void	copy(scanner<sized_storage> &) ;
-			void	copy(scanner<sized_storage> &, size_t) ;
+			void	copy(scanner<> &) ;
+			void	copy(scanner<> &, size_t) ;
 
 			friend sized_storage * begin(build_base &) ;
 			const friend sized_storage * begin(const build_base &) ;

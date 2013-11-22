@@ -14,12 +14,12 @@ void	build_base::copy(buffer const & abuf)
 	while ( scan && ( fill_ != limit_ ) ) { datasize_ ++ ;  *( fill_ ++)= * (scan ++ ) ; }
 }
 
-void	build_base::copy(scanner<sized_storage> & ascan)
+void	build_base::copy(scanner<> & ascan)
 {
 	while ( ascan && ( fill_ != limit_ ) ) { datasize_ ++ ;  *( fill_ ++)= * (ascan ++ ) ; }
 }
 
-void	build_base::copy(scanner<sized_storage> & ascan, size_t asz)
+void	build_base::copy(scanner<> & ascan, size_t asz)
 {
 	while ( ascan && asz && ( fill_ != limit_ ) ) { datasize_ ++ ;  *( fill_ ++)= * (ascan ++ ) ;  -- asz ; }
 }
