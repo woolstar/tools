@@ -13,30 +13,30 @@ namespace btl
 	template <char c, char... cs> struct CtrlVec<c, cs...>
 		{ static_assert( ( c < 0x20 ), "Only for control characters" ) ;  enum { mask = ( 1 << c) | CtrlVec<cs...>::mask } ; } ;
 
-	class	channel_text_scanf
+	class	text_scanf
 	{
 		public:
-			channel_text_scanf( unsigned int eolvec = ( CtrlVec<'\n','\r'>::mask ) ) : eolv_( eolvec ) { reset() ; }
+			text_scanf( unsigned int eolvec = ( CtrlVec<'\n','\r'>::mask ) ) : eolv_( eolvec ) { reset() ; }
 
-		protected:
 			void	reset(void) { curv_ = 0 ; }
 			size_t	scan( const buffer &, scanner<> &) ;
 
+		protected:
 			unsigned int	curv_ ;
 
 			const static int	kEOLMax = 31 ;
 			const unsigned int	eolv_ ;
 	} ;
 
-	class	channel_packet_scanf
+	class	packet_scanf
 	{
 		public:
-			channel_packet_scanf() { reset() ; }
+			packet_scanf() { reset() ; }
 
-		protected:
 			void	reset(void) ;
 			size_t	scan( const buffer &, scanner<> & ) ;
 
+		protected:
 			void	decode( const buffer & ) ;
 
 			bool	in_header = true ;
@@ -46,7 +46,7 @@ namespace btl
 	} ;
 
 	template <class ScannerType, class StorageType = build_static<1024>>
-		class	channel_buffered_scanner : public channel_if, public ScannerType
+		class	channel_buffered_scanner : public channel_if
 		{
 			public:
 				template< typename... Args >
@@ -74,7 +74,7 @@ namespace btl
 
 			while ( scanref )
 			{
-				if ( ( use_sz= formatter_.scan( scanref) ) > 0 ) {
+				if ( ( use_sz= formatter_.scan( buffer_, scanref) ) > 0 ) {
 					fill_sz= buffer_.size() ;
 					buffer_.add( scanref, use_sz ) ;
 					if ( fill_sz == buffer_.size() ) // unable to pack any more data into buffer_
