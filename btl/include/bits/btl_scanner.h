@@ -1,3 +1,8 @@
+// scanner -*- C++ -*-
+
+#ifndef _BTL_SCANNER_H
+#define _BTL_SCANNER_H	1
+
 namespace btl
 {
 
@@ -111,4 +116,6 @@ namespace btl
 	} ;
 
 } ;
+
+#endif
 
