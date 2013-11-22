@@ -19,9 +19,11 @@ namespace btl
 			virtual bool	init(void) { return true ; }
 			virtual void	data( const buffer & ) = 0 ;
 
+		protected:
 			virtual void	signal( int) { }
 
-		protected:
+			void	pass(const buffer &) const ;
+
 			feeder &	base_ ;
 
 			friend feeder ;
@@ -50,7 +52,7 @@ namespace btl
 		{
 			public:
 				feeder_connection_m(Tio && aio)
-					: dest_(make_unique<feeder>()), io_( std::move( aio)) { }
+					: dest_(make_unique<feeder>()), io_( move( aio)) { }
 
 				bool	isactive(void) const { return io_.isactive() ; }
 				bool	doread_() const
