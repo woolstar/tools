@@ -5,7 +5,7 @@ namespace btl
 {
 		// buffer
 	class	buffer ;
-	template <class T> class	scanner ;
+	// template <class T = char> class	scanner ;
 
 		// data
 	class	source ;
