@@ -5,29 +5,30 @@ using btl::packet_scanf ;
 
 	// text eol detecter
 
-size_t	text_scanf::scan( const buffer & acur, scanner<> ascan )
+btl::ScanAction	text_scanf::scan( const buffer & acur, scanner<> ascan, size_t & use )
 {
 	char c ;
-	size_t use = 0 ;
+
+	use = 0 ;
 
 	while ( ascan )
 	{
 		c= ** ascan ;
 
-ioerr << "char " << btl::format("%c", c) << btl::format(" (%02x)", c) << btl::format("[ %08x]", eolv_) << ".\n" ;
 		if (( c <= kEOLMax ) && ( eolv_ & ( 1 << c )))
 		{
-			if ( acur.size() || use) { return use ; }
+			if ( use ) { return eData ; }
 
-			++ ascan ;
-			if ( ! curv_ || ( curv_ & ( 1 << c ))) { curv_= ( 1 << c ) ;  return 0 ; }
-				else { curv_ |= ( 1 << c ) ;  continue ; }
+			++ use, ++ ascan ;
+			if ( acur.size() ) { return eComplete ; }
+			if ( ! curv_ || ( curv_ & ( 1 << c ))) { curv_= ( 1 << c ) ;  return eComplete ; }
+				else { curv_ |= ( 1 << c ) ;  return eNone ; }
 		}
 
 		++ ascan, ++ use ;  curv_= 0 ;
 	}
 
-	return use ;
+	return eData ;
 }
 
 	// packet framer

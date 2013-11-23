@@ -13,13 +13,20 @@ namespace btl
 	template <char c, char... cs> struct CtrlVec<c, cs...>
 		{ static_assert( ( c < 0x20 ), "Only for control characters" ) ;  enum { mask = ( 1 << c) | CtrlVec<cs...>::mask } ; } ;
 
+	enum ScanAction {
+			eNone = 0, 
+			eData,
+			eComplete,
+			eFault,
+		} ;
+
 	class	text_scanf
 	{
 		public:
 			text_scanf( unsigned int eolvec = ( CtrlVec<'\n','\r'>::mask ) ) : eolv_( eolvec ) { reset() ; }
 
 			void	reset(void) { curv_ = 0 ; }
-			size_t	scan( const buffer &, scanner<> ) ;
+			ScanAction	scan( const buffer &, scanner<>, size_t & ) ;
 
 		protected:
 			unsigned int	curv_ ;
@@ -34,7 +41,7 @@ namespace btl
 			packet_scanf() { reset() ; }
 
 			void	reset(void) ;
-			size_t	scan( const buffer &, scanner<> ) ;
+			ScanAction	scan( const buffer &, scanner<>, size_t & ) ;
 
 		protected:
 			void	decode( const buffer & ) ;
@@ -70,19 +77,28 @@ namespace btl
 		void	channel_buffered_scanner<ScanT, StorT>::data( const buffer & adata )
 		{
 			scanner<>	scanref( adata) ;
+			ScanAction scact ;
 			size_t use_sz, fill_sz ;
 
 			while ( scanref )
 			{
-				if ( ( use_sz= formatter_.scan( buffer_, scanref) ) > 0 ) {
-					fill_sz= buffer_.size() ;
-					buffer_.add( scanref, use_sz ) ;
-					if ( fill_sz == buffer_.size() ) // unable to pack any more data into buffer_
-						{ if ( fill_sz ) { do_msg() ; } else { signal( 0 ) ; } }
+				switch ( formatter_.scan( buffer_, scanref, use_sz) )
+				{
+					case eData:
+						fill_sz= buffer_.size() ;
+						buffer_.add( scanref, use_sz ) ;
+						if ( fill_sz == buffer_.size() ) // unable to pack any more data into buffer_
+							{ if ( fill_sz ) { do_msg() ; } else { signal( 0 ) ; } }
+						break ;
+					case eComplete:
+						do_msg() ;
+					case eNone:
+						scanref += use_sz ;
+						break ;
+					case eFault:
+						signal( eFault) ;
+						break ;
 				}
-				else
-				if ( ! use_sz ) { do_msg() ; }
-					else { signal( use_sz ) ; }	// error
 			}
 		}
 
