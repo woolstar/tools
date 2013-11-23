@@ -5,7 +5,7 @@ using btl::packet_scanf ;
 
 	// text eol detecter
 
-size_t	text_scanf::scan( const buffer & acur, scanner<> & ascan )
+size_t	text_scanf::scan( const buffer & acur, scanner<> ascan )
 {
 	char c ;
 	size_t use = 0 ;
@@ -13,6 +13,8 @@ size_t	text_scanf::scan( const buffer & acur, scanner<> & ascan )
 	while ( ascan )
 	{
 		c= ** ascan ;
+
+ioerr << "char " << btl::format("%c", c) << btl::format(" (%02x)", c) << btl::format("[ %08x]", eolv_) << ".\n" ;
 		if (( c <= kEOLMax ) && ( eolv_ & ( 1 << c )))
 		{
 			if ( acur.size() || use) { return use ; }
@@ -22,7 +24,7 @@ size_t	text_scanf::scan( const buffer & acur, scanner<> & ascan )
 				else { curv_ |= ( 1 << c ) ;  continue ; }
 		}
 
-		++ use ;  curv_= 0 ;
+		++ ascan, ++ use ;  curv_= 0 ;
 	}
 
 	return use ;

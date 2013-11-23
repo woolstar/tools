@@ -19,7 +19,7 @@ namespace btl
 			text_scanf( unsigned int eolvec = ( CtrlVec<'\n','\r'>::mask ) ) : eolv_( eolvec ) { reset() ; }
 
 			void	reset(void) { curv_ = 0 ; }
-			size_t	scan( const buffer &, scanner<> &) ;
+			size_t	scan( const buffer &, scanner<> ) ;
 
 		protected:
 			unsigned int	curv_ ;
@@ -34,7 +34,7 @@ namespace btl
 			packet_scanf() { reset() ; }
 
 			void	reset(void) ;
-			size_t	scan( const buffer &, scanner<> & ) ;
+			size_t	scan( const buffer &, scanner<> ) ;
 
 		protected:
 			void	decode( const buffer & ) ;
