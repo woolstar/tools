@@ -72,7 +72,6 @@ namespace btl
 			static_assert( StorT::_traits::exceptions, "requires support for exceptions at buffer overflow" ) ;
 
 			scanner<>	scanref( adata) ;
-			ScanAction scact ;
 			size_t use_sz, fill_sz ;
 			bool amsg ;
 			int asignal = 0 ;
@@ -81,7 +80,7 @@ namespace btl
 			{
 				try { amsg= formatter_.scan( buffer_, scanref ) ; }
 					catch ( const std::bad_alloc& e ) { asignal = 1 ; }
-					catch ( const std::legnth_error& e ) { asignal = 1 ; }
+					catch ( const std::length_error& e ) { asignal = 1 ; }
 
 				if ( asignal ) { signal( asignal) ;  return ; }
 				if ( amsg ) { do_msg() ; }
