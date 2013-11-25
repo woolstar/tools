@@ -20,8 +20,8 @@ namespace btl
 			build_if &	operator<<(scanner<> & abuf) { return add( abuf) ; }
 
 				// base calls
-			size_t	remaining(void) const { return worker_->remaining() ; }
-			void	reset(void) { worker_->reset() ; }
+			size_t	remaining(void) const { return worker_->remaining_() ; }
+			void	reset(void) { worker_->reset_() ; }
 
 		private:
 			build_if() { }
@@ -34,8 +34,8 @@ namespace btl
 				virtual void add_(scanner<> &) = 0 ;
 				virtual void add_(scanner<> &, size_t) = 0 ;
 
-				virtual size_t remaining(void) const = 0 ;
-				virtual void reset(void) = 0 ;
+				virtual size_t remaining_(void) const = 0 ;
+				virtual void reset_(void) = 0 ;
 			} ;
 
 			template <typename T>
@@ -45,8 +45,8 @@ namespace btl
 					void add_(scanner<> abuf) { buf_.add( abuf) ; }
 					void add_(scanner<> abuf, size_t asz) { buf_.add( abuf, asz) ; }
 
-					size_t remaining(void) const { return buf_.remaining() ; }
-					void	reset(void) { buf_.reset() ; }
+					size_t	remaining_(void) const { return buf_.remaining() ; }
+					void	reset_(void) { buf_.reset() ; }
 
 					T buf_ ;
 				} ;
