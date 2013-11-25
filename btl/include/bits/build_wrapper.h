@@ -9,7 +9,7 @@ namespace btl
 	{
 		public:
 			template <typename T>
-				build_if() : worker_( new adapter_t<T>()) { }
+				build_if(T x) : worker_( new adapter_t<T>(move( x))) { }
 
 				// standard build calls
 			build_if &	add(const buffer & abuf) { worker_->add_( abuf) ;  return * this ; }
@@ -45,6 +45,8 @@ namespace btl
 			template <typename T>
 				struct adapter_t : public concept_if
 				{
+					adapter_t( T && x) { buf_( move( x)) ; }
+
 					void add_(const buffer & abuf) { buf_.add( abuf) ; }
 					void add_(scanner<> abuf) { buf_.add( abuf) ; }
 					void add_(scanner<> abuf, size_t asz) { buf_.add( abuf, asz) ; }
