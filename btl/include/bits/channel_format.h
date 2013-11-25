@@ -51,7 +51,7 @@ namespace btl
 			public:
 				template< typename... Args >
 					channel_buffered_scanner( feeder & afeed, Args&&... args)
-						: formatter_(std::forward<Args>(args)...), channel_if( afeed ), buffer_<StorageType>() { }
+						: formatter_(std::forward<Args>(args)...), channel_if( afeed ), buffer_(StorageType()) { }
 
 				void	data( const buffer & adata ) ;
 
@@ -87,7 +87,7 @@ namespace btl
 			}
 		}
 
-	static_assert( CtrlVec<'\0', '', '\a'>::mask == 0xf3, "") ;
+	static_assert( CtrlVec<'\0', '', '\a'>::mask == 0x83, "") ;
 } ;
 
 #endif
