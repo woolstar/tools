@@ -60,7 +60,7 @@ namespace btl
 						{ pass( buffer_ ) ;  buffer_.reset() ;  formatter_.reset() ; }
 
 				ScannerType formatter_ ;
-				build_if<StorageType>	buffer_ ;
+				build_if	buffer_ ;
 		} ;
 
 	////
