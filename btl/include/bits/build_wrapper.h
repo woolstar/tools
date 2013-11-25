@@ -48,8 +48,8 @@ namespace btl
 					adapter_t( T && x) { buf_( move( x)) ; }
 
 					void add_(const buffer & abuf) { buf_.add( abuf) ; }
-					void add_(scanner<> abuf) { buf_.add( abuf) ; }
-					void add_(scanner<> abuf, size_t asz) { buf_.add( abuf, asz) ; }
+					void add_(scanner<> & abuf) { buf_.add( abuf) ; }
+					void add_(scanner<> & abuf, size_t asz) { buf_.add( abuf, asz) ; }
 
 					size_t	remaining_(void) const { return buf_.remaining() ; }
 					void	reset_(void) { buf_.reset() ; }
