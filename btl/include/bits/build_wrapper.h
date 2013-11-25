@@ -23,6 +23,9 @@ namespace btl
 			size_t	remaining(void) const { return worker_->remaining_() ; }
 			void	reset(void) { worker_->reset_() ; }
 
+				// get to const buffer
+			operator const buffer &() const { return worker_->getbuf_() ; }
+
 		private:
 			build_if() { }
 
@@ -36,6 +39,7 @@ namespace btl
 
 				virtual size_t remaining_(void) const = 0 ;
 				virtual void reset_(void) = 0 ;
+				virtual const buffer &	getbuf_(void) const = 0 ;
 			} ;
 
 			template <typename T>
@@ -47,6 +51,8 @@ namespace btl
 
 					size_t	remaining_(void) const { return buf_.remaining() ; }
 					void	reset_(void) { buf_.reset() ; }
+
+					const buffer &	getbuf_(void) const { return buf_ ; }
 
 					T buf_ ;
 				} ;
