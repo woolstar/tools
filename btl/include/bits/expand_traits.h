@@ -11,11 +11,17 @@ namespace btl
 
 			// exception on buffer overflow
 	class	expand_strict : virtual public build_base
-		{ protected: void expand(int) { throw std::length_error("exceeded buffer") ; } } ;
+	{
+		public: struct { enum { exceptions = 1 } ; } _traits ;
+		protected: void expand(int) { throw std::length_error("exceeded buffer") ; }
+	} ;
 
 			// attempt to reallocate larger buffer each time
 	class	expand_alloc : virtual public build_base
 	{
+		public:
+			struct { enum { exceptions = 1 } ; } _traits ;
+
 		protected:
 			void expand(int) ; 
 			std::unique_ptr<sized_storage []>	storage_ ;
