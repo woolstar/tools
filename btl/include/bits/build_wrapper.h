@@ -9,7 +9,7 @@ namespace btl
 	{
 		public:
 			template <typename T>
-				build_if(T x) : worker_( new adapter_t<T>()) { }
+				build_if(T) : worker_( new adapter_t<T>()) { }
 
 				// standard build calls
 			build_if &	add(const buffer & abuf) { worker_->add_( abuf) ;  return * this ; }
