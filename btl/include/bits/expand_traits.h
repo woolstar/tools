@@ -34,17 +34,17 @@ namespace btl
 	} ;
 
 			// add methods
-	template <class TRAIT>
-		class	build_methods : virtual public build_base, public TRAIT
+	template <class Trait>
+		class	build_methods : virtual public build_base, public Trait
 		{
 			public:
-				build_methods<TRAIT> &	add(const buffer & abuf) 
+				build_methods<Trait> &	add(const buffer & abuf) 
 					{ test( abuf.size()) ;  copy( abuf) ;  return * this ; }
-				build_methods<TRAIT> &	add(scanner<> & ascan)
+				build_methods<Trait> &	add(scanner<> & ascan)
 					{ test( ascan.size() ) ;  copy( ascan) ;  return * this ; }
-				build_methods<TRAIT> &	add(scanner<> & ascan, size_t asz )
+				build_methods<Trait> &	add(scanner<> & ascan, size_t asz )
 					{ test( asz ) ;  copy( ascan, asz ) ;  return * this ; }
-				build_methods<TRAIT> &	add(const char * astr)
+				build_methods<Trait> &	add(const char * astr)
 				{
 					int alen= strlen( astr) ;
 					test( alen) ;
@@ -52,13 +52,13 @@ namespace btl
 					return * this ;
 				}
 
-				build_methods<TRAIT> & operator<<(const buffer & abuf) { return add( abuf) ; }
-				build_methods<TRAIT> & operator<<(build_scanner & ascan) { return add( ascan) ; }
-				build_methods<TRAIT> & operator<<(const char * astr) { return add( astr) ; }
+				build_methods<Trait> & operator<<(const buffer & abuf) { return add( abuf) ; }
+				build_methods<Trait> & operator<<(build_scanner & ascan) { return add( ascan) ; }
+				build_methods<Trait> & operator<<(const char * astr) { return add( astr) ; }
 
-				build_methods<TRAIT> &	reset(void) { build_base::reset() ;  return * this ; }
-				build_methods<TRAIT> &	chomp()  { reduce() ;  return * this ; }
-				build_methods<TRAIT> &	terminate() { term() ;  return * this ; }
+				build_methods<Trait> &	reset(void) { build_base::reset() ;  return * this ; }
+				build_methods<Trait> &	chomp()  { reduce() ;  return * this ; }
+				build_methods<Trait> &	terminate() { term() ;  return * this ; }
 
 			protected:
 				build_methods() {}	// gets ignored
@@ -66,10 +66,10 @@ namespace btl
 				void	test(size_t) ;
 		} ;
 
-	template <class TRAIT> void	build_methods<TRAIT>::test(size_t asize)
+	template <class Trait> void	build_methods<Trait>::test(size_t asize)
 	{
 		if ( remaining() < asize ) 
-			{ TRAIT::expand( asize - remaining()) ; }
+			{ Trait::expand( asize - remaining()) ; }
 	}
 } ;
 
