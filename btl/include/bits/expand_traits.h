@@ -23,7 +23,7 @@ namespace btl
 	class	expand_alloc : virtual public build_base
 	{
 		public:
-			enum _traits { exceptions = 1 } ;
+			enum _traits { fixed = 0, exceptions = 1 } ;
 
 		protected:
 			void expand(int) ; 
