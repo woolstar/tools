@@ -7,12 +7,15 @@ namespace btl
 
 			// keep buffer restricted to initial size
 	class	expand_fixed : virtual public build_base
-		{ protected: void expand(int) { } } ;
+	{
+		public: enum _traits { fixed = 1, exceptions = 0 } ;
+		protected: void expand(int) { }
+	} ;
 
 			// exception on buffer overflow
 	class	expand_strict : virtual public build_base
 	{
-		public: struct { enum { exceptions = 1 } ; } _traits ;
+		public: enum _traits { fixed = 1, exceptions = 1 } ;
 		protected: void expand(int) { throw std::length_error("exceeded buffer") ; }
 	} ;
 
@@ -20,7 +23,7 @@ namespace btl
 	class	expand_alloc : virtual public build_base
 	{
 		public:
-			struct { enum { exceptions = 1 } ; } _traits ;
+			enum _traits { exceptions = 1 } ;
 
 		protected:
 			void expand(int) ; 
