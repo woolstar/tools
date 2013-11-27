@@ -24,7 +24,7 @@ namespace btl
 			IO_Socket	accept() const ;
 			IO_Socket	accept( struct sockaddr_in & ) const ;
 
-			template <class C, typename T> friend class connector<T> ;
+			template <class C, typename T> friend class connector<C,T> ;
 
 		private:
 				// setup
@@ -45,13 +45,15 @@ namespace btl
 
 			IO_Socket	accept() const ;
 
-			template <class C, typename T> friend class connector<T> ;
+			template <class C, typename T> friend class connector<C,T> ;
 	} ;
 
-	template <class C, typename T> class connector : public manage::link
+	template <class Cmgr, typename T> class connector : public manage::link
 	{
 		public:
-			connector( T x ) : conn_( move( x )), port_( x.port_ ) { }
+
+			template <class Genr>
+				connector( T x, Genr agen ) : conn_( move( x )), port_( x.port_ ), generator_{ agen } { }
 
 			bool	isactive(void) const { return conn_.isactive() ; }
 			bool	doread(void) const { conn_.close() ;  return false ; }
@@ -62,7 +64,7 @@ namespace btl
 				if ( tmpsock < 0 )
 					return false ;
 
-				mgr_ -> monitor( C( tmpsock)) ;
+				mgr_ -> monitor( generator_( tmpsock)) ;
 				return true ;
 			}
 
@@ -70,14 +72,16 @@ namespace btl
 
 		private:
 			T	conn_ ;
+
+			std::function<typename Cmgr, IO_Socket>	generator_ ;
 	} ;
 
 		// helper function to automatically determine T
 		//	call with make_connector<user_client_class>( connector_object ) ;
 		//
 
-	template <class C, typename T>
-		connector<C,T> make_connector( T x ) { return connector<C,T>( move( x) ) ; }
+	template <class C, typename T, class Genr>
+		connector<C,T> make_connector( T x, Genr agen ) { return connector<C,T>( move( x), agen ) ; }
 
 
 		// post connect
