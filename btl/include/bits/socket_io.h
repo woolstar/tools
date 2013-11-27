@@ -30,25 +30,34 @@ namespace btl
 			int	write(const buffer &) const ;
 
 				// helpers
+			static bool			resolv( in_addr_t &, const char * ahost ) ;
 			static unsigned int	getService(const char * aname, const char * atyp = "tcp" ) ;
-
-			static bool	resolv( in_addr_t &, const char * ahost ) ;
 
 			typedef IO_Port	IO_Socket ;
 
 		protected:
 			int	control(int, void *) const ;
 
+			// outbound
 				// PF_INET
-			static IO_Socket	connect(const char *, int, int = 0) ;
-			static IO_Socket	connect(const struct in_addr *, int, int = 0 ) ;
-
+			static IO_Socket	connect(const char *, int ) ;
+			static IO_Socket	connect(const struct in_addr *, int ) ;
 				// PF_LOCAL
 			static IO_Socket	connect(long) ;
 			static IO_Socket	connect(const char *) ;
 
+			// inbound
+				// setup
+			bool		bind(int, bool reuseaddr = true ) ;
+			bool		listen(int aqueue = 4) ;
+				// create connection
+			IO_Socket	accept( struct sockaddr_in & ) ;
+
+
+				// base operators
 			static IO_Socket	create(int atype, int afamily = PF_INET ) ;
-			static void		dispose( IO_Socket ) ;
+			static void			dispose( IO_Socket ) ;
+
 			static std::pair<IO_Socket, IO_Socket>	makepair( void) ;
 
 		private:
