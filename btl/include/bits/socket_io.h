@@ -27,7 +27,9 @@ namespace btl
 
 			int	read(build_base &) const ;
 			int read_from(build_base &, struct sockaddr &) const ;
-			int	write(const buffer &) const ;
+			int	print(const buffer &) const ;
+
+			int	ctrl(int, void *) const ;
 
 				// helpers
 			static bool			resolv( in_addr_t &, const char * ahost ) ;
@@ -36,7 +38,6 @@ namespace btl
 			typedef IO_Port	IO_Socket ;
 
 		protected:
-			int	control(int, void *) const ;
 
 			// outbound
 				// PF_INET
