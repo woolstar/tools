@@ -19,13 +19,17 @@ namespace btl
 			net_connector_t(int aport = 0, bool reuseaddr = true, int aqueue = 4 ) ;
 			~ net_connector_t() { close() ; }
 
+		protected:
+				// create connection
+			IO_Socket	accept() const ;
+			IO_Socket	accept( struct sockaddr_in & ) const ;
+
+			template <class C, typename T> friend class connector<C,T> ;
+
 		private:
 				// setup
 			bool		bind(int, bool reuseaddr ) ;
 			bool		listen(int aqueue ) ;
-
-				// create connection
-			IO_Socket	accept( struct sockaddr_in & ) const ;
 
 	} ;
 
