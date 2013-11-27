@@ -10,16 +10,26 @@ CFLAGS=-std=c++11 -Iinc
 OD=../obj
 LIBPATH=../libs
 
-LIBS=io_core.cpp io_basic.cpp io_init.cpp io_manage.cpp \
+IOLIBS=io_core.cpp io_basic.cpp io_init.cpp io_manage.cpp \
 	channel_base.cpp channel_scan.cpp
-OBJS=$(patsubst %.cpp, $(OD)/%.o, $(LIBS))
+SOCKLIBS=socket.cpp
+IOBJS=$(patsubst %.cpp, $(OD)/%.o, $(IOLIBS))
+SOBJS=$(patsubst %.cpp, $(OD)/%.o, $(SOCKLIBS))
 
-TARGET=$(LIBPATH)/libio.a
+ITARGET=$(LIBPATH)/libio.a
+STARGET=$(LIBPATH)/libsocket.a
 
-$(TARGET): $(LIBPATH) $(OD) $(OBJS) $(LIBS)
-	rm -f $(LIBPATH)/libio.a
-	ar rc $(LIBPATH)/libio.a $(OBJS)
-	ranlib $(LIBPATH)/libio.a
+all: $(ITARGET) $(STARGET)
+
+$(ITARGET): $(LIBPATH) $(OD) $(IOBJS) $(IOLIBS)
+	rm -f $@
+	ar rc $@ $(IOBJS)
+	ranlib $@
+
+$(STARGET): $(LIBPATH) $(OD) $(SOBJS) $(SOCKLIBS)
+	rm -f $@
+	ar rc $@ $(SOBJS)
+	ranlib $@
 
 
 $(OD):
@@ -40,5 +50,5 @@ $(OD)/%.o: %.cpp
 	$(CXX) $(CFLAGS) -o $@ -c $<
 
 clean:
-	rm -fr $(OD) $(TARGET)
+	rm -fr $(OD) $(ITARGET) $(STARGET)
 
