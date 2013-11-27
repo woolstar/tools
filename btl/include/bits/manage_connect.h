@@ -13,18 +13,20 @@ namespace btl
 		//	pass result to iom, with connector_t for handler
 		//
 
-	class	connector_t : public socket
+	class	net_connector_t : public socket
 	{
 		public:
-			enum ConstructArg { None = 0, Reuse = 1, ReuseADDR } ;
-
-			connector_t(int = 0, ConstructArg = None ) ;
-			~ connector_t() { close() ; }
+			net_connector_t(int aport = 0, bool reuseaddr = true, int aqueue = 4 ) ;
+			~ net_connector_t() { close() ; }
 
 		private:
-			static	IO_Socket	listen(int = 0, ConstructArg = None ) ;
+				// setup
+			bool		bind(int, bool reuseaddr ) ;
+			bool		listen(int aqueue ) ;
 
-			IO_Socket	accept() ;
+				// create connection
+			IO_Socket	accept( struct sockaddr_in & ) const ;
+
 	} ;
 
 	class	local_connector_t : public socket
@@ -37,7 +39,7 @@ namespace btl
 
 		private:
 
-			IO_Socket	accept() ;
+			IO_Socket	accept() const ;
 
 	} ;
 

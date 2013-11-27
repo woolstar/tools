@@ -46,13 +46,6 @@ namespace btl
 			static IO_Socket	connect(long) ;
 			static IO_Socket	connect(const char *) ;
 
-			// inbound
-				// setup
-			bool		bind(int, bool reuseaddr = true ) ;
-			bool		listen(int aqueue = 4) ;
-				// create connection
-			IO_Socket	accept( struct sockaddr_in & ) ;
-
 
 				// base operators
 			static IO_Socket	create(int atype, int afamily = PF_INET ) ;
