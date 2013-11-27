@@ -13,7 +13,7 @@ namespace btl
 		//	pass result to iom, with connector_t for handler
 		//
 
-	class	connector_t : public io
+	class	connector_t : public socket
 	{
 		public:
 			enum ConstructArg { None = 0, Reuse = 1, ReuseADDR } ;
@@ -27,7 +27,7 @@ namespace btl
 			IO_Socket	accept() ;
 	} ;
 
-	class	local_connector_t : public io
+	class	local_connector_t : public socket
 	{
 		public:
 			local_connector_t( long = 0 ) ;
