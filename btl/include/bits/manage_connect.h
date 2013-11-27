@@ -24,7 +24,7 @@ namespace btl
 			IO_Socket	accept() const ;
 			IO_Socket	accept( struct sockaddr_in & ) const ;
 
-			template <class C, typename T> friend class connector<C,T> ;
+			template <class C, typename T> friend class connector<T> ;
 
 		private:
 				// setup
@@ -41,10 +41,11 @@ namespace btl
 
 			~ local_connector_t() { close() ; }
 
-		private:
+		protected:
 
 			IO_Socket	accept() const ;
 
+			template <class C, typename T> friend class connector<T> ;
 	} ;
 
 	template <class C, typename T> class connector : public manage::link
