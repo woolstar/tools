@@ -62,7 +62,6 @@ namespace btl
 			{
 				public:
 					init() ;
-					~ init() ;
 			} ;
 
 #ifdef WIN32
