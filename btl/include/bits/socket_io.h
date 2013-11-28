@@ -23,13 +23,16 @@ namespace btl
 	class	socket : public io
 	{
 		public:
-			~ socket() { close() ; }
+
+			~ socket() ;
 
 			int	read(build_base &) const ;
 			int read_from(build_base &, struct sockaddr &) const ;
 			int	print(const buffer &) const ;
 
 			int	ctrl(int, void *) const ;
+
+			const socket&	operator<<(const buffer & abuf) const { print( abuf) ;  return * this ; }
 
 				// helpers
 			static bool			resolv( in_addr_t &, const char * ahost ) ;
@@ -62,7 +65,9 @@ namespace btl
 					~ init() ;
 			} ;
 
+#ifdef WIN32
 			static init	__init ;	// windows WINSockInit
+#endif
 	} ;
 } ;
 
