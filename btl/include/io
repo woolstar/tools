@@ -28,7 +28,7 @@
 #include <bits/btl_manage.h>
 
 #include <bits/socket_io.h>
-#include <bits/manage_connect.h>
+#include <bits/socket_connector.h>
 
 #include <bits/btl_channel.h>
 #include <bits/channel_format.h>
