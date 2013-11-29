@@ -36,11 +36,9 @@ namespace btl
 
 				// helpers
 			static bool			resolv( in_addr_t &, const char * ahost ) ;
-			static unsigned int	getService(const char * aname, const char * atyp = "tcp" ) ;
-
-			typedef IO_Port	IO_Socket ;
 
 		protected:
+			typedef IO_Port	IO_Socket ;
 
 			// outbound
 				// PF_INET
