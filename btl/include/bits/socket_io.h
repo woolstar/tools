@@ -34,9 +34,6 @@ namespace btl
 
 			const socket&	operator<<(const buffer & abuf) const { print( abuf) ;  return * this ; }
 
-				// helpers
-			static bool			resolv( in_addr_t &, const char * ahost ) ;
-
 		protected:
 			typedef IO_Port	IO_Socket ;
 
@@ -54,6 +51,10 @@ namespace btl
 			static void			dispose( IO_Socket ) ;
 
 			static std::pair<IO_Socket, IO_Socket>	makepair( void) ;
+
+		public:
+				// helpers
+			static bool			resolv( in_addr_t &, const char * ahost ) ;
 
 		private:
 			class init
