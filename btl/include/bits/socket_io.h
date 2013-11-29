@@ -34,6 +34,16 @@ namespace btl
 
 			const socket&	operator<<(const buffer & abuf) const { print( abuf) ;  return * this ; }
 
+				// create outbound
+			template <class... Args>
+				socket make_connection(Args&& ... args)
+				{
+					IO_Socket tmpport= connect( std::forward<Args>(args)...) ;
+					if ( tmpport < 0 ) { throw std::runtime_error("Unable to connect") ; }
+
+					return socket( tmpport) ;
+				}
+
 		protected:
 			typedef IO_Port	IO_Socket ;
 
@@ -45,7 +55,6 @@ namespace btl
 			static IO_Socket	connect(long) ;
 			static IO_Socket	connect(const char *) ;
 
-
 				// base operators
 			static IO_Socket	create(int atype, int afamily = PF_INET ) ;
 			static void			dispose( IO_Socket ) ;
@@ -53,6 +62,9 @@ namespace btl
 			static std::pair<IO_Socket, IO_Socket>	makepair( void) ;
 
 		public:
+			socket(IO_Socket aport) : io( aport) { }
+			socket(socket &&) = default ;
+
 				// helpers
 			static bool			resolv( in_addr_t &, const char * ahost ) ;
 
