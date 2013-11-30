@@ -18,7 +18,7 @@ socket::IO_Socket	socket::connect(const struct in_addr * ahost, int aslot )
 {
 	int  tmpret, tmpopt ;
 	socket::IO_Socket	tmpport ;
-	struct sockaddr_in	ssin ;
+	struct sockaddr_in	ssin = { 0 } ;
 
 	tmpport= create(SOCK_STREAM) ;
 	if ( tmpport < 0 ) { return tmpport ; }
