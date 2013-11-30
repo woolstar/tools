@@ -36,7 +36,7 @@ namespace btl
 
 				// create outbound
 			template <class... Args>
-				socket make_connection(Args&& ... args)
+				static socket make_connection(Args&& ... args)
 				{
 					IO_Socket tmpport= connect( std::forward<Args>(args)...) ;
 					if ( tmpport < 0 ) { throw std::runtime_error("Unable to connect") ; }
