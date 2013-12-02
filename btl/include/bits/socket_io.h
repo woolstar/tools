@@ -33,6 +33,7 @@ namespace btl
 			int	ctrl(int, void *) const ;
 
 			const socket_io&	operator<<(const buffer & abuf) const { print( abuf) ;  return * this ; }
+			const socket_io&	operator>>(build_base & abuf) const { read( abuf) ;  return * this ; }
 
 				// create outbound
 			template <class... Args>
