@@ -19,6 +19,7 @@ namespace btl
 			int	ctrl( int icode, void * aptr) const ;
 
 			const iobasic&	operator<<(const buffer & abuf) const { print(abuf) ;  return * this ; }
+			const iobasic&	operator>>(build_base & zbuf) const { read(zbuf) ;  return * this ; }
 	} ;
 
 	extern iobasic	ioin ;
