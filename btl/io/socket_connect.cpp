@@ -4,9 +4,9 @@
 #	include <sys/un.h>
 #endif
 
-using btl::socket ;
+using btl::socket_io ;
 
-socket::IO_Socket	socket::connect(const char * ahost, int aslot )
+socket_io::IO_Socket	socket_io::connect(const char * ahost, int aslot )
 {
 	struct in_addr tmpaddr ;
 
@@ -14,10 +14,10 @@ socket::IO_Socket	socket::connect(const char * ahost, int aslot )
 	return connect( & tmpaddr, aslot ) ;
 }
 
-socket::IO_Socket	socket::connect(const struct in_addr * ahost, int aslot )
+socket_io::IO_Socket	socket_io::connect(const struct in_addr * ahost, int aslot )
 {
 	int  tmpret, tmpopt ;
-	socket::IO_Socket	tmpport ;
+	socket_io::IO_Socket	tmpport ;
 	struct sockaddr_in	ssin = { 0 } ;
 
 	tmpport= create(SOCK_STREAM) ;
@@ -43,10 +43,10 @@ socket::IO_Socket	socket::connect(const struct in_addr * ahost, int aslot )
 	//
 	//
 
-socket::IO_Socket	socket::connect( long aslot)
+socket_io::IO_Socket	socket_io::connect( long aslot)
 {
 	int  tmpret ;
-	socket::IO_Socket	tmpport ;
+	socket_io::IO_Socket	tmpport ;
 	struct sockaddr_un	ssin = { 0 } ;
 
 	if ( aslot < 1 ) { return -1 ; }
@@ -66,10 +66,10 @@ socket::IO_Socket	socket::connect( long aslot)
 	return -1 ;
 }
 
-socket::IO_Socket	socket::connect( const char * apath )
+socket_io::IO_Socket	socket_io::connect( const char * apath )
 {
 	int  tmpret ;
-	socket::IO_Socket	tmpport ;
+	socket_io::IO_Socket	tmpport ;
 	struct sockaddr_un	ssin = { 0 } ;
 
 	if ( ! apath || ! * apath ) { return -1 ; }

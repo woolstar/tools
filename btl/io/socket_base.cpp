@@ -8,11 +8,11 @@
 #	include <arpa/inet.h>
 #endif
 
-using btl::socket ;
+using btl::socket_io ;
 
 	//
 
-bool	socket::resolv( in_addr_t & zaddr, const char * ahost )
+bool	socket_io::resolv( in_addr_t & zaddr, const char * ahost )
 {
 	int tmpReturn, ia, ib, ic, id ;
 
@@ -29,12 +29,12 @@ bool	socket::resolv( in_addr_t & zaddr, const char * ahost )
 
 	//
 
-socket::IO_Socket	socket::create(int atype, int afamily)
+socket_io::IO_Socket	socket_io::create(int atype, int afamily)
 {
 	return ::socket( afamily, atype, 0) ;
 }
 
-void	socket::dispose( socket::IO_Socket aport )
+void	socket_io::dispose( socket_io::IO_Socket aport )
 {
 
 #ifdef	WIN32
@@ -49,7 +49,7 @@ void	socket::dispose( socket::IO_Socket aport )
 
 #ifdef WIN32
 
-socket::init::init()
+socket_io::init::init()
 {
 	WSADATA	wsadata ;
 	WORD version = MAKEWORD( 1, 1 ) ;
@@ -57,7 +57,7 @@ socket::init::init()
 	if ( 0 != WSAStartup(version,&wsadata)) exit( 1) ;
 }
 
-socket::init	socket::init::__init ;
+socket_io::init	socket_io::init::__init ;
 
 #endif
 

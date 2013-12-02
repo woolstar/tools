@@ -1,8 +1,8 @@
 #include <io>
 
-using btl::socket ;
+using btl::socket_io ;
 
-socket:: ~ socket()
+socket_io:: ~ socket_io()
 {
 	if ( active_ )
 	{
@@ -11,7 +11,7 @@ socket:: ~ socket()
 	}
 }
 
-int	socket::read(btl::build_base & zdest) const
+int	socket_io::read(btl::build_base & zdest) const
 {
 	int iret, istruc, isz ;
 	void * bufptr ;
@@ -34,7 +34,7 @@ int	socket::read(btl::build_base & zdest) const
 	return iret ;
 }
 
-int	socket::read_from(btl::build_base & zdest, struct sockaddr & zaddr) const
+int	socket_io::read_from(btl::build_base & zdest, struct sockaddr & zaddr) const
 {
 	int iret, istruc, isz ;
 	socklen_t iaddrsz ;
@@ -59,13 +59,13 @@ int	socket::read_from(btl::build_base & zdest, struct sockaddr & zaddr) const
 	return iret ;
 }
 
-int	socket::print(const btl::buffer & abuf) const
+int	socket_io::print(const btl::buffer & abuf) const
 {
 	if ( ! active_ ) return -1 ;
 	return ::send(port_, * abuf, abuf.size(), 0) ;
 }
 
-int socket::ctrl(int, void *) const
+int socket_io::ctrl(int, void *) const
 {
 	return -1 ;
 }

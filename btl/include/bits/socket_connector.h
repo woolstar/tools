@@ -13,7 +13,7 @@ namespace btl
 		//	pass result to iom, with connector_t for handler
 		//
 
-	class	net_connector_t : public socket
+	class	net_connector_t : public socket_io
 	{
 		public:
 			net_connector_t(int aport = 0, bool reuseaddr = true, int aqueue = 4 ) ;
@@ -33,7 +33,7 @@ namespace btl
 
 	} ;
 
-	class	local_connector_t : public socket
+	class	local_connector_t : public socket_io
 	{
 		public:
 			local_connector_t( long = 0 ) ;

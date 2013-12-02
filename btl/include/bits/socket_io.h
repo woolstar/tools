@@ -20,11 +20,11 @@
 
 namespace btl
 {
-	class	socket : public io
+	class	socket_io : public io
 	{
 		public:
 
-			~ socket() ;
+			~ socket_io() ;
 
 			int	read(build_base &) const ;
 			int read_from(build_base &, struct sockaddr &) const ;
@@ -32,16 +32,16 @@ namespace btl
 
 			int	ctrl(int, void *) const ;
 
-			const socket&	operator<<(const buffer & abuf) const { print( abuf) ;  return * this ; }
+			const socket_io&	operator<<(const buffer & abuf) const { print( abuf) ;  return * this ; }
 
 				// create outbound
 			template <class... Args>
-				static socket make_connection(Args&& ... args)
+				static socket_io make_connection(Args&& ... args)
 				{
 					IO_Socket tmpport= connect( std::forward<Args>(args)...) ;
 					if ( tmpport < 0 ) { throw std::runtime_error("Unable to connect") ; }
 
-					return socket( tmpport) ;
+					return socket_io( tmpport) ;
 				}
 
 		protected:
@@ -62,8 +62,8 @@ namespace btl
 			static std::pair<IO_Socket, IO_Socket>	makepair( void) ;
 
 		public:
-			socket(IO_Socket aport) : io( aport) { }
-			socket(socket &&) = default ;
+			socket_io(IO_Socket aport) : io( aport) { }
+			socket_io(socket_io &&) = default ;
 
 				// helpers
 			static bool			resolv( in_addr_t &, const char * ahost ) ;
