@@ -17,7 +17,7 @@ namespace btl
 	class	net_connector_t : public socket_io
 	{
 		public:
-			net_connector_t(int aport = 0, bool reuseaddr = true, int aqueue = 4 ) ;
+			net_connector_t(int aslot = 0, bool reuseaddr = true, int aqueue = 4 ) ;
 			~ net_connector_t() { close() ; }
 
 		protected:
@@ -29,7 +29,8 @@ namespace btl
 
 		private:
 				// setup
-			bool		bind(int, bool reuseaddr ) ;
+			static IO_Socket	bind(int, bool reuseaddr ) ;
+
 			bool		listen(int aqueue ) ;
 
 	} ;
