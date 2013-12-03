@@ -20,6 +20,8 @@
 
 namespace btl
 {
+	typedef IO_Port	IO_Socket ;
+
 	class	socket_io : public io
 	{
 		public:
@@ -46,9 +48,7 @@ namespace btl
 				}
 
 		protected:
-			typedef IO_Port	IO_Socket ;
-
-			// outbound
+				// outbound
 				// PF_INET
 			static IO_Socket	connect(const char *, int ) ;
 			static IO_Socket	connect(const struct in_addr *, int ) ;
