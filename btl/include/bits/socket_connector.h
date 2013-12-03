@@ -1,5 +1,5 @@
-#ifndef _MANAGED_IO_H
-#define _MANAGED_IO_H 1
+#ifndef _SOCKET_CONN_H
+#define _SOCKET_CONN_H 1
 
 #include <sys/types.h>
 
