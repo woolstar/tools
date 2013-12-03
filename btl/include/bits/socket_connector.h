@@ -20,6 +20,9 @@ namespace btl
 			net_connector_t(int aslot = 0, bool reuseaddr = true, int aqueue = 4 ) ;
 			~ net_connector_t() { close() ; }
 
+			template <class SockConn>
+				SockConn create(void) const { return SockConn( accept()) ; }
+
 		protected:
 				// create connection
 			IO_Socket	accept() const ;
