@@ -12,6 +12,7 @@ namespace btl
 		//	optinal argument use SO_REUSEADDR to try and use a previously busy port
 		//	pass result to iom, with connector_t for handler
 		//
+	template <class Cmgr, typename T> class connector ;
 
 	class	net_connector_t : public socket_io
 	{
@@ -24,7 +25,7 @@ namespace btl
 			IO_Socket	accept() const ;
 			IO_Socket	accept( struct sockaddr_in & ) const ;
 
-			template <class C, typename T> friend class connector<C,T> ;
+			template <class C, typename T> friend class connector ;
 
 		private:
 				// setup
@@ -45,7 +46,7 @@ namespace btl
 
 			IO_Socket	accept() const ;
 
-			template <class C, typename T> friend class connector<C,T> ;
+			template <class C, typename T> friend class connector ;
 	} ;
 
 	template <class Cmgr, typename T> class connector : public manage::link
@@ -53,7 +54,7 @@ namespace btl
 		public:
 
 			template <class Genr>
-				connector( T x, Genr agen ) : conn_( move( x )), port_( x.port_ ), generator_{ agen } { }
+				connector( T x, Genr agen ) : conn_( move( x )), generator_{ agen } { }
 
 			bool	isactive(void) const { return conn_.isactive() ; }
 			bool	doread(void) const { conn_.close() ;  return false ; }
@@ -68,12 +69,10 @@ namespace btl
 				return true ;
 			}
 
-			const IO_Port	port_ ;
-
 		private:
 			T	conn_ ;
 
-			std::function<typename Cmgr, IO_Socket>	generator_ ;
+			std::function<Cmgr(IO_Socket)>	generator_ ;
 	} ;
 
 		// helper function to automatically determine T
