@@ -12,7 +12,8 @@ LIBPATH=../libs
 
 IOLIBS=io_core.cpp io_basic.cpp io_init.cpp io_manage.cpp \
 	channel_base.cpp channel_scan.cpp
-SOCKLIBS=socket.cpp socket_base.cpp socket_connect.cpp
+SOCKLIBS=socket.cpp socket_base.cpp socket_connect.cpp \
+	net_connector.cpp
 IOBJS=$(patsubst %.cpp, $(OD)/%.o, $(IOLIBS))
 SOBJS=$(patsubst %.cpp, $(OD)/%.o, $(SOCKLIBS))
 
