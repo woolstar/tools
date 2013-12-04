@@ -13,9 +13,21 @@ net_connector::net_connector(int aslot, bool reuseaddr, int aqueue )
 
 	//
 
-bool	net_connector::listen( int aqueue )
+btl::IO_Socket	net_connector::accept() const
 {
-	return ( 0 == ::listen( port_, aqueue )) ;
+	socklen_t	tmpsz ;
+	struct sockaddr_in	tmpaddr ;
+
+	tmpsz= sizeof( tmpaddr) ;
+	return ::accept( port_, (sockaddr *) & tmpaddr, & tmpsz) ;
+}
+
+btl::IO_Socket	net_connector::accept(struct sockaddr_in & zaddr ) const
+{
+	socklen_t	tmpsz ;
+
+	tmpsz= sizeof( zaddr) ;
+	return ::accept( port_, (sockaddr *) & zaddr, & tmpsz) ;
 }
 
 	//
@@ -54,4 +66,8 @@ int		net_connector::getslot( int aslot, IO_Socket aport )
 	return aslot ;
 }
 
+bool	net_connector::listen( int aqueue )
+{
+	return ( 0 == ::listen( port_, aqueue )) ;
+}
 
