@@ -29,7 +29,7 @@ bool	socket_io::resolv( in_addr_t & zaddr, const char * ahost )
 
 	//
 
-IO_Socket	socket_io::create(int atype, int afamily)
+btl::IO_Socket	socket_io::create(int atype, int afamily)
 {
 	return ::socket( afamily, atype, 0) ;
 }
