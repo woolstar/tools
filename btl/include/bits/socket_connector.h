@@ -39,6 +39,8 @@ namespace btl
 
 			bool		listen(int aqueue ) ;
 
+		public:
+			net_connector(net_connector &&) = default ;
 	} ;
 
 	class	local_connector : public socket_io
@@ -54,6 +56,9 @@ namespace btl
 			IO_Socket	accept() const ;
 
 			template <class C, typename T> friend class connector ;
+
+		public:
+			local_connector(local_connector &&) = default ;
 	} ;
 
 	template <class Cmgr, typename T> class connector : public manage::link
