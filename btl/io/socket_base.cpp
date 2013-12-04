@@ -29,12 +29,12 @@ bool	socket_io::resolv( in_addr_t & zaddr, const char * ahost )
 
 	//
 
-socket_io::IO_Socket	socket_io::create(int atype, int afamily)
+IO_Socket	socket_io::create(int atype, int afamily)
 {
 	return ::socket( afamily, atype, 0) ;
 }
 
-void	socket_io::dispose( socket_io::IO_Socket aport )
+void	socket_io::dispose( IO_Socket aport )
 {
 
 #ifdef	WIN32
