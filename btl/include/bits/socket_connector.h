@@ -14,11 +14,11 @@ namespace btl
 		//
 	template <class Cmgr, typename T> class connector ;
 
-	class	net_connector_t : public socket_io
+	class	net_connector : public socket_io
 	{
 		public:
-			net_connector_t(int aslot = 0, bool reuseaddr = true, int aqueue = 4 ) ;
-			~ net_connector_t() { close() ; }
+			net_connector(int aslot = 0, bool reuseaddr = true, int aqueue = 4 ) ;
+			~ net_connector() { close() ; }
 
 			template <class SockConn>
 				SockConn create(void) const { return SockConn( accept()) ; }
@@ -41,13 +41,13 @@ namespace btl
 
 	} ;
 
-	class	local_connector_t : public socket_io
+	class	local_connector : public socket_io
 	{
 		public:
-			local_connector_t( long = 0 ) ;
-			local_connector_t( const char * apath ) ;
+			local_connector( long = 0 ) ;
+			local_connector( const char * apath ) ;
 
-			~ local_connector_t() { close() ; }
+			~ local_connector() { close() ; }
 
 		protected:
 

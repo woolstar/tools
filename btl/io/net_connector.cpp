@@ -1,8 +1,8 @@
 #include <io>
 
-using btl::net_connector_t ;
+using btl::net_connector ;
 
-net_connector_t::net_connector_t(int aslot, bool reuseaddr, int aqueue )
+net_connector::net_connector(int aslot, bool reuseaddr, int aqueue )
 	: socket_io( bind( aslot, reuseaddr ) ),
 		slot_( getslot( aslot, port_ ))
 {
@@ -13,14 +13,14 @@ net_connector_t::net_connector_t(int aslot, bool reuseaddr, int aqueue )
 
 	//
 
-bool	net_connector_t::listen( int aqueue )
+bool	net_connector::listen( int aqueue )
 {
 	return ( 0 == ::listen( port_, aqueue )) ;
 }
 
 	//
 
-btl::IO_Socket	net_connector_t::bind(int aslot, bool reuseaddr)
+btl::IO_Socket	net_connector::bind(int aslot, bool reuseaddr)
 {
 	IO_Socket	sock= socket_io::create( SOCK_STREAM) ;
 	int tmpret ;
@@ -38,7 +38,7 @@ btl::IO_Socket	net_connector_t::bind(int aslot, bool reuseaddr)
 	return sock ;
 }
 
-int		net_connector_t::getslot( int aslot, IO_Socket aport )
+int		net_connector::getslot( int aslot, IO_Socket aport )
 {
 	if ( ! aslot )
 	{
