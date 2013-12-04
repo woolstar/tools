@@ -23,6 +23,8 @@ namespace btl
 			template <class SockConn>
 				SockConn create(void) const { return SockConn( accept()) ; }
 
+			const int slot_ ;
+
 		protected:
 				// create connection
 			IO_Socket	accept() const ;
@@ -33,6 +35,7 @@ namespace btl
 		private:
 				// setup
 			static IO_Socket	bind(int, bool reuseaddr ) ;
+			static int			getslot( int aslot, IO_Socket ) ;
 
 			bool		listen(int aqueue ) ;
 
