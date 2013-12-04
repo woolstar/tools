@@ -32,7 +32,7 @@ btl::IO_Socket	net_connector::bind(int aslot, bool reuseaddr)
 	tmpblock.sin_port= htons( aslot ) ; 
 	tmpblock.sin_addr.s_addr= 0 ;
 
-	tmpret= ::bind( aslot, (sockaddr *) & tmpblock, sizeof( tmpblock)) ;
+	tmpret= ::bind( sock, (sockaddr *) & tmpblock, sizeof( tmpblock)) ;
 		if ( tmpret ) { dispose( sock) ;  throw std::runtime_error("unable to bind socket") ; }
 
 	return sock ;
