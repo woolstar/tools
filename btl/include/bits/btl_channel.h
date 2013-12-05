@@ -75,6 +75,10 @@ namespace btl
 				std::unique_ptr<feeder>	dest_ ;
 		} ;
 
+	template <class Tio, class Tbuffer = build_static<2048>>
+		feeder_connection_m<Tio,Tbuffer> make_feeder( Tio && aio, Tbuffer abuf = Tbuffer() )
+			{ return feeder_connection_m<Tio,Tbuffer>( move( aio)) ; }
+
 } ;
 
 #endif
