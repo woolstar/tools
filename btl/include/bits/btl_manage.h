@@ -24,22 +24,26 @@ namespace btl
 			} ;
 
 			template <typename T>
-				void	monitor( T x, int amodes = eRead )
+				void	monitor( T && x, IO_Port aport, int amodes = eRead )
 				{
-					IO_Port	iport = x.port_ ;
-					pollfd tmprec = { iport, 0, 0 } ;
+					pollfd tmprec = { aport, 0, 0 } ;
 
 					if ( amodes & Modes::eRead ) { tmprec.events |= POLLIN ; }
 					if ( amodes & Modes::eWrite ) { tmprec.events |= POLLOUT ; }
 
-					stor_.emplace( make_pair( iport, make_unique<adapter_t<T>>( this, move( x )) ) ) ;
+					stor_.emplace( make_pair( aport, make_unique<adapter_t<T>>( this, move( x )) ) ) ;
 
 						// look for possible previous record and destroy it
 					auto p= std::find_if( poll_.begin(), poll_.end(),
-											[iport](const pollfd& rec){ return rec.fd == iport ; }) ;
+											[aport](const pollfd& rec){ return rec.fd == aport ; }) ;
 					if ( p != poll_.end()) { poll_.erase( p) ; }
 					poll_.push_back( tmprec) ;
 				}
+
+			template <typename T>
+				void	monitor( T && x, const btl::io & aio, int amodes = eRead ) { monitor( move( x), aio.port_, amodes ) ; }
+			template <typename T>
+				void	monitor( T && x ) { monitor( move( x ), x.port_ ) ; }
 
 			void	destroy( void ) ;
 
