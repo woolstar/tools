@@ -77,7 +77,7 @@ namespace btl
 				if ( tmpsock < 0 )
 					return false ;
 
-				mgr_ -> monitor( generator_( tmpsock)) ;
+				mgr_ -> monitor( generator_( tmpsock), tmpsock ) ;
 				return true ;
 			}
 
