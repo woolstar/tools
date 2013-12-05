@@ -69,9 +69,7 @@ namespace btl
 				connector( T x, Genr agen ) : conn_( move( x )), generator_{ agen } { }
 
 			bool	isactive(void) const { return conn_.isactive() ; }
-			bool	doread(void) const { conn_.close() ;  return false ; }
-
-			bool	dowrite(void) const
+			bool	doread(void) const
 			{
 				IO_Socket tmpsock= conn_.accept() ;
 				if ( tmpsock < 0 )
@@ -80,6 +78,8 @@ namespace btl
 				mgr_ -> monitor( generator_( tmpsock), tmpsock ) ;
 				return true ;
 			}
+
+			bool	dowrite(void) const { return false ; }
 
 		private:
 			T	conn_ ;
