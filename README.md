@@ -11,3 +11,10 @@ Code libraries, templates and executables
 
 	include, data, io
 
+* graphics
+
+	In the 1990s I had one of the worlds fastest production raytracers, used for advertising
+	work, high resolution print, television and film.  Easily a man-decade went into refining
+	and expanding these tools, but I moved on to other fields.  Rescuing ancient archives now
+	and trying to at least document my creations.
+
