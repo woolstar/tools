@@ -48,20 +48,19 @@ namespace btl
 	} ;
 
 	template <class Tio, class Tbuffer = build_static<2048>>
-		class	feeder_connection_m : public manage::link, public Tio
+		class	feeder_connection_m : public manage::link
 		{
 			public:
 				feeder_connection_m(Tio && aio)
-					: dest_(make_unique<feeder>()), Tio( move( aio)) { }
+					: dest_(make_unique<feeder>()), io_( move( aio)) { }
 				feeder_connection_m(feeder_connection_m && afeedcon)
-					: Tio( move( afeedcon)),
-						dest_( move( afeedcon.dest_ ))
-					{ }
+					: io_( move( afeedcon.io_ )), dest_( move( afeedcon.dest_ )) { }
 
+				bool	isactive() const { return io_.isactive() ; }
 				bool	doread() const
 				{
 					Tbuffer	buffer_ ;
-					size_t iread= Tio::read( buffer_ ) ;
+					size_t iread= io_.read( buffer_ ) ;
 
 					if ( iread < 1 )
 						return false ;
@@ -73,6 +72,9 @@ namespace btl
 				bool	dowrite() const { return false ; }
 
 				std::unique_ptr<feeder>	dest_ ;
+		
+			private:
+				Tio	io_ ;
 		} ;
 
 	template <class Tio, class Tbuffer = build_static<2048>>
