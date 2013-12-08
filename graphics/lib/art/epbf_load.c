@@ -11,7 +11,7 @@ static	int	loadblock(int sz, char *ptr)
 	return (iret != sz);
 }
 
-static void	x4(int sz, char *ptr)
+static void	x4(int sz, void *ptr)
 {
 	int istep;
 	char *ba, *bb, v;
@@ -21,7 +21,7 @@ static void	x4(int sz, char *ptr)
 		bb= ba +1, v= *ba, *ba= *bb, *bb= v;
 	}
 }
-static void x2(int sz, char *ptr)
+static void x2(int sz, void *ptr)
 {
 	int istep;
 	char *ba, *bb, v;
@@ -29,10 +29,11 @@ static void x2(int sz, char *ptr)
 		{ bb= ba +1, v= *ba, *ba= *bb, *bb= v; }
 }
 
-static void	xS(int sz, char *ptr)
+static void	xS(int sz, void *aptr)
 {
 	int istep;
 	bf_surface *rec;
+	char * ptr= aptr ;
 
 	for (istep= sz / (sizeof(bf_surface)); (istep --); )
 	{
