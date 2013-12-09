@@ -36,10 +36,9 @@ namespace btl
 						}
 					}
 
-		protected:
-			friend class manage ;
-
 			const IO_Port	port_ ;
+
+		protected:
 			mutable bool	active_ = false ;
 
 			~ io() { }
