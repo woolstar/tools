@@ -6,6 +6,8 @@ ARTLIB= i_targa.o i_vid.o
 
 CORE=cp_main.o cp_supp.o
 
+LIBS=-L../lib/art -lart -lartgeom -lm
+
 artzor: $(ARTLIB) $(CORE)
-	$(CC) $(CFLAGS) $(CORE) $(ARTLIB) -lm -o $@
+	$(CC) $(CFLAGS) $(CORE) $(ARTLIB) $(LIBS) -o $@
 
