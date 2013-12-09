@@ -2,6 +2,8 @@
 #include "tscene.h"
 #include "eart.h"
 #include "epart_word.h"
+#include "rdef.h"
+#include "rodef.h"
 
 extern int		epart_holdc;
 extern char		epart_hold[SLINE];
