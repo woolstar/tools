@@ -1,6 +1,7 @@
 
 ART=epart_mchar.o epart_motion.o epart_post.o epart_post.o epart_rule.o \
-	epart_surface.o epart_util.o epart_word.o
+	epart_surface.o epart_util.o epart_word.o \
+	ts_import.o
 
 GEOM=epbf_conv.o epbf_fract.o epbf_load.o epbf_math.o epbf_mem.o epbf_obj.o
 
