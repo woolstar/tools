@@ -11,10 +11,10 @@ namespace btl
 	class	build_base : public buffer
 	{
 		public:
-			build_base(unsigned char * aptr, size_t amax) : buffer(aptr, 0), fill_(aptr), limit_(aptr + amax) { }
+			build_base(unsigned char * aptr, size_t amax) : buffer(aptr, 0), limit_(aptr + amax) { }
 			virtual ~ build_base() ;
 
-			size_t	remaining(void) const { return limit_ - fill_ ; }
+			size_t	remaining(void) const { return limit_ - far_ ; }
 			void	reset(void) { far_= rawbuffer_ ; }
 			void	print(const char * afmt, ...) ;
 
@@ -35,8 +35,8 @@ namespace btl
 
 			sized_storage * limit_ ;
 
-		// take care of all operations that affect fill_
-			void	reduce(void) { if ( far_ != rawbuffer_ ) { fill_ -- ; } }
+		// take care of all operations that affect far_
+			void	reduce(void) { if ( far_ != rawbuffer_ ) { far_ -- ; } }
 			void	term(void) { if ( far_ != limit_ ) { * far_ = '\0' ; } }
 			void	jump(int aoff) { if ( aoff < 0 ) { if ( aoff >= datasize_ ) { reset() ; } else { far_ += aoff ; } } else { if ( aoff > remaining() ) { aoff= remaining() ; }  far_ += aoff ; } }
 
@@ -46,8 +46,8 @@ namespace btl
 	inline sized_storage *	begin(build_base & __va) { return __va.getbuffer() ; }
 	inline const sized_storage *	begin(const build_base & __va) { return __va.getbuffer() ; }
 
-	inline sized_storage *	end(build_base & __va) { return __va.fill_ ; } 
-	inline const sized_storage *	end(const build_base & __va) { return __va.fill_ ; } 
+	inline sized_storage *	end(build_base & __va) { return __va.far_ ; } 
+	inline const sized_storage *	end(const build_base & __va) { return __va.far_ ; } 
 } ;
 
 #endif
