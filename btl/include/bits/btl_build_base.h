@@ -46,8 +46,8 @@ namespace btl
 	inline sized_storage *	begin(build_base & T) { return T.getbuffer() ; }
 	inline const sized_storage *	begin(const build_base & T) { return T.getbuffer() ; }
 
-	inline sized_storage *	end(build_base & T) { return T.far_ ; } 
-	inline const sized_storage *	end(const build_base & T) { return T.far_ ; } 
+	inline sized_storage *	end(build_base & T) { return T.far_ ; }
+	inline const sized_storage *	end(const build_base & T) { return T.far_ ; }
 } ;
 
 #endif
