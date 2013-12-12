@@ -9,18 +9,22 @@ namespace btl
 	{
 		public:
 			buffer() { }
-			buffer(void const * aptr, size_t n) : rawbuffer_(aptr), datasize_(n) { }
-			buffer(const std::string & astr ) : rawbuffer_( astr.c_str() ), datasize_( astr.length() ) { }
+			buffer(void const * aptr, size_t n) : rawbuffer_(aptr), far_( (const char *) rawbuffer_ + n) { }
+			buffer(const std::string & astr ) : rawbuffer_( astr.c_str() ), far_( astr.c_str() + astr.length() ) { }
 			buffer(char const * astr) ;
 
 			void const *	operator*(void) const { return rawbuffer_ ; }
-			size_t	size(void) const { return datasize_ ; }
+			size_t	size(void) const { return (const char *) far_ - (const char *) rawbuffer_ ; }
+
+			void	swap(buffer & aother)
+					{
+						std::swap(rawbuffer_, aother.rawbuffer_) ;
+						std::swap(far_, aother.far_) ;
+					}
 
 		protected:
-			void setup( void const * aptr, size_t n) { rawbuffer_= aptr ;  datasize_ = n ; }
-
-			void const * rawbuffer_ { nullptr } ;
-			size_t	datasize_ { 0 } ;
+			void const * rawbuffer_ { nullptr },
+						* far_ { nullptr } ;
 	} ;
 } ;
 
