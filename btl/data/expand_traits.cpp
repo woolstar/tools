@@ -13,11 +13,13 @@ void	btl::expand_alloc::expand(int asize)
 	larger= cur + asize ;
 
 	cbuf= new sized_storage[larger] ;
-	std::memcpy( cbuf, rawbuffer_, datasize_ ) ;
+	cur= size() ;
+	std::memcpy( cbuf, rawbuffer_, cur ) ;
 
 	rawbuffer_= cbuf ;
 	storage_.reset( cbuf ) ;  // frees old memory
 
-	fill_relocate( cbuf + datasize_) ;  limit_ = cbuf + larger ;
+	buffer::swap( cbuf, cbuf + cur ) ;
+	limit_ = cbuf + larger ;
 }
 
