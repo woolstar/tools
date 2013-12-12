@@ -48,7 +48,7 @@ namespace btl
 				{
 					int alen= strlen( astr) ;
 					test( alen) ;
-					copy( buffer( astr, alen)) ;
+					copy( buffer( astr, astr + alen)) ;
 					return * this ;
 				}
 
