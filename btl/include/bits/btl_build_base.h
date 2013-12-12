@@ -11,7 +11,7 @@ namespace btl
 	class	build_base : public buffer
 	{
 		public:
-			build_base(unsigned char * aptr, size_t amax) : buffer(aptr, 0), limit_(aptr + amax) { }
+			build_base(unsigned char * aptr, size_t amax) : buffer(aptr), limit_(aptr + amax) { }
 			virtual ~ build_base() ;
 
 			size_t	remaining(void) const { return limit_ - static_cast<const sized_storage *>(far_) ; }
