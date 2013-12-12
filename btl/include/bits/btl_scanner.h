@@ -19,11 +19,11 @@ namespace btl
 					ptr_(((const TCHAR *) * arec) +aoffset),
 					limit_(ptr_ + arec.size())
 				{ }
-			scanner(const void * aptr, size_t asz)
-				: buffer((void *) aptr, asz),
-					ptr_((const TCHAR *) aptr),
-					limit_(ptr_ + asz)
-				{ }
+//			scanner(const void * aptr, size_t asz)
+//				: buffer((void *) aptr, asz),
+//					ptr_((const TCHAR *) aptr),
+//					limit_(ptr_ + asz)
+//				{ }
 			scanner(const scanner<TCHAR> & arec)
 				: buffer(arec),
 					ptr_(arec.ptr_),
