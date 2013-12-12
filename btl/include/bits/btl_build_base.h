@@ -15,7 +15,7 @@ namespace btl
 			virtual ~ build_base() ;
 
 			size_t	remaining(void) const { return limit_ - fill_ ; }
-			void	reset(void) { datasize_ = 0 ;  fill_ = (sized_storage *) rawbuffer_ ; }
+			void	reset(void) { far_= rawbuffer_ ; }
 			void	print(const char * afmt, ...) ;
 
 		protected:
@@ -36,18 +36,11 @@ namespace btl
 			sized_storage * limit_ ;
 
 		// take care of all operations that affect fill_
-			void	reduce(void) { if ( datasize_ ) { datasize_ --, fill_ -- ; } }
-			void	term(void) { if ( fill_ != limit_ ) { *fill_ = '\0' ; } }
-			void	jump(int aoff) { if ( aoff < 0 ) { if ( aoff >= datasize_ ) { reset() ; } else { datasize_ += aoff ;  fill_ += aoff ; } } else { if ( aoff > remaining() ) { aoff= remaining() ; }  datasize_ += aoff ;  fill_ += aoff ; } }
-
-			sized_storage *	fill_get(void) const { return fill_ ; }
-			void		fill_relocate(sized_storage * afill) { fill_ = afill ; }
+			void	reduce(void) { if ( far_ != rawbuffer_ ) { fill_ -- ; } }
+			void	term(void) { if ( far_ != limit_ ) { * far_ = '\0' ; } }
+			void	jump(int aoff) { if ( aoff < 0 ) { if ( aoff >= datasize_ ) { reset() ; } else { far_ += aoff ; } } else { if ( aoff > remaining() ) { aoff= remaining() ; }  far_ += aoff ; } }
 
 			friend	io ;
-
-		private:
-				// fill_ = rawbuffer_ + datasize_ :: so keeping it in sync requires care
-			sized_storage * fill_ ;
 	} ;
 
 	inline sized_storage *	begin(build_base & __va) { return __va.getbuffer() ; }
