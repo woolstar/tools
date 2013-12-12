@@ -9,7 +9,9 @@ namespace btl
 	{
 		public:
 			buffer() { }
-			buffer(void const * aptr, size_t n) : rawbuffer_(aptr), far_( (const char *) rawbuffer_ + n) { }
+
+			buffer(void const * aptr, void const * afar ) : rawbuffer_(aptr), far_( afar ) { }
+
 			buffer(const std::string & astr ) : rawbuffer_( astr.c_str() ), far_( astr.c_str() + astr.length() ) { }
 			buffer(char const * astr) ;
 
@@ -22,10 +24,17 @@ namespace btl
 						std::swap(far_, aother.far_) ;
 					}
 
+			static const buffer nullbuf ;
+
 		protected:
+				// create a zero size buffer, mostly for build
+			buffer(void const * aptr ) : rawbuffer_(aptr), far_( rawbuffer_ ) { }
+
 			void const * rawbuffer_ { nullptr },
 						* far_ { nullptr } ;
 	} ;
+
+	static const buffer nullbuf { buffer( nullptr, nullptr ) } ;
 } ;
 
 #endif
