@@ -5,5 +5,5 @@
 
 	buffer::buffer(char const * astring) : rawbuffer_( astring)
 	{
-		datasize_= ( nullptr == astring ) ? 0 : strlen( astring) ;
+		far_= ( nullptr == astring ) ? astring : ( astring + strlen( astring) ) ;
 	}
