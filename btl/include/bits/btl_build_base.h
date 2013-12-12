@@ -14,7 +14,7 @@ namespace btl
 			build_base(unsigned char * aptr, size_t amax) : buffer(aptr, 0), limit_(aptr + amax) { }
 			virtual ~ build_base() ;
 
-			size_t	remaining(void) const { return limit_ - far_ ; }
+			size_t	remaining(void) const { return limit_ - static_cast<const sized_storage *>(far_) ; }
 			void	reset(void) { far_= rawbuffer_ ; }
 			void	print(const char * afmt, ...) ;
 
@@ -36,9 +36,14 @@ namespace btl
 			sized_storage * limit_ ;
 
 		// take care of all operations that affect far_
-			void	reduce(void) { if ( far_ != rawbuffer_ ) { far_ -- ; } }
-			void	term(void) { if ( far_ != limit_ ) { * far_ = '\0' ; } }
-			void	jump(int aoff) { if ( aoff < 0 ) { if ( aoff >= datasize_ ) { reset() ; } else { far_ += aoff ; } } else { if ( aoff > remaining() ) { aoff= remaining() ; }  far_ += aoff ; } }
+			void	reduce(void) { if ( far_ != rawbuffer_ ) { far_= ((sized_storage * ) far_ ) -1 ; } }
+			void	term(void) { if ( far_ != limit_ ) { * ((sized_storage *) far_) = '\0' ; } }
+			void	jump(int aoff)
+					{
+						const sized_storage * ptr= static_cast<const sized_storage *>(far_) ;
+						if ( aoff < 0 ) { if ( aoff >= size() ) { reset() ; } else { far_ = ptr + aoff ; } }
+							else { if ( aoff > remaining() ) { aoff= remaining() ; }  far_ = ptr + aoff ; }
+					}
 
 			friend	io ;
 	} ;
@@ -46,8 +51,8 @@ namespace btl
 	inline sized_storage *	begin(build_base & T) { return T.getbuffer() ; }
 	inline const sized_storage *	begin(const build_base & T) { return T.getbuffer() ; }
 
-	inline sized_storage *	end(build_base & T) { return T.far_ ; }
-	inline const sized_storage *	end(const build_base & T) { return T.far_ ; }
+	inline sized_storage *	end(build_base & T) { return (sized_storage *) T.far_ ; }
+	inline const sized_storage *	end(const build_base & T) { return static_cast<const sized_storage *>( T.far_ ) ; }
 } ;
 
 #endif
