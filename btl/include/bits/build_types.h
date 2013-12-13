@@ -43,6 +43,11 @@ namespace btl
 			build_managed(build_managed &) = delete ;	// use the buffer constructor instead
 
 			build_managed& operator=(build_managed &&) ;
+
+		private:
+			enum SizeCheck { eChecked = 1 } ;
+
+			build_managed(size_t asize, SizeCheck) ;
 	} ;
 
 	class	build_fixed : public build_methods<expand_fixed>
