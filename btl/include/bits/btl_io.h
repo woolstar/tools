@@ -55,7 +55,7 @@ namespace btl
 
 		protected:
 				// buffer internals helpers
-			static sized_storage *	fill(build_base & abuf) { return abuf.fill_get() ; }
+			static sized_storage *	fill(build_base & abuf) { return end( abuf) ; }
 			static void				jump(build_base & abuf, int ioff) { abuf.jump( ioff) ; }
 	} ;
 
