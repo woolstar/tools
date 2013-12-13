@@ -12,14 +12,14 @@ void	btl::expand_alloc::expand(int asize)
 	if ( asize < (cur / 4) ) { asize= cur / 4; }
 	larger= cur + asize ;
 
-	cbuf= new sized_storage[larger] ;
 	cur= size() ;
+	cbuf= new sized_storage[larger] ;
 	std::memcpy( cbuf, rawbuffer_, cur ) ;
 
 	rawbuffer_= cbuf ;
 	storage_.reset( cbuf ) ;  // frees old memory
 
-	buffer::swap( cbuf, cbuf + cur ) ;
+	far_= cbuf + cur ;
 	limit_ = cbuf + larger ;
 }
 
