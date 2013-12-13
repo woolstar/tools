@@ -1,3 +1,5 @@
+#ifndef _BTL_SHIM
+#define _BTL_SHIM	1
 
 	//// from c++14
 	// http://isocpp.org/files/papers/N3656.txt
@@ -40,4 +42,6 @@ namespace btl
         typename _Unique_if<T>::_Known_bound
         make_unique(Args&&...) = delete;
 }
+
+#endif
 
