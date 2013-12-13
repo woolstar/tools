@@ -23,6 +23,15 @@ namespace btl
 						std::swap(rawbuffer_, aother.rawbuffer_) ;
 						std::swap(far_, aother.far_) ;
 					}
+			buffer &	operator=(const buffer & abuf)
+						{
+							if ( &abuf != this )
+							{
+								rawbuffer_= abuf.rawbuffer_ ;
+								far_= abuf.far_ ;
+							}
+							return * this ;
+						}
 
 			static const buffer nullbuf ;
 
