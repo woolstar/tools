@@ -20,7 +20,7 @@ bool	text_scanf::scan( build_if & acur, scanner<> & ascan )
 		}
 
 		curv_= 0 ;
-		acur.add( buffer( & c, 1 )) ;
+		acur.add( buffer( & c, & c + 1 )) ;
 	}
 
 	return false ;
