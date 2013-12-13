@@ -43,7 +43,6 @@ namespace btl
 						* far_ { nullptr } ;
 	} ;
 
-	static const buffer nullbuf { buffer( nullptr, nullptr ) } ;
 } ;
 
 #endif

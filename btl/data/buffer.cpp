@@ -7,3 +7,6 @@
 	{
 		far_= ( nullptr == astring ) ? astring : ( astring + strlen( astring) ) ;
 	}
+
+	const buffer buffer::nullbuf { buffer( nullptr, nullptr ) } ;
+
