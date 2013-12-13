@@ -19,6 +19,8 @@
 #include <string.h>
 
 #include <bits/btl_basetypes.h>
+#include <bits/btl_shim.h>	// fill in make_unique until c++1y
+
 #include <bits/btl_buffer.h>
 #include <bits/btl_scanner.h>
 #include <bits/btl_build_base.h>
