@@ -13,5 +13,5 @@ CORE=cp_main.o cp_supp.o
 LIBS=-L../lib/art -lartgeom -lart -lm
 
 artzor: $(ARTLIB) $(CORE)
-	$(CC) $(CFLAGS) $(LIBS) $(ARTLIB) $(CORE) -o $@
+	$(CC) $(CFLAGS) $(CORE) $(ARTLIB) $(LIBS) -o $@
 
