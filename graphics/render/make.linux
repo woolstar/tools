@@ -4,7 +4,7 @@ CFLAGS= -Iinc -I. -g
 
 ARTLIB= i_targa.o i_vid.o \
 	r_rand.o rb_all.o mem_name.o \
-	cp_data.o cp_file.o cp_image.o \
+	cp_file.o cp_image.o \
 	t_core.o t_camera.o \
 	z_win.o
 
