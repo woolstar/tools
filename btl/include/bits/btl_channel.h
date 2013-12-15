@@ -71,6 +71,8 @@ namespace btl
 				}
 				bool	dowrite() const { return false ; }
 
+				const Tio & operator*() { return io_ ; }
+
 				std::unique_ptr<feeder>	dest_ ;
 		
 			private:
