@@ -18,7 +18,7 @@ namespace btl
 		public:
 			text_scanf( unsigned int eolvec = ( CtrlVec<'\n','\r'>::mask ) ) : eolv_( eolvec ) { reset() ; }
 
-			void	reset(void) { curv_ = 0 ; }
+			void	reset(void) { }
 			bool	scan( build_if &, scanner<> &) ;
 
 		protected:
