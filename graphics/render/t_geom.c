@@ -359,7 +359,7 @@ void	tpart_display(int n, tr_set *list)
 		for (jstep= list-> count, tindex= list-> list; (jstep --); tindex ++)
 		{
 			tptr= *tindex;
-			temp= (tlist_element *) tptr-> matchref ;
+			temp= tptr-> iamatch ;
 			printf("\tob %s\n", temp-> name);
 		}
 	}
