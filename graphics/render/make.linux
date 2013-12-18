@@ -5,7 +5,7 @@ CFLAGS= -Iinc -I. -g -std=c99
 ARTLIB= i_targa.o i_vid.o \
 	r_rand.o rb_all.o mem_name.o \
 	cp_data.o cp_file.o cp_image.o \
-	t_core.o t_camera.o t_light.o t_surf.o t_surfpatch.o \
+	t_core.o t_camera.o t_light.o t_surf.o t_surfpatch.o t_geom.o \
 	z_win.o
 
 CORE=cp_main.o cp_supp.o
