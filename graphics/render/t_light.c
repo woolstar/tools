@@ -1,7 +1,7 @@
 #include	"trun.h"
 
 int			ct_lights= 0;
-ev_light	*magic_light;
+ev_light	*magic_light = NULL ;
 
 extern int			global_time;
 extern tlist_scene		tfocus;
@@ -280,4 +280,13 @@ int	tlight_updatecolor(void)
 	}
 
 	return 0;
+}
+
+void	tlight_destroy( void )
+{
+	if ( magic_light )
+	{
+		EFREE( magic_light ) ;
+		magic_light = NULL ;
+	}
 }
