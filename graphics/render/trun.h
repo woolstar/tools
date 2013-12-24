@@ -14,5 +14,5 @@ extern int	epart_setmotionvalue(float value, int offset, tlist_element * , int p
 #endif
 
 #define	TRENDER_THREAD	1
-#define	TGEOM_GENERATE	1
+#define	TGEOM_GENERATE	0
 
