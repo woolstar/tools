@@ -588,7 +588,7 @@ static void	rule_setup(ts_setup *ptr)
 				break;
 			case _SCENE_IMAGE:
 				hcSCAN; ia= tart_seqname(ptr-> image.imageform, & ic, epart_hold);
-				hcSCAN; ib= ato_imagecode(epart_hold);
+				hcSCAN; ib= 0 ;  // ato_imagecode(epart_hold);
 				hcSCAN;
 				if isTOK(_SCENE_FLIP)
 				{
