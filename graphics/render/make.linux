@@ -10,7 +10,7 @@ ARTLIB= t_light.o t_camera.o t_geom.o t_grid.o t_side.o \
 	i_targa.o i_vid.o \
 	r_rand.o r_data.o rb_all.o rb_actor.o mem_name.o \
 	tu_grid.o \
-	z_win.o
+	l_stub.o z_win.o
 
 CORE=cp_main.o
 
