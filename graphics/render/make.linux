@@ -2,7 +2,8 @@
 CC=gcc
 CFLAGS= -Iinc -I. -g
 
-ARTLIB= t_light.o t_camera.o t_geom.o t_grid.o t_surf.o t_surfpatch.o t_part.o t_core.o \
+ARTLIB= t_light.o t_camera.o t_geom.o t_grid.o t_side.o \
+	t_surf.o t_surfpatch.o t_part.o t_core.o \
 	cp_file.o cp_image.o cp_map.o cp_data.o cp_supp.o \
 	dx_mempage.o dx_filter.o dx_post.o \
 	rv_shadowmap.o \
