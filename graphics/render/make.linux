@@ -2,19 +2,18 @@
 CC=gcc
 CFLAGS= -Iinc -I. -g
 
-ARTLIB= i_targa.o i_vid.o \
-	r_rand.o rb_all.o mem_name.o \
-	cp_file.o cp_image.o cp_map.o \
+ARTLIB= t_light.o t_camera.o t_geom.o t_grid.o t_surf.o t_surfpatch.o t_part.o t_core.o \
+	cp_file.o cp_image.o cp_map.o cp_data.o cp_supp.o \
 	dx_mempage.o dx_filter.o dx_post.o \
 	rv_shadowmap.o \
-	t_core.o t_light.o t_surf.o t_surfpatch.o t_geom.o t_grid.o t_part.o \
+	i_targa.o i_vid.o \
+	r_rand.o rb_all.o mem_name.o \
 	z_win.o
 
-CORE=cp_main.o t_camera.o 
-LAST=cp_data.o cp_supp.o
+CORE=cp_main.o
 
-LIBS=-L../lib/art -lartgeom -lart -lm
+LIBS=-L../lib/art -lart -lartgeom -lm
 
 artzor: $(ARTLIB) $(CORE) $(LAST)
-	$(CC) $(CFLAGS) $(CORE) $(LIBS) $(ARTLIB) $(LAST) -o $@
+	$(CC) $(CFLAGS) $(ARTLIB) $(CORE) $(LIBS) -o $@
 
