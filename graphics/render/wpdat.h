@@ -1,3 +1,5 @@
+#ifndef WP_STRUCT_
+#define WP_STRUCT_	1
 
 typedef struct
 {
@@ -51,6 +53,8 @@ typedef struct
 		hit_p,
 		hit_n,
 		hit_t;
-	color color;
+	color vcolor;
 } wp_ray;
+
+#endif
 
