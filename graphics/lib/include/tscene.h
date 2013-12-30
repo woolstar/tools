@@ -2,6 +2,8 @@
 #ifndef	TF_SCENE_STRUCTURES
 #	define	TF_SCENE_STRUCTURES
 
+#include <bdef.h>
+
 	/****************/
 
 enum elements 
