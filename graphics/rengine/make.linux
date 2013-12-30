@@ -16,5 +16,5 @@ yzor: $(MAIN) $(CORE)
 
 setup:
 	ln -s ../lib/include inc
-	ln -s ../lin/general gen
+	ln -s ../lib/general gen
 
