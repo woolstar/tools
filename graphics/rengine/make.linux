@@ -1,0 +1,20 @@
+
+CC=gcc
+CFLAGS= -Iinc -Igen -I. -g
+
+.SUFFIXES: .cpp
+.cpp.o:
+	$(CXX) $(CFLAGS) -c $<
+
+CORE=y_core.o
+MAIN=yzor.cpp
+
+LIBS=-L../lib/art -lart -lartgeom -lm
+
+yzor: $(MAIN) $(CORE)
+	$(CXX) $(CFLAGS) $(MAIN) $(CORE) $(LIBS) -o $@
+
+setup:
+	ln -s ../lib/include inc
+	ln -s ../lin/general gen
+
