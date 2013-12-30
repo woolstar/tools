@@ -1,6 +1,6 @@
 
 CC=gcc
-CFLAGS= -Iinc -Igen -I. -g
+CFLAGS= -Iinc -Igen -Iart -I. -g
 
 .SUFFIXES: .cpp
 .cpp.o:
@@ -17,4 +17,5 @@ yzor: $(MAIN) $(CORE)
 setup:
 	ln -s ../lib/include inc
 	ln -s ../lib/general gen
+	ln -s ../lib/aart art
 
