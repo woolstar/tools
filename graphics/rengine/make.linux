@@ -1,6 +1,6 @@
 
 CC=gcc
-CFLAGS= -Iinc -Igen -Iart -I. -g
+CFLAGS= -Iinc -Igen -Iart -I. -I../render -g
 
 .SUFFIXES: .cpp
 .cpp.o:
