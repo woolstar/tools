@@ -129,7 +129,7 @@ bool	aart::surface::parse(const char * astr, FILE *)
 			// textures
 		case 'TEXT':
 			generalstring::skip(astr) ;
-			if (! texture(astr))
+			if (! parse_texture(astr))
 				return false ;
 			break ;
 		default:
@@ -187,7 +187,7 @@ bool	aart::surface::print(aart_output * adest)
 	return aart_component::print(adest) ;
 }
 
-bool	aart::surface::texture(const char * aparam)
+bool	aart::surface::parse_texture(const char * aparam)
 {
 	char	tmpfile[256] ;
 	aart::texture::Type	utype ;

@@ -142,7 +142,7 @@ class	aart : public aart_scene
 
 			protected:
 				int		parsez(const char *) ;
-				bool	test_texture(const char *) ;
+				bool	parse_texture(const char *) ;
 				void	leavescope(void) ;
 		} ;
 		class	texture : public aart_component
