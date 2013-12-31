@@ -14,7 +14,7 @@ class	generallist : public generalobject
 		generallist() ;
 		~ generallist() ;
 
-		friend generallistiterator ;
+		friend class generallistiterator ;
 
 		unsigned long	getcount(void)  { return m_count; }
 
@@ -48,7 +48,7 @@ class	generallistiterator
 		generallistiterator(generallist *, Direction = kForward) ;
 		~ generallistiterator() ;
 
-		friend	generallist ;
+		friend	class generallist ;
 
 		void	reset(void) ;
 		bool	next(generallinkable *&) ;
