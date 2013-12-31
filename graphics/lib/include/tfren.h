@@ -94,7 +94,7 @@ typedef struct
 	long ia, attr;
 	vector ibound, jbound;
 	tro_polys ta;
-	// void * matchref;
+	void * matchref;
 	tlist_element * iamatch ;
 } tr_object;
 
