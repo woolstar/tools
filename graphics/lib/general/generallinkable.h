@@ -12,8 +12,8 @@ class	generallinkable : public generalobject
 		generallinkable() ;
 		~ generallinkable() ;
 
-		friend	generallist ;
-		friend	generallistiterator ;
+		friend	class generallist ;
+		friend	class generallistiterator ;
 
 		virtual generallinkable	* next(void) { return m_next; }
 		virtual generallinkable	* previous(void) { return m_previous; }
@@ -24,3 +24,4 @@ class	generallinkable : public generalobject
 } ;
 
 #endif	// GENERALLINKABLE_DEF
+
