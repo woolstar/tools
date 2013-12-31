@@ -9,7 +9,7 @@ CFLAGS= -Iinc -Igen -Iart -I. -I../render -g
 CORE=y_core.o
 MAIN=yzor.cpp
 
-LIBS=-L../lib/art -lart -lartgeom -lm
+LIBS=-L../lib/aart -laart -lm
 
 yzor: $(MAIN) $(CORE)
 	$(CXX) $(CFLAGS) $(MAIN) $(CORE) $(LIBS) -o $@
