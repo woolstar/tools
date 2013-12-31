@@ -6,7 +6,7 @@ CFLAGS= -Iinc -Igen -Iart -I. -I../render -g
 .cpp.o:
 	$(CXX) $(CFLAGS) -c $<
 
-CORE=y_core.o y_mem.o y_geom.o
+CORE=y_core.o y_setup.o y_mem.o y_geom.o
 MAIN=yzor.cpp
 
 LIBS=-L../lib/aart -L../lib/general -L../render -lrender -laart -lgeneral -lm
