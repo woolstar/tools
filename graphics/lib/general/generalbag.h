@@ -21,7 +21,7 @@ class	generalbag : public generallist
 		void	destroy(void) ;
 
 	protected:
-		friend generalbagstepper ;
+		friend class generalbagstepper ;
 
 		class node : public generallinkable
 		{
@@ -69,5 +69,5 @@ template <class T> class tbagstepper : public generalbagstepper
 		}
 } ;
 
-
 #endif	// GENERALBAG_DEF
+
