@@ -2,6 +2,7 @@
 CC=gcc
 CFLAGS= -Iinc -I. -g
 
+LIB=l_stub.o 
 ARTLIB= t_light.o t_camera.o t_geom.o t_grid.o t_side.o \
 	t_surf.o t_surfpatch.o t_part.o t_core.o \
 	cp_file.o cp_image.o cp_map.o cp_data.o cp_supp.o \
@@ -13,11 +14,17 @@ ARTLIB= t_light.o t_camera.o t_geom.o t_grid.o t_side.o \
 	r_rand.o r_data.o r_math.o r_map.o rb_all.o rb_actor.o \
 	mem_name.o \
 	tu_grid.o \
-	l_stub.o z_win.o
+	z_win.o
 
 CORE=cp_main.o
 
-LIBS=-L../lib/art -lart -lartgeom -lm
+LIBS=-L../lib/art -L. -lrender -lart -lartgeom -lm
+
+all: librender.a artzor
+
+librender.a: $(LIB)
+	ar qc $@ $(LIB)
+	ranlib $@
 
 artzor: $(ARTLIB) $(CORE) $(LAST)
 	$(CC) $(CFLAGS) $(ARTLIB) $(CORE) $(LIBS) -o $@
