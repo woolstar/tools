@@ -87,5 +87,5 @@ template <class T> class tlistiterator : public generallistiterator
 		}
 } ;
 
-
 #endif	//	GENERALLIST_DEF
+
