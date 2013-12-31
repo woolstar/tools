@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS= -Iinc -Igen -Iart -I. -I../render -g
+CFLAGS= -Iinc -Igen -Iart -I. -I../render -g -Wno-multichar
 
 .SUFFIXES: .cpp
 .cpp.o:
