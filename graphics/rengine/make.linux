@@ -6,10 +6,10 @@ CFLAGS= -Iinc -Igen -Iart -I. -I../render -g
 .cpp.o:
 	$(CXX) $(CFLAGS) -c $<
 
-CORE=y_core.o
+CORE=y_core.o y_mem.o y_geom.o
 MAIN=yzor.cpp
 
-LIBS=-L../lib/aart -L../lib/general -laart -lgeneral -lm
+LIBS=-L../lib/aart -L../lib/general -L../render -lrender -laart -lgeneral -lm
 
 yzor: $(MAIN) $(CORE)
 	$(CXX) $(CFLAGS) $(MAIN) $(CORE) $(LIBS) -o $@
