@@ -1,0 +1,21 @@
+
+CC=gcc
+CFLAGS= -I. -g 
+
+.SUFFIXES: .cpp
+.cpp.o:
+	$(CXX) $(CFLAGS) -c $<
+
+GEN= generalbag.o generaldata.o generalhash.o generallinkable.o generallist.o generallistiterator.o \
+	generalexception.o generalfileoutput.o generallog.o generalobject.o generalrandom.o \
+	generalstring.o generalstringlist.o
+
+all: libgeneral.a
+
+libgeneral.a: $(GEN)
+	ar qc $@ $(GEN)
+	ranlib $@
+
+setup:
+	ln -s ../include inc
+
