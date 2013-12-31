@@ -1,0 +1,23 @@
+CC=gcc
+CFLAGS= -Iinc -Igen -Iart -I. -I../render -g
+
+.SUFFIXES: .cpp
+.cpp.o:
+	$(CXX) $(CFLAGS) -c $<
+
+AART=aartbase.o aartcamera.o aartcomponent.o \
+	aartcore.o aarteffect.o aartelement.o \
+	aartgen.o aartgeometry.o aartlight.o aartlink.o aartnode.o \
+	aartoutput.o aartpost.o aartscene.o aartsetup.o \
+	aartsurface.o aarttexture.o angle.o
+
+all: libaart.a
+
+libaart.a: $(AART)
+	ar qc $@ $(AART)
+	ranlib $@
+
+setup:
+	ln -s ../include inc
+	ln -s ../general gen
+
