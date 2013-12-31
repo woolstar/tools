@@ -19,6 +19,17 @@ class	generalstring
 		static bool	iswhite(char c)	{ return ((' ' == c) || ('\t' == c) || ('\n' == c) || ('\r' == c)) ; }
 
 			// skip over one word
+		static void skip(char * & astring)
+		{
+			char c;
+
+			ASSERTPOINTER(astring) ;
+
+				// skip non-white
+			while ((c= *astring) && ! iswhite(c)) astring ++ ;
+				// skip white
+			while ((c= *astring) && iswhite(c)) astring ++ ;
+		}
 		static void skip(const char * & astring)
 		{
 			char c;
@@ -30,9 +41,20 @@ class	generalstring
 				// skip white
 			while ((c= *astring) && iswhite(c)) astring ++ ;
 		}
-		static void	skip_word(const char * & apointer) { skip(apointer); }
+		static void	skip_word(char * & apointer) { skip( apointer) ; }
+		static void	skip_word(const char * & apointer) { skip(apointer) ; }
 
 			// skip past white space
+		static void space(char * & astring)
+		{
+			char c;
+
+			ASSERTPOINTER(astring) ;
+
+				// skip white
+			while ((c= *astring) && iswhite(c)) astring ++ ;
+		}
+		static void	skip_space(char * & apointer) { space(apointer); }
 		static void space(const char * & astring)
 		{
 			char c;
