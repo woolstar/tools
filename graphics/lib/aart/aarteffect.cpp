@@ -1,6 +1,8 @@
 #include "aar.h"
 #include "aart_post.h"
 
+#include <ctype.h>
+
 aart_post::toon::toon(const char * aname, aart_component * apar) : aart_post::effect(aname, apar)
 {
 	cline_w= 0.0,
