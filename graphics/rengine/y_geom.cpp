@@ -5,6 +5,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#define	_stat	stat
+
 #include <aart_link.h>
 
 extern "C"
