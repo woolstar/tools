@@ -101,7 +101,7 @@ class	aart_node : public aart_component
 		char	mname[128] ;
 		aart_scene	* container ;
 
-		friend aart_scene ;
+		friend class aart_scene ;
 
 		aart_node	* next ;
 } ;

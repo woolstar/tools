@@ -23,7 +23,7 @@ class	aart_component : public generalobject
 		void	ignore(const char *) ;
 
 	protected:
-		friend aart_base ;
+		friend class aart_base ;
 
 		aart_component	* parent ;
 

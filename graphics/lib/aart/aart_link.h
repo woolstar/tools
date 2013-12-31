@@ -16,7 +16,7 @@ class	aart_link : public generalobject
 		void	detach(void) { if (mjoin) mjoin-> mlink= NULL; }
 
 	protected:
-		friend	aart_element ;
+		friend	class aart_element ;
 
 		aart_element	* mjoin ;
 } ;
