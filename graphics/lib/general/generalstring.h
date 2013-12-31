@@ -67,6 +67,7 @@ class	generalstring
 		static void	skip_space(const char * & apointer) { space(apointer); }
 
 			// capture one word and terminate, skip ahead
+		static void	ncaptureword(char * adest, char * & asource, unsigned long asize, char asep = '\0') ;
 		static void	ncaptureword(char * adest, const char * & asource, unsigned long asize, char asep = '\0') ;
 
 			// capture entire line except for trailing white space

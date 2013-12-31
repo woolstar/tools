@@ -24,6 +24,27 @@ void	generalstring::ncopy(char * adest, const char * asource, unsigned long asiz
 }
 
 	// ncaptureword
+void	generalstring::ncaptureword(char * adest, char * & asource, unsigned long asize, char asep)
+{
+	char c ;
+
+		// while in the word
+	while ((c= * asource) && ! iswhite(c) && (asep != c))
+	{
+			// copy if there's room
+		if (asize > 1) { *(adest ++)= c, asize --; }
+		asource ++ ;
+	}
+
+	ASSERT((asize > 0)) ;
+	* adest= '\0' ;
+
+		// skip optional seperator if thats what we hit
+	if (asep && (asep == * asource)) asource ++ ;
+		// skip white
+	while ((c= *asource) && iswhite(c)) asource ++ ;
+}
+
 void	generalstring::ncaptureword(char * adest, const char * & asource, unsigned long asize, char asep)
 {
 	char c ;
