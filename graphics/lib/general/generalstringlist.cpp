@@ -171,7 +171,7 @@ char *	generalstringlist::tostring(const char * afmt) const
 	llen= strlen(afmt) ;
 	ASSERT(llen >= 2) ;
 
-	stmp= strstr(afmt, "%s") ;
+	stmp= strstr(const_cast<char*>(afmt), "%s") ;
 	if (! stmp) return NULL ;
 
 	llen -=2 ;
