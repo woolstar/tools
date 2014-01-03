@@ -62,7 +62,7 @@ aart_component *	aart_scene::find(const char * alabel, aart_component * abase)
 	{
 		char * str ;
 
-		str= strchr(alabel, '\'') ;
+		str= strchr(const_cast<char *>(alabel), '\'') ;
 		if (str)
 		{
 			char tmpstr[64] ;

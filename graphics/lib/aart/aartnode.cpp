@@ -115,7 +115,7 @@ aart_component *	aart_node::cameraset::find(const char * alabel)
 	{
 		char * str ;
 
-		str= strchr(alabel, '\'') ;
+		str= strchr(const_cast<char *>(alabel), '\'') ;
 		if (str)
 		{
 			str ++ ;
@@ -164,7 +164,7 @@ aart_component *	aart_node::lightset::find(const char * alabel)
 	{
 		char * str ;
 
-		str= strchr(alabel, '\'') ;
+		str= strchr(const_cast<char *>(alabel), '\'') ;
 		if (str)
 		{
 			str ++ ;
@@ -192,7 +192,7 @@ aart_component *	aart_node::geometryset::find(const char * alabel)
 	{
 		char * str ;
 
-		str= strchr(alabel, '\'') ;
+		str= strchr(const_cast<char *>(alabel), '\'') ;
 		if (str)
 		{
 			str ++ ;
@@ -220,7 +220,7 @@ aart_component *	aart_node::surfaceset::find(const char * alabel)
 	{
 		char * str ;
 
-		str= strchr(alabel, '\'') ;
+		str= strchr(const_cast<char *>(alabel), '\'') ;
 		if (str)
 		{
 			str ++ ;
