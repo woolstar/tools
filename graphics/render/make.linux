@@ -1,6 +1,11 @@
 
 CC=gcc
 CFLAGS= -Iinc -I. -g
+CXXFLAGS= -Iinc -Igen -I. -g
+
+.SUFFIXES: .cpp
+.cpp.o:
+	$(CXX) $(CXXFLAGS) -c $<
 
 ENGINE= t_light.o t_camera.o t_geom.o t_grid.o t_side.o \
 	t_surf.o t_surfpatch.o t_part.o t_core.o \
@@ -15,16 +20,25 @@ ENGINE= t_light.o t_camera.o t_geom.o t_grid.o t_side.o \
 	tu_grid.o \
 	l_stub.o z_win.o
 
+MODULE=dx_clip.o dx_depth.o dx_effect.o dx_filter.c dx_mempage.c dx_post.c dx_tile.c effect_op.o \
+	r_color.o r_crit.o r_data.o r_light.o r_map.o r_math.o r_rand.o r_soft.o r_support.o \
+	rl_liquid.o rl_poster.o ro_envir.o ro_hit.o rv_light.o rv_shadowmap.o rv_texture.o \
+	e_math.o i_targa.o i_vid.o
+	  
+
 CORE=cp_main.o
 
 LIBS=-L../lib/art -L. -lrender -lart -lartgeom -lm
 
 all: librender.a artzor
 
-librender.a: $(LIB)
-	ar qc $@ $(LIB)
+librender.a: $(MODULE)
+	ar qc $@ $(MODULE)
 	ranlib $@
 
-artzor: $(ENGINE) $(CORE)
-	$(CC) $(CFLAGS) $(CORE) $(ENGINE) $(LIBS) -o $@
+artzor: $(ENGINE) cp_main.c
+	$(CC) $(CFLAGS) cp_main.c $(ENGINE) $(LIBS) -o $@
 
+setup:
+	ln -s ../lib/include inc
+	ln -s ../lib/general gen
