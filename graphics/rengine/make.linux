@@ -7,11 +7,11 @@ CFLAGS= -Iinc -Igen -Iart -I. -I../render -g
 	$(CXX) $(CFLAGS) -c $<
 
 CORE=y_core.o y_setup.o y_camera.o y_effect.o y_geom.o y_light.o y_surf.o y_surface.o \
-	y_image.o y_file.o y_mem.o y_math.o \
+	y_image.o y_file.o y_mem.o y_math.o y_supp.o y_global.o \
 	rl_liquid.o
 MAIN=yzor.cpp
 
-LIBS=-L../lib/aart -L../lib/general -L../render -lrender -laart -lgeneral -lm
+LIBS=-L../lib/aart -L../lib/art -L../lib/general -L../render -lrender -laart -lart -lartgeom -lgeneral -lm
 
 yzor: $(MAIN) $(CORE)
 	$(CXX) $(CFLAGS) $(MAIN) $(CORE) $(LIBS) -o $@
