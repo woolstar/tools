@@ -3,8 +3,8 @@
 extern "C"
 {
 	// rv light
-	extern int	ct_lights ;
-	extern ev_light	* magic_light ;
+	int	ct_lights ;
+	ev_light	* magic_light ;
 
 	extern bool	rvm_shadowcolumn(ev_light *, int, int),
 		rvm_shadowcube(ev_light *, int, int),
