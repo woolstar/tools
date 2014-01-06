@@ -21,7 +21,7 @@ ENGINE= t_light.o t_camera.o t_geom.o t_grid.o t_side.o \
 	l_stub.o z_win.o
 
 MODULE=dx_clip.o dx_depth.o dx_effect.o dx_filter.o dx_mempage.o dx_post.o dx_tile.o effect_op.o \
-	t_light.o t_grid.o tu_grid.o \
+	t_grid.o tu_grid.o \
 	r_color.o r_crit.o r_data.o r_light.o r_map.o r_math.o r_rand.o r_soft.o r_support.o \
 	rl_liquid.o rl_poster.o ro_envir.o ro_hit.o rv_light.o rv_shadowmap.o rv_texture.o \
 	e_math.o i_targa.o i_vid.o mem_name.o
