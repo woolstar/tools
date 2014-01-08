@@ -9,7 +9,15 @@ Code libraries, templates and executables
 	towards the goals of STL (RAII, generics, containers) while still giving "to the metal"
 	access over memory allocation.
 
+	Features static bound byte arrays, safe buffer "pointers", and a modern take on async
+	networking and data handling (via channels).
+
 	include, data, io
+
+* ctl
+
+	The cucumbered Polymorphic Template Library, for more efficient storage of polymorphic sets.
+	Featuring list & vector with single allocation units.  Takes the goals of BTL to the next level.
 
 * graphics
 
