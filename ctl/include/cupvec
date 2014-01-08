@@ -1,0 +1,21 @@
+// <cupvec> -*- C++ -*-
+
+/***
+  * Copyright (C) 2014
+  * Video Bits
+  *
+  **/
+
+/** @file include/cupvec
+ *  This is a Poly Container Library header
+ */
+
+#ifndef _CUP_VECTOR
+#define _CUP_VECTOR 1
+
+#include <cstddef>
+
+#include <bits/cu_vector.h>
+
+#endif
+
