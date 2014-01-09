@@ -15,8 +15,11 @@
 
 #include <cstddef>
 
-#include <bits/cu_vec_control.h>
+#include <bits/vec_base.h>
+#include <bits/vec_control.h>
+
 #include <bits/cu_vector.h>
+#include <bits/vec_implement.h>
 
 #endif
 
