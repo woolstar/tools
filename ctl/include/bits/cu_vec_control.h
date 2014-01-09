@@ -12,6 +12,9 @@ namespace ctl
 			unsigned int	size_, offset_ ;
 
 			T *	operator()() noexcept { return reinterpret_cast<T *>( ((unsigned char *) this ) + offset_ ) ; }
+
+			virtual void	destroy(void) = 0 ;
+			virtual void	move(unsigned char * astorage) = 0 ;
 		} ;
 
 		template < typename T > struct vector_ctrl_tail
