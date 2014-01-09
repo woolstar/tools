@@ -6,7 +6,7 @@ CFLAGS=-std=c++11 -g
 
 LIBPATH=-L../btl/libs
 
-TARGETS=xbuffer xio xlist xsock xecho
+TARGETS=xbuffer xio xlist xsock xecho xvec
 
 demos: $(TARGETS)
 
@@ -24,6 +24,9 @@ xsock: demo_socket.cpp
 
 xecho: demo_echo.cpp
 	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -ldata -lio -lsocket -lstdc++ -o $@
+
+xvec: demo_cvec.cpp
+	$(CC) $(CFLAGS) -Ictl -Ibtl $< $(LIBPATH) -lio -lstdc++ -o $@
 
 clean:
 	rm -fr *.o $(TARGETS)
