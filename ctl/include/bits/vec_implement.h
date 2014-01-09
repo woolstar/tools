@@ -19,6 +19,11 @@ namespace ctl
 
 					void move(unsigned char * zstorage) ;
 					void destroy(void) ;
+
+					const T *	ptr(void) const { return static_cast<T *>( & storage_ ) ; }
+
+				private:
+					typename std::aligned_storage<sizeof(T), std::alignment_of<T>::value>::type storage_ ;
 			} ;
 	} ;
 
