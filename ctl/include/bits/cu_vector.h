@@ -9,7 +9,7 @@ namespace ctl
 {
 		// cucumbered polymorphic vector
 
-	template <class T> class vector
+	template <class T> class vector : public __detail::vector_base
 	{
 		public:
 			vector() { }
@@ -68,13 +68,10 @@ namespace ctl
 			void	shrink_fit( void ) ;
 
 		private:
-				// storage
-			size_t	use_ = 0, total_ = 0 ;
-			std::unique_ptr<unsigned char []>	storage_ ;
-
 			typedef	__detail::vector_ctrl_base< T>	_ctrlBase ;
 	} ;
 
 } ;
 
 #endif
+
