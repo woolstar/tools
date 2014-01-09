@@ -1,4 +1,4 @@
-// cu_vec_control.h -*- C++ -*-
+// vec_control.h -*- C++ -*-
 
 #ifndef _CTL_DETAIL_VECCTRL
 #define _CTL_DETAIL_VECCTRL	1
