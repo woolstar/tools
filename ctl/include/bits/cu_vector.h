@@ -3,8 +3,6 @@
 #ifndef	_CU_BITS_VECTOR
 #define _CU_BITS_VECTOR
 
-#include <memory>
-
 namespace ctl
 {
 		// cucumbered polymorphic vector
@@ -13,7 +11,7 @@ namespace ctl
 	{
 		public:
 			vector() { }
-			vector(size_t asize) : storage_( new unsigned char[ asize ] ), total_( asize ) { }
+			vector(size_t asize) : vector_base( asize) { }
 
 			typedef	T	base_type ;
 			typedef	T	value_type ;
