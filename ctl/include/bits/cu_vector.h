@@ -3,6 +3,8 @@
 #ifndef	_CU_BITS_VECTOR
 #define _CU_BITS_VECTOR
 
+#include <memory>
+
 namespace ctl
 {
 		// cucumbered polymorphic vector
@@ -11,6 +13,7 @@ namespace ctl
 	{
 		public:
 			vector() { }
+			vector(size_t asize) : storage_( new unsigned char[ asize ] ), m_total( asize ) { }
 
 			typedef	T	base_type ;
 			typedef	T	value_type ;
@@ -22,10 +25,10 @@ namespace ctl
 			// storage
 
 			void	clear(void) noexcept ;
-			template < class... Args >
-				void	emplace<class Tc>( const iterator apos, Args&&... arg ) ;
-			template < class... Args >
-				void	emplace_back<class Tc>( Args&&... arg ) ;
+			template < class Tc, class... Args >
+				void	emplace( const iterator apos, Args&&... arg ) ;
+			template < class Tc, class... Args >
+				void	emplace_back( Args&&... arg ) ;
 			template < class Tc >
 				void	transfer_back( Tc && aref ) ;
 
@@ -65,7 +68,10 @@ namespace ctl
 			void	shrink_fit( void ) ;
 
 		private:
-			// storage
+				// storage
+			std::unique_ptr<unsigned char []>	storage_ ;
+
+			size_t	m_use = 0, m_total = 0 ;
 	} ;
 
 } ;
