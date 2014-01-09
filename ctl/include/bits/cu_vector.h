@@ -69,9 +69,10 @@ namespace ctl
 
 		private:
 				// storage
+			size_t	m_use = 0, m_total = 0 ;
 			std::unique_ptr<unsigned char []>	storage_ ;
 
-			size_t	m_use = 0, m_total = 0 ;
+			typedef	__detail::vector_ctrl_base< T>	_ctrlBase ;
 	} ;
 
 } ;
