@@ -13,7 +13,7 @@ namespace ctl
 	{
 		public:
 			vector() { }
-			vector(size_t asize) : storage_( new unsigned char[ asize ] ), m_total( asize ) { }
+			vector(size_t asize) : storage_( new unsigned char[ asize ] ), total_( asize ) { }
 
 			typedef	T	base_type ;
 			typedef	T	value_type ;
@@ -61,15 +61,15 @@ namespace ctl
 
 			// tests
 
-			bool empty() const noexcept ;
-			size_t size() const noexcept ;
-			size_t capacity() const noexcept ;
+			bool empty() const noexcept { return ! use_ ; }
+			size_t size() const noexcept { return use_ ; }
+			size_t capacity() const noexcept { return total_ ; }
 			
 			void	shrink_fit( void ) ;
 
 		private:
 				// storage
-			size_t	m_use = 0, m_total = 0 ;
+			size_t	use_ = 0, total_ = 0 ;
 			std::unique_ptr<unsigned char []>	storage_ ;
 
 			typedef	__detail::vector_ctrl_base< T>	_ctrlBase ;
