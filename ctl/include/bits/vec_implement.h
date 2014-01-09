@@ -1,3 +1,7 @@
+// vec_implement.h -*- C++ -*-
+
+#ifndef _CTL_VECIMPL
+#define _CTL_VECIMPL	1
 
 namespace ctl
 {
@@ -12,4 +16,6 @@ namespace ctl
 			}
 
 } ;
+
+#endif
 
