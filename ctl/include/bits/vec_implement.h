@@ -6,6 +6,22 @@
 namespace ctl
 {
 
+	namespace __detail
+	{
+		template <class T, class Tbase>
+			class vector_ctrl : public vector_ctrl_base<Tbase>
+			{
+				public:
+					vector_ctrl() { }
+					vector_ctrl(vector_ctrl &&) ;
+					template<class... Args>
+						vector_ctrl( Args&&... arg ) { }
+
+					void move(unsigned char * zstorage) ;
+					void destroy(void) ;
+			} ;
+	} ;
+
 	// implementation
 	// lots of ugly
 
