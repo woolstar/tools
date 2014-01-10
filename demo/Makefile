@@ -14,19 +14,19 @@ xbuffer: demo_buffer.cpp
 	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -ldata -lstdc++ -o $@
 
 xio: demo_io.cpp
-	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -ldata -lio -lstdc++ -o $@
+	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -lio -ldata -lstdc++ -o $@
 
 xlist: demo_list.cpp
 	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -ldata -lstdc++ -o $@
 
 xsock: demo_socket.cpp
-	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -ldata -lio -lsocket -lstdc++ -o $@
+	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -lsocket -lio --ldata lstdc++ -o $@
 
 xecho: demo_echo.cpp
-	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -ldata -lio -lsocket -lstdc++ -o $@
+	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -lio -ldata -lsocket -lstdc++ -o $@
 
 xvec: demo_cvec.cpp
-	$(CC) $(CFLAGS) -Ictl -Ibtl $< $(LIBPATH) -lio -lstdc++ -o $@
+	$(CC) $(CFLAGS) -Ictl -Ibtl $< -L../btl/libs -L../ctl/libs -lio -ldata -lpolyco -lstdc++ -o $@
 
 clean:
 	rm -fr *.o $(TARGETS)
