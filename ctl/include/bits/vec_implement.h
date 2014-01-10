@@ -37,9 +37,12 @@ namespace ctl
 				using ctrl = __detail::vector_ctrl<Tc,T> ;
 				size_t xsize = sizeof( ctrl) + sizeof( __detail::vector_ctrl_tail<T>) ;
 				unsigned char * abuf ;
+				ctrl * rec ;
+				Tc * ptr ;
 
 				reserve( xsize) ;
 				abuf= storage_.get() + use_ ;
+				rec= new(abuf) ctrl( arg... ) ;
 			}
 
 } ;
