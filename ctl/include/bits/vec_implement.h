@@ -34,6 +34,12 @@ namespace ctl
 		template <class Tc, class... Args>
 			void vector<T>::emplace_back( Args&&... arg )
 			{
+				using ctrl = __detail::vector_ctrl<Tc,T> ;
+				size_t xsize = sizeof( ctrl) + sizeof( __detail::vector_ctrl_tail<T>) ;
+				unsigned char * abuf ;
+
+				reserve( xsize) ;
+				abuf= storage_.get() + use_ ;
 			}
 
 } ;
