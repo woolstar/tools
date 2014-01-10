@@ -12,13 +12,20 @@ namespace ctl
 			class vector_ctrl : public vector_ctrl_base<Tbase>
 			{
 				public:
-					vector_ctrl() { }
 					vector_ctrl(vector_ctrl &&) ;
 					template<class... Args>
-						vector_ctrl( Args&&... arg ) { }
+						vector_ctrl( Args&&... arg )
+						{
+							void * mem= & storage_ ;
+							new( mem)T(arg... ) ;
+						}
 
-					void move(unsigned char * zstorage) ;
-					void destroy(void) ;
+					void move(unsigned char * zstorage) { }
+					void destroy(void) 
+					{
+						T * ptr= static_cast< T *>( static_cast<void *>( & storage_ ) ) ;
+						ptr->~T() ;
+					}
 
 					const T *	ptr(void) const { return static_cast<T *>( & storage_ ) ; }
 
