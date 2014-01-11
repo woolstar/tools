@@ -68,6 +68,7 @@ namespace ctl
 				rec= new(abuf) ctrl( arg... ) ;
 				use( xsize) ;
 
+#if 1
 				ioerr << "Empl: "
 					<< format("buf: %lx ", (long) abuf)
 					<< format("n=%d, ", xsize)
@@ -81,6 +82,7 @@ namespace ctl
 					<< format("n=%d, ", xsize)
 					<< format("off=%d, ", rec-> offset_ )
 					<< "eoc\n" ;
+#endif
 			}
 
 } ;
