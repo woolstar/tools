@@ -30,7 +30,7 @@ using btl::ioerr ;
 
 int main()
 {
-	ctl::vector<Base>	test(1024) ;
+	ctl::tank<Base>	test(1024) ;
 
 	test.emplace_back<test1>(10) ;
 
