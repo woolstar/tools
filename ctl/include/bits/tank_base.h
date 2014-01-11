@@ -12,8 +12,10 @@ namespace ctl
 		class tank_base
 		{
 			public:
+				typedef unsigned char	data ;
+
 				tank_base() { }
-				tank_base(size_t asize) : storage_( new unsigned char[ asize ] ), total_( asize ) { }
+				tank_base(size_t asize) : storage_( new data[ asize ] ), total_( asize ) { }
 
 				~ tank_base() ;
 
