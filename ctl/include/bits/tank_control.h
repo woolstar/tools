@@ -7,16 +7,21 @@ namespace ctl
 {
 	namespace __detail
 	{
-		template < typename T > struct vector_ctrl_base
+		struct vector_ctrl_base
 		{
 			unsigned int	size_, offset_ ;
-
-			T *	operator()() noexcept { return reinterpret_cast<T *>( ((unsigned char *) this ) + offset_ ) ; }
 
 			virtual void	destroy(void) = 0 ;
 			virtual void	move(unsigned char * zstorage) = 0 ;
 		} ;
 
+		template < typename T > struct vector_ctrl_common : public vector_ctrl_base
+		{
+			T *	operator()() noexcept { return reinterpret_cast<T *>( ((unsigned char *) this ) + offset_ ) ; }
+
+		} ;
+
+			// for bidirectional blob
 		template < typename T > struct vector_ctrl_tail
 		{
 			unsigned int	size_, offset_ ;

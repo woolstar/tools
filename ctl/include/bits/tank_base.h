@@ -15,6 +15,8 @@ namespace ctl
 				vector_base() { }
 				vector_base(size_t asize) : storage_( new unsigned char[ asize ] ), total_( asize ) { }
 
+				~ vector_base() ;
+
 				void	reserve(size_t) ;
 				void	shrink(size_t) ;
 

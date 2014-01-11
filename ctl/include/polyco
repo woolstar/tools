@@ -1,0 +1,25 @@
+// <polyco> -*- C++ -*-
+
+/***
+  * Copyright (C) 2014
+  * Video Bits
+  *
+  **/
+
+/** @file include/cupvec
+ *  This is a Poly Container Library header
+ */
+
+#ifndef _POLY_CONTAINER
+#define _POLY_CONTAINER 1
+
+#include <cstddef>
+
+#include <bits/tank_base.h>
+#include <bits/tank_control.h>
+
+#include <bits/cu_tank.h>
+#include <bits/tank_implement.h>
+
+#endif
+
