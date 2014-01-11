@@ -5,13 +5,13 @@
 
 namespace ctl
 {
-		// cucumbered polymorphic vector
+		// cucumbered polymorphic vector like tank
 
-	template <class T> class vector : public __detail::vector_base
+	template <class T> class tank : public __detail::tank_base
 	{
 		public:
-			vector() { }
-			vector(size_t asize) : vector_base( asize) { }
+			tank() { }
+			tank(size_t asize) : tank_base( asize) { }
 
 			typedef	T	base_type ;
 			typedef	T	value_type ;
@@ -66,7 +66,7 @@ namespace ctl
 			void	shrink_fit( void ) ;
 
 		private:
-			typedef	__detail::vector_ctrl_common< T>	_ctrlBase ;
+			typedef	__detail::tank_ctrl_common< T>	_ctrlBase ;
 	} ;
 
 } ;

@@ -9,12 +9,12 @@ namespace ctl
 	namespace __detail
 	{
 		template <class T, class Tbase>
-			class vector_ctrl : public vector_ctrl_common<Tbase>
+			class tank_ctrl : public tank_ctrl_common<Tbase>
 			{
 				public:
-					vector_ctrl(vector_ctrl &&) ;
+					tank_ctrl(tank_ctrl &&) ;
 					template<class... Args>
-						vector_ctrl( Args&&... arg )
+						tank_ctrl( Args&&... arg )
 						{
 							void * mem= & storage_ ;
 							new( mem)T(arg... ) ;
@@ -39,10 +39,10 @@ namespace ctl
 
 	template <class T>
 		template <class Tc, class... Args>
-			void vector<T>::emplace_back( Args&&... arg )
+			void tank<T>::emplace_back( Args&&... arg )
 			{
-				using ctrl = __detail::vector_ctrl<Tc,T> ;
-				size_t xsize = sizeof( ctrl) + sizeof( __detail::vector_ctrl_tail<T>) ;
+				using ctrl = __detail::tank_ctrl<Tc,T> ;
+				size_t xsize = sizeof( ctrl) + sizeof( __detail::tank_ctrl_tail<T>) ;
 				unsigned char * abuf ;
 				ctrl * rec ;
 				Tc * ptr ;

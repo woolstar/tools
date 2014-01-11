@@ -9,13 +9,13 @@ namespace ctl
 {
 	namespace __detail
 	{
-		class vector_base
+		class tank_base
 		{
 			public:
-				vector_base() { }
-				vector_base(size_t asize) : storage_( new unsigned char[ asize ] ), total_( asize ) { }
+				tank_base() { }
+				tank_base(size_t asize) : storage_( new unsigned char[ asize ] ), total_( asize ) { }
 
-				~ vector_base() ;
+				~ tank_base() ;
 
 				void	reserve(size_t) ;
 				void	shrink(size_t) ;
