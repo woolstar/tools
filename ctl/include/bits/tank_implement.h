@@ -3,6 +3,12 @@
 #ifndef _CTL_TANKIMPL
 #define _CTL_TANKIMPL	1
 
+#include <io>
+#include <typeinfo>
+
+	using btl::ioerr ;
+	using btl::format ;
+
 namespace ctl
 {
 
@@ -14,22 +20,33 @@ namespace ctl
 				public:
 					tank_ctrl(tank_ctrl &&) ;
 					template<class... Args>
-						tank_ctrl( Args&&... arg )
+						tank_ctrl( Args&&... arg ) : tank_ctrl()
 						{
 							void * mem= & storage_ ;
 							new( mem)T(arg... ) ;
 						}
 
-					void move(unsigned char * zstorage) { }
-					void destroy(void) 
+					void move(unsigned char * zstorage) override { }
+					void destroy(void) override
 					{
 						T * ptr= static_cast< T *>( static_cast<void *>( & storage_ ) ) ;
 						ptr->~T() ;
 					}
+					void trace(void) const override
+					{
+						T * p ;
+						Tbase * bp ;
+						ioerr << "T - tnk+ctrl, "
+							<< " (type) " << typeid( p).name()
+							<< " (base type) " << typeid( bp).name()
+							<< ".\n" ;
+					}
 
-					const T *	ptr(void) const { return static_cast<T *>( & storage_ ) ; }
+					const T *	ptr(void) const
+						{ return static_cast<const T *>( static_cast<const void *>( & storage_ )) ; }
 
 				private:
+					tank_ctrl() : tank_ctrl_common<Tbase>( sizeof(this), (long) & storage_ - (long) this ) { }
 					typename std::aligned_storage<sizeof(T), std::alignment_of<T>::value>::type storage_ ;
 			} ;
 	} ;
@@ -42,14 +59,28 @@ namespace ctl
 			void tank<T>::emplace_back( Args&&... arg )
 			{
 				using ctrl = __detail::tank_ctrl<Tc,T> ;
-				size_t xsize = sizeof( ctrl) + sizeof( __detail::tank_ctrl_tail<T>) ;
+				size_t xsize = sizeof( ctrl) ;
 				unsigned char * abuf ;
 				ctrl * rec ;
-				Tc * ptr ;
 
 				reserve( xsize) ;
 				abuf= storage_.get() + use_ ;
 				rec= new(abuf) ctrl( arg... ) ;
+				use( xsize) ;
+
+				ioerr << "Empl: "
+					<< format("buf: %lx ", (long) abuf)
+					<< format("n=%d, ", xsize)
+					<< format("off=%d, ", rec-> offset_ )
+					<< format("tC: %lx, ", (long) rec)
+					<< "eol\n" ;
+
+				rec-> size_= xsize ;
+				rec-> offset_= ((const unsigned char *) rec-> ptr()) - abuf ;
+				ioerr << "Calc: "
+					<< format("n=%d, ", xsize)
+					<< format("off=%d, ", rec-> offset_ )
+					<< "eoc\n" ;
 			}
 
 } ;
