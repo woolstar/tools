@@ -66,7 +66,7 @@ namespace ctl
 			void	shrink_fit( void ) ;
 
 		private:
-			typedef	__detail::vector_ctrl_base< T>	_ctrlBase ;
+			typedef	__detail::vector_ctrl_common< T>	_ctrlBase ;
 	} ;
 
 } ;

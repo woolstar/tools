@@ -9,7 +9,7 @@ namespace ctl
 	namespace __detail
 	{
 		template <class T, class Tbase>
-			class vector_ctrl : public vector_ctrl_base<Tbase>
+			class vector_ctrl : public vector_ctrl_common<Tbase>
 			{
 				public:
 					vector_ctrl(vector_ctrl &&) ;
