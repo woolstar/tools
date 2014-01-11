@@ -20,6 +20,10 @@ namespace ctl
 				void	reserve(size_t) ;
 				void	shrink(size_t) ;
 
+			protected:
+				void	use(size_t asz) noexcept
+						{ if ( ( use_ + asz ) <= total_ ) { use_ += asz ; } }
+
 					// storage
 				size_t	use_ = 0, total_ = 0 ;
 				std::unique_ptr<unsigned char []>	storage_ ;
