@@ -1,7 +1,7 @@
-// vec_base -*- C++ -*-
+// tank_base -*- C++ -*-
 
-#ifndef	_CUDETAIL_VEC_BASE
-#define _CUDETAIL_VEC_BASE
+#ifndef	_CUDETAIL_TANK_BASE
+#define _CUDETAIL_TANK_BASE
 
 #include <memory>
 

@@ -1,7 +1,7 @@
-// cu_vector -*- C++ -*-
+// cu_tank -*- C++ -*-
 
-#ifndef	_CU_BITS_VECTOR
-#define _CU_BITS_VECTOR
+#ifndef	_CU_BITS_TANK
+#define _CU_BITS_TANK
 
 namespace ctl
 {

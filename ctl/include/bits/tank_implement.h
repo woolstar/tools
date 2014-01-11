@@ -1,7 +1,7 @@
-// vec_implement.h -*- C++ -*-
+// tank_implement.h -*- C++ -*-
 
-#ifndef _CTL_VECIMPL
-#define _CTL_VECIMPL	1
+#ifndef _CTL_TANKIMPL
+#define _CTL_TANKIMPL	1
 
 namespace ctl
 {

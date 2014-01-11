@@ -1,7 +1,7 @@
-// vec_control.h -*- C++ -*-
+// tank_control.h -*- C++ -*-
 
-#ifndef _CTL_DETAIL_VECCTRL
-#define _CTL_DETAIL_VECCTRL	1
+#ifndef _CTL_DETAIL_TANKCTRL
+#define _CTL_DETAIL_TANKCTRL	1
 
 namespace ctl
 {
