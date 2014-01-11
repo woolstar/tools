@@ -35,8 +35,8 @@ namespace ctl
 			T &	at(size_t apos) ;
 			const T &	at(size_t apos) const ;
 
-			T & operator[](size_t apost) ;
-			const T &	operator[](size_t apost) const ;
+			// T & operator[](size_t apost) ;
+			// const T &	operator[](size_t apost) const ;
 
 			T &	front() ;
 			const T &	front() const ;
