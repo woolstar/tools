@@ -1,9 +1,13 @@
 #include <polyco>
 #include <cstring>
 
-using ctl::__detail::vector_base ;
+using ctl::__detail::tank_base ;
 
-void vector_base::reserve(size_t asize)
+tank_base:: ~ tank_base()
+{
+}
+
+void tank_base::reserve(size_t asize)
 {
 	size_t mtot= use_ + asize ;
 
@@ -20,7 +24,7 @@ void vector_base::reserve(size_t asize)
 	}
 }
 
-void vector_base::shrink( size_t )
+void tank_base::shrink( size_t )
 {
 }
 
