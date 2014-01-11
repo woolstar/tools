@@ -9,16 +9,19 @@ namespace ctl
 	{
 		struct tank_ctrl_base
 		{
+			tank_ctrl_base(unsigned int asz, unsigned int aoff) : size_( asz), offset_( aoff) { }
 			unsigned int	size_, offset_ ;
 
 			virtual void	destroy(void) = 0 ;
 			virtual void	move(unsigned char * zstorage) = 0 ;
+			virtual void	trace(void) const = 0 ;
 		} ;
 
 		template < typename T > struct tank_ctrl_common : public tank_ctrl_base
 		{
-			T *	operator()() noexcept { return reinterpret_cast<T *>( ((unsigned char *) this ) + offset_ ) ; }
+			tank_ctrl_common(unsigned int asz, unsigned int aoff) : tank_ctrl_base( asz, aoff) { }
 
+			T *	operator()() noexcept { return reinterpret_cast<T *>( ((unsigned char *) this ) + offset_ ) ; }
 		} ;
 
 			// for bidirectional blob
