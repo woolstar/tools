@@ -28,7 +28,7 @@ namespace ctl
 
 					// storage
 				size_t	use_ = 0, total_ = 0 ;
-				std::unique_ptr<unsigned char []>	storage_ ;
+				std::unique_ptr<data []>	storage_ ;
 		} ;
 	} ;
 } ;

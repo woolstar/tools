@@ -12,8 +12,10 @@ namespace ctl
 			tank_ctrl_base(unsigned int asz, unsigned int aoff) : size_( asz), offset_( aoff) { }
 			unsigned int	size_, offset_ ;
 
+			using data = tank_base::data ;
+
 			virtual void	destroy(void) = 0 ;
-			virtual void	move(unsigned char * zstorage) = 0 ;
+			virtual void	move(data * zstorage) = 0 ;
 			virtual void	trace(void) const = 0 ;
 		} ;
 
@@ -21,7 +23,7 @@ namespace ctl
 		{
 			tank_ctrl_common(unsigned int asz, unsigned int aoff) : tank_ctrl_base( asz, aoff) { }
 
-			T *	operator()() noexcept { return reinterpret_cast<T *>( ((unsigned char *) this ) + offset_ ) ; }
+			T *	operator()() noexcept { return reinterpret_cast<T *>( ((tank_base::data *) this ) + offset_ ) ; }
 		} ;
 
 			// for bidirectional blob
@@ -29,7 +31,7 @@ namespace ctl
 		{
 			unsigned int	size_, offset_ ;
 
-			T *	operator()() noexcept { return reinterpret_cast<T *>( ((unsigned char *) this ) - offset_ ) ; }
+			T *	operator()() noexcept { return reinterpret_cast<T *>( ((tank_base::data *) this ) - offset_ ) ; }
 		} ;
 
 	} ;
