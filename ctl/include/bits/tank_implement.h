@@ -37,14 +37,16 @@ namespace ctl
 						ioerr << "T - tnk+ctrl, "
 							<< " (type) " << typeid( p).name()
 							<< " (base type) " << typeid( bp).name()
+							<< format(":: sz= %d, ", tank_ctrl_base::size_ ) << format(" off= %d ", tank_ctrl_base::offset_ )
 							<< ".\n" ;
 					}
+
+				private:
+					tank_ctrl() : tank_ctrl_common<Tbase>( sizeof(this), (long) & storage_ - (long) this ) { }
 
 					T *	ptr(void) noexcept
 						{ return static_cast<T *>( static_cast<void *>( & storage_ )) ; }
 
-				private:
-					tank_ctrl() : tank_ctrl_common<Tbase>( sizeof(this), (long) & storage_ - (long) this ) { }
 					typename std::aligned_storage<sizeof(T), std::alignment_of<T>::value>::type storage_ ;
 			} ;
 	} ;
