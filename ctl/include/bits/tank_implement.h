@@ -29,11 +29,7 @@ namespace ctl
 					using data = tank_ctrl_base::data ;
 
 					void move(data * zstorage) override { }
-					void destroy(void) override
-					{
-						T * ptr= static_cast< T *>( static_cast<void *>( & storage_ ) ) ;
-						ptr->~T() ;
-					}
+					void destroy(void) override { ptr()->~T() ; }
 					void trace(void) const override
 					{
 						T * p ;
@@ -44,8 +40,8 @@ namespace ctl
 							<< ".\n" ;
 					}
 
-					const T *	ptr(void) const
-						{ return static_cast<const T *>( static_cast<const void *>( & storage_ )) ; }
+					T *	ptr(void) noexcept
+						{ return static_cast<T *>( static_cast<void *>( & storage_ )) ; }
 
 				private:
 					tank_ctrl() : tank_ctrl_common<Tbase>( sizeof(this), (long) & storage_ - (long) this ) { }
