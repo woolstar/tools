@@ -62,25 +62,8 @@ namespace ctl
 				ctrl * rec ;
 
 				reserve( xsize) ;
-				abuf= storage_.get() + use_ ;
-				rec= new(abuf) ctrl( arg... ) ;
+				new(storage_.get() + use_ ) ctrl( arg... ) ;
 				use( xsize) ;
-
-#if 1
-				ioerr << "Empl: "
-					<< format("buf: %lx ", (long) abuf)
-					<< format("n=%d, ", xsize)
-					<< format("off=%d, ", rec-> offset_ )
-					<< format("tC: %lx, ", (long) rec)
-					<< "eol\n" ;
-
-				rec-> size_= xsize ;
-				rec-> offset_= ((const unsigned char *) rec-> ptr()) - abuf ;
-				ioerr << "Calc: "
-					<< format("n=%d, ", xsize)
-					<< format("off=%d, ", rec-> offset_ )
-					<< "eoc\n" ;
-#endif
 			}
 
 } ;
