@@ -26,7 +26,9 @@ namespace ctl
 							new( mem)T(arg... ) ;
 						}
 
-					void move(unsigned char * zstorage) override { }
+					using data = tank_ctrl_base::data ;
+
+					void move(data * zstorage) override { }
 					void destroy(void) override
 					{
 						T * ptr= static_cast< T *>( static_cast<void *>( & storage_ ) ) ;
@@ -60,7 +62,7 @@ namespace ctl
 			{
 				using ctrl = __detail::tank_ctrl<Tc,T> ;
 				size_t xsize = sizeof( ctrl) ;
-				unsigned char * abuf ;
+				data * abuf ;
 				ctrl * rec ;
 
 				reserve( xsize) ;
