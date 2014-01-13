@@ -31,12 +31,12 @@ namespace ctl
 				std::unique_ptr<data []>	storage_ ;
 		} ;
 
-		class	tank_iterator_b
+		class	tank_iter_b
 		{
 			public:
 				typedef unsigned char	data ;
 
-				tank_iterator_b( data * aloc ) : ptr_( aloc ) { }
+				tank_iter_b( data * aloc ) : ptr_( aloc ) { }
 
 			protected:
 
