@@ -45,6 +45,35 @@ namespace ctl
 
 				data	* ptr_ ;
 		} ;
+
+		class	tank_range_b
+		{
+			private:
+				class	IsValid { void operator delete(void *) ; } ;
+
+			public:
+				typedef unsigned char	data ;
+
+				tank_range_b( data * aptr, data * alim ) : ptr_( aptr ), limit_( alim ) { }
+
+				operator const IsValid *() const {
+					static IsValid _sentinal ;
+					return (( limit_ != ptr_ ) && ( nullptr != ptr_ )) ? & _sentinal : nullptr ;
+				}
+
+				bool	operator==(tank_range_b & arng) const noexcept { return arng.ptr_ == ptr_ ; }
+				bool	operator!=(tank_range_b & arng) const noexcept { return arng.ptr_ != ptr_ ; }
+				bool	operator==(const tank_range_b & arng) const noexcept { return arng.ptr_ == ptr_ ; }
+				bool	operator!=(const tank_range_b & arng) const noexcept { return arng.ptr_ != ptr_ ; }
+
+			protected:
+
+				void	step( void) ;
+
+				data	* ptr_ ;
+				data	* const limit_ ;
+		} ;
+
 	} ;
 } ;
 
