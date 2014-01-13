@@ -6,8 +6,8 @@
   *
   **/
 
-/** @file include/cupvec
- *  This is a Poly Container Library header
+/** @file include/polyco
+ *  This is the Poly Container Library header
  */
 
 #ifndef _POLY_CONTAINER
@@ -19,6 +19,7 @@
 #include <bits/tank_control.h>
 
 #include <bits/cu_tank.h>
+#include <bits/tank_iter.h>
 #include <bits/tank_implement.h>
 
 #endif
