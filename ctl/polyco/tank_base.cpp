@@ -5,6 +5,18 @@ using ctl::__detail::tank_base ;
 
 tank_base:: ~ tank_base()
 {
+	data * dptr, * dlimit ;
+	tank_ctrl_base * ctrptr ;
+
+	dptr= storage_.get() ;
+	dlimit= dptr + use_ ;
+
+	for ( ; ( dptr < dlimit ) ; dptr += ctrptr-> size_ )
+	{
+		ctrptr= ( tank_ctrl_base *) dptr ;
+		ctrptr-> trace() ;
+		ctrptr-> destroy() ;
+	}
 }
 
 void tank_base::reserve(size_t asize)
