@@ -26,7 +26,7 @@ using btl::ioerr ;
 			int	m_val ;
 	} ;
 
-	Base:: ~ Base() { }
+	Base:: ~ Base() { ioerr << "D base\n" ;  }
 
 int main()
 {
