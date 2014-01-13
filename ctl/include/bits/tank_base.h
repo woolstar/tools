@@ -30,6 +30,21 @@ namespace ctl
 				size_t	use_ = 0, total_ = 0 ;
 				std::unique_ptr<data []>	storage_ ;
 		} ;
+
+		class	tank_iterator_b
+		{
+			public:
+				typedef unsigned char	data ;
+
+				tank_iterator_b( data * aloc ) : ptr_( aloc ) { }
+
+			protected:
+
+				void	step( void) ;
+				// void	back( void) ;
+
+				data	* ptr_ ;
+		} ;
 	} ;
 } ;
 
