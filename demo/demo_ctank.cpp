@@ -26,6 +26,23 @@ using btl::ioerr ;
 			int	m_val ;
 	} ;
 
+	class	test2 : public Base
+	{
+		public:
+			test2( const char * acode )
+			{
+				strncpy(m_code, acode, sizeof( m_code)) ;
+				ioerr << "C test2 <char*>\n" ;
+			}
+			~ test2() { ioerr << "D test2\n" ; }
+
+			void	action() override { }
+			void	show() override { ioout << "m_code : " << m_code << "\n" ; }
+
+		private:
+			char m_code[10] ;
+	} ;
+
 	Base:: ~ Base() { ioerr << "D base\n" ;  }
 
 int main()
@@ -33,6 +50,8 @@ int main()
 	ctl::tank<Base>	test(1024) ;
 
 	test.emplace_back<test1>(10) ;
+	test.emplace_back<test2>("Sample") ;
+	test.emplace_back<test1>(20) ;
 
 	return 0 ;
 }
