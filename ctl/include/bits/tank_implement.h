@@ -3,11 +3,7 @@
 #ifndef _CTL_TANKIMPL
 #define _CTL_TANKIMPL	1
 
-#include <io>
 #include <typeinfo>
-
-	using btl::ioerr ;
-	using btl::format ;
 
 namespace ctl
 {
@@ -34,15 +30,14 @@ namespace ctl
 					{
 						T * p ;
 						Tbase * bp ;
-						ioerr << "T - tnk+ctrl, "
-							<< " (type) " << typeid( p).name()
-							<< " (base type) " << typeid( bp).name()
-							<< format(":: sz= %d, ", tank_ctrl_base::size_ ) << format(" off= %d ", tank_ctrl_base::offset_ )
-							<< ".\n" ;
+
+						fprintf(stderr, "T - tnk+ctrl, (type) %s :: (base) %s  sz= %d, off= %d.\n",
+							typeid( p).name(), typeid( bp).name(),
+							tank_ctrl_base::size_ , tank_ctrl_base::offset_ ) ;
 					}
 
 				private:
-					tank_ctrl() : tank_ctrl_common<Tbase>( sizeof(this), (long) & storage_ - (long) this ) { }
+					tank_ctrl() : tank_ctrl_common<Tbase>( sizeof(* this), (long) & storage_ - (long) this ) { }
 
 					T *	ptr(void) noexcept
 						{ return static_cast<T *>( static_cast<void *>( & storage_ )) ; }
@@ -64,7 +59,8 @@ namespace ctl
 				ctrl * rec ;
 
 				reserve( xsize) ;
-				new(storage_.get() + use_ ) ctrl( arg... ) ;
+				rec= new(storage_.get() + use_ ) ctrl( arg... ) ;
+				rec-> trace() ;
 				use( xsize) ;
 			}
 
