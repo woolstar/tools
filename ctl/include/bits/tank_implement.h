@@ -55,12 +55,10 @@ namespace ctl
 			{
 				using ctrl = __detail::tank_ctrl<Tc,T> ;
 				size_t xsize = sizeof( ctrl) ;
-				data * abuf ;
 				ctrl * rec ;
 
 				reserve( xsize) ;
 				rec= new(storage_.get() + use_ ) ctrl( arg... ) ;
-				rec-> trace() ;
 				use( xsize) ;
 			}
 
