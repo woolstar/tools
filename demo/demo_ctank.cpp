@@ -4,6 +4,8 @@
 using btl::ioout ;
 using btl::ioerr ;
 
+#include "check.cpp"
+
 	class	Base
 	{
 		public:
@@ -49,10 +51,18 @@ int main()
 {
 	ctl::tank<Base>	test(1024) ;
 
+	check( test.empty(), true ) ; 
+	check( test.capacity(), 1024 ) ;
+
 	test.emplace_back<test1>(10) ;
 	test.emplace_back<test2>("Sample") ;
 	test.emplace_back<test1>(20) ;
 
+	check( ! test.size(), false ) ;
+
+	// auto p= test.begin() ;
+
+	fprintf(stderr, "passed %d tests.\n", _passed) ;
 	return 0 ;
 }
 
