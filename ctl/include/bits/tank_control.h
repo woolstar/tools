@@ -27,7 +27,7 @@ namespace ctl
 		{
 			tank_ctrl_common(unsigned int asz, unsigned int aoff) : tank_ctrl_base( asz, aoff) { }
 
-			T *	operator()() noexcept { return reinterpret_cast<T *>( ((tank_base::data *) this ) + base_ ) ; }
+			T *	contain() noexcept { return reinterpret_cast<T *>( ((tank_base::data *) this ) + base_ ) ; }
 
 			protected:
 				void	locate( const T * aptr )
