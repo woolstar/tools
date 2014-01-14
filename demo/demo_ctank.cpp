@@ -60,7 +60,7 @@ int main()
 
 	check( ! test.size(), false ) ;
 
-	// auto p= test.begin() ;
+	auto p= test.begin() ;
 
 	fprintf(stderr, "passed %d tests.\n", _passed) ;
 	return 0 ;
