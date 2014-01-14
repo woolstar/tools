@@ -45,17 +45,17 @@ namespace ctl
 
 			// iterators
 
-			iterator	begin(void) ;
-			const iterator	begin(void) const ;
-			const iterator	cbegin(void) const ;
+			iterator	begin(void) noexcept ;
+			const iterator	begin(void) const noexcept ;
+			const iterator	cbegin(void) const noexcept ;
 
-			iterator	end(void) ;
-			const iterator	end(void) const ;
-			const iterator	cend(void) const ;
+			iterator	end(void) noexcept ;
+			const iterator	end(void) const noexcept ;
+			const iterator	cend(void) const noexcept ;
 
-			range	span(void) ;
-			const range	span(void) const ;
-			const range	cspan(void) const ;
+			range	span(void) noexcept ;
+			const range	span(void) const noexcept ;
+			const range	cspan(void) const noexcept ;
 
 			// tests
 
