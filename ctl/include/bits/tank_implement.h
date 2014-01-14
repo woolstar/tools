@@ -62,6 +62,19 @@ namespace ctl
 				use( xsize) ;
 			}
 
+	// iter
+
+	template <class T>
+		typename tank<T>::iterator	tank<T>::begin( void ) noexcept
+		{ return tank<T>::iterator( storage_.get() ) ; } ;
+
+	template <class T>
+		const typename tank<T>::iterator	tank<T>::begin( void ) const noexcept
+		{ return tank<T>::iterator( storage_.get() ) ; } ;
+	template <class T>
+		const typename tank<T>::iterator	tank<T>::cbegin( void ) const noexcept
+		{ return tank<T>::iterator( storage_.get() ) ; } ;
+
 } ;
 
 #endif
