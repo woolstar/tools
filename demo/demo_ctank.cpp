@@ -23,7 +23,7 @@ using btl::ioerr ;
 			~ test1() { ioerr << "D test1\n" ; }
 
 			void	action() override { m_val ++ ; }
-			void	show() override { ioout << btl::format("%8d ", m_val) ; }
+			void	show() override { ioout << btl::format("[t1:show] %8d\n", m_val) ; }
 
 			int	m_val ;
 	} ;
@@ -39,10 +39,31 @@ using btl::ioerr ;
 			~ test2() { ioerr << "D test2\n" ; }
 
 			void	action() override { }
-			void	show() override { ioout << "m_code : " << m_code << "\n" ; }
+			void	show() override { ioout << "[t2:show] m_code : " << m_code << "\n" ; }
 
 		private:
 			char m_code[10] ;
+	} ;
+
+	class fat
+	{
+		public:
+			fat(const char * astr) { strncpy(str_, astr, sizeof( str_ ) ) ; }
+			~ fat() { ioerr << "D fat\n" ; }
+
+			char str_[128] ;
+	} ;
+
+	class test3 : public Base, public fat
+	{
+		public:
+			test3( int aval, const char * ptr ) : fat( ptr), num_( aval) { }
+			~ test3() { ioerr << "D test3\n" ; }
+
+			void	action() override { }
+			void	show() override { ioout << "[t3] n, fat " << str_ << "\n" ; }
+
+			int	num_ ;
 	} ;
 
 	Base:: ~ Base() { ioerr << "D base\n" ;  }
@@ -57,12 +78,18 @@ int main()
 	test.emplace_back<test1>(10) ;
 	test.emplace_back<test2>("Sample") ;
 	test.emplace_back<test1>(20) ;
+	test.emplace_back<test3>(50, "no good deed un punished") ;
 
 	check( ! test.size(), false ) ;
 
 	auto p= test.begin() ;
 	auto pe= test.cend() ;
 	while ( p != pe ) { ++ p ; }
+
+	for ( auto & br : test )
+	{
+		br.show() ;
+	}
 
 	fprintf(stderr, "passed %d tests.\n", _passed) ;
 	return 0 ;
