@@ -15,6 +15,17 @@ namespace ctl
 
 				iterator	operator++() noexcept { step() ;  return * this ; }
 				iterator	operator++(int) { iterator itmp( * this ) ;  step() ;  return itmp ; }
+
+				T &	operator*() const noexcept
+								{
+									auto rec= reinterpret_cast<__detail::tank_ctrl_common<T> *>( ptr_ ) ;
+									return * ( rec-> contain() ) ;
+								}
+				T *	operator->() const noexcept
+								{
+									auto rec= reinterpret_cast<__detail::tank_ctrl_common<T> *>( ptr_ ) ;
+									return rec-> contain() ;
+								}
 		} ;
 
 } ;
