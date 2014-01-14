@@ -45,7 +45,7 @@ namespace ctl
 
 			protected:
 
-				void	step( void) ;
+				void	step( void) noexcept ;
 				// void	back( void) ;
 
 				data	* ptr_ ;
