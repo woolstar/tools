@@ -68,7 +68,7 @@ namespace ctl
 
 			protected:
 
-				void	step( void) ;
+				void	step( void) noexcept ;
 
 				data	* ptr_ ;
 				data	* const limit_ ;
