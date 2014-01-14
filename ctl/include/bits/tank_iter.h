@@ -10,9 +10,8 @@ namespace ctl
 		class tank<T>::iterator : public __detail::tank_iter_b
 		{
 			public:
-				iterator(data *)
-				{
-				}
+				constexpr iterator(data * aptr ) noexcept : __detail::tank_iter_b::tank_iter_b( aptr )
+				{ }
 		} ;
 
 } ;
