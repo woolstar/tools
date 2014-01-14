@@ -9,29 +9,29 @@ namespace ctl
 	{
 		struct tank_ctrl_base
 		{
-			tank_ctrl_base(unsigned int asz, unsigned int aoff) : size_( asz), offset_( aoff) { }
-			unsigned int	size_, offset_ ;
+			tank_ctrl_base(size_t asz, unsigned int afull) : size_( asz), full_( afull) { }
+			size_t	size_ ;
+			unsigned int	base_ = 0, full_ ;
 
 			using data = tank_base::data ;
 
 			virtual void	destroy(void) = 0 ;
 			virtual void	move(data * zstorage) = 0 ;
 			virtual void	trace(void) const = 0 ;
+
+			protected:
+				void	locate( unsigned int abase) { base_ = abase ; }
 		} ;
 
 		template < typename T > struct tank_ctrl_common : public tank_ctrl_base
 		{
 			tank_ctrl_common(unsigned int asz, unsigned int aoff) : tank_ctrl_base( asz, aoff) { }
 
-			T *	operator()() noexcept { return reinterpret_cast<T *>( ((tank_base::data *) this ) + offset_ ) ; }
-		} ;
+			T *	operator()() noexcept { return reinterpret_cast<T *>( ((tank_base::data *) this ) + base_ ) ; }
 
-			// for bidirectional blob
-		template < typename T > struct tank_ctrl_tail
-		{
-			unsigned int	size_, offset_ ;
-
-			T *	operator()() noexcept { return reinterpret_cast<T *>( ((tank_base::data *) this ) - offset_ ) ; }
+			protected:
+				void	locate( const T * aptr )
+						{ tank_ctrl_base::locate( (long) aptr - (long) this ) ; }
 		} ;
 
 	} ;

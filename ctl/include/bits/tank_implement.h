@@ -19,7 +19,7 @@ namespace ctl
 						tank_ctrl( Args&&... arg ) : tank_ctrl()
 						{
 							void * mem= & storage_ ;
-							new( mem)T(arg... ) ;
+							tank_ctrl_common<Tbase>::locate( new( mem)T(arg... ) ) ;
 						}
 
 					using data = tank_ctrl_base::data ;
@@ -31,9 +31,9 @@ namespace ctl
 						T * p ;
 						Tbase * bp ;
 
-						fprintf(stderr, "T - tnk+ctrl, (type) %s :: (base) %s  sz= %d, off= %d.\n",
+						fprintf(stderr, "T - tnk+ctrl, (type) %s :: (base) %s  sz= %zu, full= %u, base= %u.\n",
 							typeid( p).name(), typeid( bp).name(),
-							tank_ctrl_base::size_ , tank_ctrl_base::offset_ ) ;
+							tank_ctrl_base::size_ , tank_ctrl_base::full_, tank_ctrl_base::base_ ) ;
 					}
 
 				private:
