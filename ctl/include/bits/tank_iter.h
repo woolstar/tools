@@ -12,6 +12,9 @@ namespace ctl
 			public:
 				constexpr iterator(data * aptr ) noexcept : __detail::tank_iter_b::tank_iter_b( aptr )
 				{ }
+
+				iterator	operator++() noexcept { step() ;  return * this ; }
+				iterator	operator++(int) { iterator itmp( * this ) ;  step() ;  return itmp ; }
 		} ;
 
 } ;

@@ -62,6 +62,7 @@ int main()
 
 	auto p= test.begin() ;
 	auto pe= test.cend() ;
+	while ( p != pe ) { ++ p ; }
 
 	fprintf(stderr, "passed %d tests.\n", _passed) ;
 	return 0 ;

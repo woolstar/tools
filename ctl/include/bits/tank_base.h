@@ -38,6 +38,11 @@ namespace ctl
 
 				tank_iter_b( data * aloc ) : ptr_( aloc ) { }
 
+				bool	operator==(tank_iter_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
+				bool	operator!=(tank_iter_b & ai ) const noexcept { return ai.ptr_ != ptr_ ; }
+				bool	operator==(const tank_iter_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
+				bool	operator!=(const tank_iter_b & ai ) const noexcept { return ai.ptr_ != ptr_ ; }
+
 			protected:
 
 				void	step( void) ;
