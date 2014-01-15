@@ -33,11 +33,11 @@ namespace ctl
 
 			// accessors
 
-			T &	at(size_t apos) ;
-			const T &	at(size_t apos) const ;
+			T &	at(unsigned int apos) ;
+			const T &	at(unsigned int apos) const ;
 
-				// T & operator[](size_t apost) ;
-				// const T &	operator[](size_t apost) const ;
+			T &	front() ;
+			const T &	front() const ;
 
 			// iterators
 
@@ -52,11 +52,6 @@ namespace ctl
 			range	span(void) noexcept ;
 			const range	span(void) const noexcept ;
 			const range	cspan(void) const noexcept ;
-
-			T &	front() ;
-			const T &	front() const ;
-				// T & back() ;
-				// const T &	back() const ;
 
 			// tests
 
