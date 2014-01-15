@@ -111,6 +111,12 @@ namespace ctl
 		const typename tank<T>::range	tank<T>::cspan( void ) const noexcept
 		{ return tank<T>::range( storage_.get(), storage_.get() + use_ ) ; } ;
 
+		//
+
+	template <class T>
+		T &	tank<T>::front( void )
+		{ return * tank<T>::iterator( storage_.get() ) ; } ;
+
 } ;
 
 #endif
