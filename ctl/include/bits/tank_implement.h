@@ -76,6 +76,25 @@ namespace ctl
 				use( xsize) ;
 			}
 
+		//
+	template <class T>
+		T & tank<T>::at( unsigned int apos )
+		{
+			range rstep( span()) ;
+
+			while ( apos && rstep ) { apos --, -- rstep ; }
+			if ( ! rstep ) { throw std::out_of_range("index beyond end of tank") ; }
+			return * rstep ;
+		}
+
+	template <class T>
+		T &	tank<T>::front( void )
+		{ return * tank<T>::iterator( storage_.get() ) ; } ;
+
+	template <class T>
+		const T &	tank<T>::front( void ) const
+		{ return * tank<T>::iterator( storage_.get() ) ; } ;
+
 	// iter
 
 	template <class T>
@@ -110,12 +129,6 @@ namespace ctl
 	template <class T>
 		const typename tank<T>::range	tank<T>::cspan( void ) const noexcept
 		{ return tank<T>::range( storage_.get(), storage_.get() + use_ ) ; } ;
-
-		//
-
-	template <class T>
-		T &	tank<T>::front( void )
-		{ return * tank<T>::iterator( storage_.get() ) ; } ;
 
 } ;
 
