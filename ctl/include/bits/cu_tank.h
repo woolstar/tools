@@ -29,19 +29,21 @@ namespace ctl
 				void	emplace_back( Args&&... arg ) ;
 			template < class Tc >
 				void	transfer_back( Tc && aref ) ;
+			template < class Tc >
+				tank<T> &	operator<<( Tc && aref ) { transfer_back( aref) ;  return * this ; }
 
 			// accessors
 
 			T &	at(size_t apos) ;
 			const T &	at(size_t apos) const ;
 
-			// T & operator[](size_t apost) ;
-			// const T &	operator[](size_t apost) const ;
+				// T & operator[](size_t apost) ;
+				// const T &	operator[](size_t apost) const ;
 
 			T &	front() ;
 			const T &	front() const ;
-			T & back() ;
-			const T &	back() const ;
+				// T & back() ;
+				// const T &	back() const ;
 
 			// iterators
 
