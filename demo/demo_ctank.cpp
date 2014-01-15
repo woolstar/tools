@@ -68,6 +68,10 @@ using btl::ioerr ;
 
 	Base:: ~ Base() { ioerr << "D base\n" ;  }
 
+	////
+
+	void show( const ctl::tank<Base> & atk ) { for ( auto & br : atk ) { br.show() ; } }
+
 int main()
 {
 	ctl::tank<Base>	test(1024) ;
@@ -82,14 +86,13 @@ int main()
 
 	check( ! test.size(), false ) ;
 
-	auto p= test.begin() ;
-	auto pe= test.cend() ;
-	while ( p != pe ) { ++ p ; }
+	for ( auto spn= test.span() ; ( spn ) ; ++ spn ) { spn-> action() ; }
+	show( test) ;
 
-	for ( auto & br : test )
-	{
-		br.show() ;
-	}
+	test.transfer_back( test1( 30) ) ;
+	test << test2( "str magic" ) << test2( "and more" ) ;
+
+	show( test) ;
 
 	fprintf(stderr, "passed %d tests.\n", _passed) ;
 	return 0 ;

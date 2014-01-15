@@ -4,6 +4,7 @@
 #define _CTL_TANKIMPL	1
 
 #include <typeinfo>
+#include <utility>
 
 namespace ctl
 {
@@ -59,6 +60,19 @@ namespace ctl
 
 				reserve( xsize) ;
 				rec= new(storage_.get() + use_ ) ctrl( arg... ) ;
+				use( xsize) ;
+			}
+
+	template <class T>
+		template <class Tc>
+			void tank<T>::transfer_back( Tc && aref )
+			{
+				using ctrl = __detail::tank_ctrl<typename std::remove_reference<Tc>::type,T> ;
+				size_t xsize = sizeof( ctrl) ;
+				ctrl * rec ;
+
+				reserve( xsize) ;
+				rec= new(storage_.get() + use_ ) ctrl( std::move( aref) ) ;
 				use( xsize) ;
 			}
 
