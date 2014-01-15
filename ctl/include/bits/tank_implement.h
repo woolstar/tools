@@ -86,6 +86,17 @@ namespace ctl
 		const typename tank<T>::iterator	tank<T>::cend( void ) const noexcept
 		{ return tank<T>::iterator( storage_.get() + use_ ) ; } ;
 
+	template <class T>
+		typename tank<T>::range	tank<T>::span( void ) noexcept
+		{ return tank<T>::range( storage_.get(), storage_.get() + use_ ) ; } ;
+
+	template <class T>
+		const typename tank<T>::range	tank<T>::span( void ) const noexcept
+		{ return tank<T>::range( storage_.get(), storage_.get() + use_ ) ; } ;
+	template <class T>
+		const typename tank<T>::range	tank<T>::cspan( void ) const noexcept
+		{ return tank<T>::range( storage_.get(), storage_.get() + use_ ) ; } ;
+
 } ;
 
 #endif
