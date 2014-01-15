@@ -22,7 +22,6 @@ namespace ctl
 
 			// storage
 
-			void	clear(void) ;
 			template < class Tc, class... Args >
 				void	emplace( const iterator apos, Args&&... arg ) ;
 			template < class Tc, class... Args >
