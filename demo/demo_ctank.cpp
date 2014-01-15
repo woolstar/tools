@@ -86,8 +86,12 @@ int main()
 
 	check( ! test.size(), false ) ;
 
+	ioerr << "First in line: " ;  test.front().show() ;
+
 	for ( auto spn= test.span() ; ( spn ) ; ++ spn ) { spn-> action() ; }
 	show( test) ;
+
+	test.clear() ;
 
 	test.transfer_back( test1( 30) ) ;
 	test << test2( "str magic" ) << test2( "and more" ) ;
