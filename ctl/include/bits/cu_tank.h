@@ -39,11 +39,6 @@ namespace ctl
 				// T & operator[](size_t apost) ;
 				// const T &	operator[](size_t apost) const ;
 
-			T &	front() ;
-			const T &	front() const ;
-				// T & back() ;
-				// const T &	back() const ;
-
 			// iterators
 
 			iterator	begin(void) noexcept ;
@@ -57,6 +52,11 @@ namespace ctl
 			range	span(void) noexcept ;
 			const range	span(void) const noexcept ;
 			const range	cspan(void) const noexcept ;
+
+			T &	front() ;
+			const T &	front() const ;
+				// T & back() ;
+				// const T &	back() const ;
 
 			// tests
 
