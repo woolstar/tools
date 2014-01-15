@@ -10,7 +10,7 @@ CFLAGS=-std=c++11 -I../include
 OD=../obj
 LIBPATH=../libs
 
-LIBS=tank_base.cpp tank_iter.cpp
+LIBS=tank_base.cpp tank_iter.cpp tank_range.cpp
 OBJS=$(patsubst %.cpp, $(OD)/%.o, $(LIBS))
 
 TARGET=$(LIBPATH)/libpolyco.a

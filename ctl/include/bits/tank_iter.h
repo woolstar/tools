@@ -6,7 +6,7 @@
 namespace ctl
 {
 
-	template<class T>
+	template <class T>
 		class tank<T>::iterator : public __detail::tank_iter_b
 		{
 			public:
@@ -15,6 +15,28 @@ namespace ctl
 
 				iterator	operator++() noexcept { step() ;  return * this ; }
 				iterator	operator++(int) { iterator itmp( * this ) ;  step() ;  return itmp ; }
+
+				T &	operator*() const noexcept
+								{
+									auto rec= reinterpret_cast<__detail::tank_ctrl_common<T> *>( ptr_ ) ;
+									return * ( rec-> contain() ) ;
+								}
+				T *	operator->() const noexcept
+								{
+									auto rec= reinterpret_cast<__detail::tank_ctrl_common<T> *>( ptr_ ) ;
+									return rec-> contain() ;
+								}
+		} ;
+
+	template <class T>
+		class tank<T>::range : public __detail::tank_range_b
+		{
+			public:
+				constexpr range(data * aptr, data * alim ) noexcept : __detail::tank_range_b::tank_range_b( aptr, alim )
+				{ } 
+
+				range	operator++() noexcept { step() ;  return * this ; }
+				range	operator++(int) { range rtmp( * this ) ;  step() ;  return rtmp ; }
 
 				T &	operator*() const noexcept
 								{

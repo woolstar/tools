@@ -36,7 +36,7 @@ namespace ctl
 			public:
 				typedef unsigned char	data ;
 
-				tank_iter_b( data * aloc ) : ptr_( aloc ) { }
+				constexpr tank_iter_b( data * aloc ) noexcept : ptr_( aloc ) { }
 
 				bool	operator==(tank_iter_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
 				bool	operator!=(tank_iter_b & ai ) const noexcept { return ai.ptr_ != ptr_ ; }
@@ -59,7 +59,7 @@ namespace ctl
 			public:
 				typedef unsigned char	data ;
 
-				tank_range_b( data * aptr, data * alim ) : ptr_( aptr ), limit_( alim ) { }
+				constexpr tank_range_b( data * aptr, data * alim ) noexcept : ptr_( aptr ), limit_( alim ) { }
 
 				operator const IsValid *() const {
 					static IsValid _sentinal ;
