@@ -5,12 +5,18 @@ using ctl::__detail::tank_base ;
 
 tank_base:: ~ tank_base()
 {
+	clear() ;
+}
+
+void	tank_base::clear( void )
+{
 	data * dptr, * dlimit ;
 	tank_ctrl_base * ctrptr ;
 
 	dptr= storage_.get() ;
 	dlimit= dptr + use_ ;
 
+	use_= 0 ;
 	for ( ; ( dptr < dlimit ) ; dptr += ctrptr-> size_ )
 	{
 		ctrptr= ( tank_ctrl_base *) dptr ;
