@@ -19,6 +19,7 @@ namespace ctl
 
 				~ tank_base() ;
 
+				void	clear( void) ;
 				void	reserve(size_t) ;
 				void	shrink(size_t) ;
 
