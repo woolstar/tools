@@ -52,6 +52,12 @@ namespace ctl
 
 	template <class T>
 		template <class Tc, class... Args>
+			void tank<T>::emplace(tank<T>::const_iterator apos, Args&&... arg )
+			{
+			}
+
+	template <class T>
+		template <class Tc, class... Args>
 			void tank<T>::emplace_back( Args&&... arg )
 			{
 				using ctrl = __detail::tank_ctrl<Tc,T> ;
@@ -113,10 +119,10 @@ namespace ctl
 		{ return tank<T>::iterator( storage_.get() + use_ ) ; } ;
 
 	template <class T>
-		const typename tank<T>::const_iterator	tank<T>::end( void ) const noexcept
+		typename tank<T>::const_iterator	tank<T>::end( void ) const noexcept
 		{ return tank<T>::const_iterator( storage_.get() + use_ ) ; } ;
 	template <class T>
-		const typename tank<T>::const_iterator	tank<T>::cend( void ) const noexcept
+		typename tank<T>::const_iterator	tank<T>::cend( void ) const noexcept
 		{ return tank<T>::const_iterator( storage_.get() + use_ ) ; } ;
 
 	template <class T>
@@ -124,10 +130,10 @@ namespace ctl
 		{ return tank<T>::range( storage_.get(), storage_.get() + use_ ) ; } ;
 
 	template <class T>
-		const typename tank<T>::const_range	tank<T>::span( void ) const noexcept
+		typename tank<T>::const_range	tank<T>::span( void ) const noexcept
 		{ return tank<T>::const_range( storage_.get(), storage_.get() + use_ ) ; } ;
 	template <class T>
-		const typename tank<T>::const_range	tank<T>::cspan( void ) const noexcept
+		typename tank<T>::const_range	tank<T>::cspan( void ) const noexcept
 		{ return tank<T>::const_range( storage_.get(), storage_.get() + use_ ) ; } ;
 
 } ;
