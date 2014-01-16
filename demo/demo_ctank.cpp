@@ -13,7 +13,7 @@ using btl::ioerr ;
 
 			virtual ~ Base() = 0 ;
 			virtual void  action() = 0 ;
-			virtual void  show() = 0 ;
+			virtual void  show() const = 0 ;
 	} ;
 
 	class	test1 : public Base
@@ -23,7 +23,7 @@ using btl::ioerr ;
 			~ test1() { ioerr << "D test1\n" ; }
 
 			void	action() override { m_val ++ ; }
-			void	show() override { ioout << btl::format("[t1:show] %8d\n", m_val) ; }
+			void	show() const override { ioout << btl::format("[t1:show] %8d\n", m_val) ; }
 
 			int	m_val ;
 	} ;
@@ -39,7 +39,7 @@ using btl::ioerr ;
 			~ test2() { ioerr << "D test2\n" ; }
 
 			void	action() override { }
-			void	show() override { ioout << "[t2:show] m_code : " << m_code << "\n" ; }
+			void	show() const override { ioout << "[t2:show] m_code : " << m_code << "\n" ; }
 
 		private:
 			char m_code[10] ;
@@ -61,7 +61,7 @@ using btl::ioerr ;
 			~ test3() { ioerr << "D test3\n" ; }
 
 			void	action() override { }
-			void	show() override { ioout << "[t3] n, fat " << str_ << "\n" ; }
+			void	show() const override { ioout << "[t3] n, fat " << str_ << "\n" ; }
 
 			int	num_ ;
 	} ;
@@ -70,7 +70,14 @@ using btl::ioerr ;
 
 	////
 
-	void show( const ctl::tank<Base> & atk ) { for ( auto & br : atk ) { br.show() ; } }
+	void show( const ctl::tank<Base> & atk ) { for ( const auto & br : atk ) { br.show() ; } }
+
+	void ctest( const ctl::tank<Base> & atk )
+	{
+		auto ir= atk.span() ;
+
+		if ( ir ) { ir-> show() ; }
+	}
 
 int main()
 {
@@ -87,6 +94,10 @@ int main()
 	check( ! test.size(), false ) ;
 
 	ioerr << "First in line: " ;  test.front().show() ;
+	{
+		Base & rbase= test.at( 2) ;
+		ioerr << ".. at slot 2: " ;  rbase.show() ;
+	}
 
 	for ( auto spn= test.span() ; ( spn ) ; ++ spn ) { spn-> action() ; }
 	show( test) ;

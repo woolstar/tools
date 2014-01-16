@@ -20,7 +20,7 @@ xlist: demo_list.cpp
 	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -ldata -lstdc++ -o $@
 
 xsock: demo_socket.cpp
-	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -lsocket -lio --ldata lstdc++ -o $@
+	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -lsocket -lio -ldata -lstdc++ -o $@
 
 xecho: demo_echo.cpp
 	$(CC) $(CFLAGS) -Ibtl $< $(LIBPATH) -lio -ldata -lsocket -lstdc++ -o $@
