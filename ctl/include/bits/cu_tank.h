@@ -31,6 +31,8 @@ namespace ctl
 			template < class Tc >
 				tank<T> &	operator<<( Tc && aref ) { transfer_back( aref) ;  return * this ; }
 
+			iterator	erase(iterator pos) ;
+
 			// accessors
 
 			T &	at(unsigned int apos) ;
@@ -42,16 +44,16 @@ namespace ctl
 			// iterators
 
 			iterator	begin(void) noexcept ;
-			const iterator	begin(void) const noexcept ;
-			const iterator	cbegin(void) const noexcept ;
+			const_iterator	begin(void) const noexcept ;
+			const_iterator	cbegin(void) const noexcept ;
 
 			iterator	end(void) noexcept ;
-			const iterator	end(void) const noexcept ;
-			const iterator	cend(void) const noexcept ;
+			const_iterator	end(void) const noexcept ;
+			const_iterator	cend(void) const noexcept ;
 
 			range	span(void) noexcept ;
-			const range	span(void) const noexcept ;
-			const range	cspan(void) const noexcept ;
+			const_range	span(void) const noexcept ;
+			const_range	cspan(void) const noexcept ;
 
 			// tests
 

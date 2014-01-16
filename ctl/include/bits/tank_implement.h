@@ -82,7 +82,7 @@ namespace ctl
 		{
 			range rstep( span()) ;
 
-			while ( apos && rstep ) { apos --, -- rstep ; }
+			while ( apos && rstep ) { apos --, ++ rstep ; }
 			if ( ! rstep ) { throw std::out_of_range("index beyond end of tank") ; }
 			return * rstep ;
 		}
@@ -102,33 +102,33 @@ namespace ctl
 		{ return tank<T>::iterator( storage_.get() ) ; } ;
 
 	template <class T>
-		const typename tank<T>::iterator	tank<T>::begin( void ) const noexcept
-		{ return tank<T>::iterator( storage_.get() ) ; } ;
+		typename tank<T>::const_iterator	tank<T>::begin( void ) const noexcept
+		{ return tank<T>::const_iterator( storage_.get() ) ; } ;
 	template <class T>
-		const typename tank<T>::iterator	tank<T>::cbegin( void ) const noexcept
-		{ return tank<T>::iterator( storage_.get() ) ; } ;
+		typename tank<T>::const_iterator	tank<T>::cbegin( void ) const noexcept
+		{ return tank<T>::const_iterator( storage_.get() ) ; } ;
 
 	template <class T>
 		typename tank<T>::iterator	tank<T>::end( void ) noexcept
 		{ return tank<T>::iterator( storage_.get() + use_ ) ; } ;
 
 	template <class T>
-		const typename tank<T>::iterator	tank<T>::end( void ) const noexcept
-		{ return tank<T>::iterator( storage_.get() + use_ ) ; } ;
+		const typename tank<T>::const_iterator	tank<T>::end( void ) const noexcept
+		{ return tank<T>::const_iterator( storage_.get() + use_ ) ; } ;
 	template <class T>
-		const typename tank<T>::iterator	tank<T>::cend( void ) const noexcept
-		{ return tank<T>::iterator( storage_.get() + use_ ) ; } ;
+		const typename tank<T>::const_iterator	tank<T>::cend( void ) const noexcept
+		{ return tank<T>::const_iterator( storage_.get() + use_ ) ; } ;
 
 	template <class T>
 		typename tank<T>::range	tank<T>::span( void ) noexcept
 		{ return tank<T>::range( storage_.get(), storage_.get() + use_ ) ; } ;
 
 	template <class T>
-		const typename tank<T>::range	tank<T>::span( void ) const noexcept
-		{ return tank<T>::range( storage_.get(), storage_.get() + use_ ) ; } ;
+		const typename tank<T>::const_range	tank<T>::span( void ) const noexcept
+		{ return tank<T>::const_range( storage_.get(), storage_.get() + use_ ) ; } ;
 	template <class T>
-		const typename tank<T>::range	tank<T>::cspan( void ) const noexcept
-		{ return tank<T>::range( storage_.get(), storage_.get() + use_ ) ; } ;
+		const typename tank<T>::const_range	tank<T>::cspan( void ) const noexcept
+		{ return tank<T>::const_range( storage_.get(), storage_.get() + use_ ) ; } ;
 
 } ;
 

@@ -29,6 +29,28 @@ namespace ctl
 		} ;
 
 	template <class T>
+		class tank<T>::const_iterator : public __detail::tank_iter_b
+		{
+			public:
+				constexpr const_iterator(data * aptr ) noexcept : __detail::tank_iter_b::tank_iter_b( aptr )
+				{ }
+
+				const_iterator	operator++() noexcept { step() ;  return * this ; }
+				const_iterator	operator++(int) { const_iterator itmp( * this ) ;  step() ;  return itmp ; }
+
+				const T &	operator*() const noexcept
+								{
+									auto rec= reinterpret_cast<__detail::tank_ctrl_common<T> *>( ptr_ ) ;
+									return * ( rec-> contain() ) ;
+								}
+				const T *	operator->() const noexcept
+								{
+									auto rec= reinterpret_cast<__detail::tank_ctrl_common<T> *>( ptr_ ) ;
+									return rec-> contain() ;
+								}
+		} ;
+
+	template <class T>
 		class tank<T>::range : public __detail::tank_range_b
 		{
 			public:
