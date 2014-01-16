@@ -17,8 +17,9 @@ namespace ctl
 			typedef	T	value_type ;
 
 			class	iterator ;
-			class	reverse_iterator ;
+			class	const_iterator ;
 			class	range ;
+			class	const_range ;
 
 			// storage
 
