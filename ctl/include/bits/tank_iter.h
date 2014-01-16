@@ -72,6 +72,28 @@ namespace ctl
 								}
 		} ;
 
+	template <class T>
+		class tank<T>::const_range : public __detail::tank_range_b
+		{
+			public:
+				constexpr const_range(data * aptr, data * alim ) noexcept : __detail::tank_range_b::tank_range_b( aptr, alim )
+				{ } 
+
+				const_range	operator++() noexcept { step() ;  return * this ; }
+				const_range	operator++(int) { const_range rtmp( * this ) ;  step() ;  return rtmp ; }
+
+				const T &	operator*() const noexcept
+								{
+									auto rec= reinterpret_cast<__detail::tank_ctrl_common<T> *>( ptr_ ) ;
+									return * ( rec-> contain() ) ;
+								}
+				const T *	operator->() const noexcept
+								{
+									auto rec= reinterpret_cast<__detail::tank_ctrl_common<T> *>( ptr_ ) ;
+									return rec-> contain() ;
+								}
+		} ;
+
 } ;
 
 #endif
