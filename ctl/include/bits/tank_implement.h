@@ -106,6 +106,14 @@ namespace ctl
 				use( xsize) ;
 			}
 
+	template <class T>
+		typename tank<T>::iterator	tank<T>::erase(const_iterator apos)
+		{
+			using ctrl = tank_ctrl_common<T> ;
+			ctrl * rec = static_cast<ctrl *>( apos.location() ) ;
+			rec-> destroy() ;
+		}
+
 		//
 	template <class T>
 		T & tank<T>::at( unsigned int apos )
