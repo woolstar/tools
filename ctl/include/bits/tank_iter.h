@@ -48,6 +48,10 @@ namespace ctl
 									auto rec= reinterpret_cast<__detail::tank_ctrl_common<T> *>( ptr_ ) ;
 									return rec-> contain() ;
 								}
+
+			protected:
+				const data *	location(void) const noexcept { return ptr_ ; }
+				friend class tank<T> ;
 		} ;
 
 	template <class T>
