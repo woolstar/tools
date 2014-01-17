@@ -24,7 +24,7 @@ namespace ctl
 			// storage
 
 			template < class Tc, class... Args >
-				void	emplace( const iterator apos, Args&&... arg ) ;
+				void	emplace( const_iterator apos, Args&&... arg ) ;
 			template < class Tc, class... Args >
 				void	emplace_back( Args&&... arg ) ;
 			template < class Tc >
@@ -66,6 +66,8 @@ namespace ctl
 
 		private:
 			typedef	__detail::tank_ctrl_common< T>	_ctrlBase ;
+
+			void	relocate(data * asrc, data * alimit, data * ddest ) override ;
 	} ;
 
 } ;
