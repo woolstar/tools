@@ -5,6 +5,7 @@
 
 #include <typeinfo>
 #include <utility>
+#include <cstring>
 
 namespace ctl
 {
@@ -54,6 +55,27 @@ namespace ctl
 		template <class Tc, class... Args>
 			void tank<T>::emplace(tank<T>::const_iterator apos, Args&&... arg )
 			{
+				using ctrl = __detail::tank_ctrl<Tc,T> ;
+				size_t xsize = sizeof( ctrl) ;
+				data * dcur, * dend ;
+				ctrl * rec ;
+
+				dcur= apos.location() ;
+				dend= storage_.get() + use_ ;
+
+				reserve( xsize) ;
+				relocate( dcur, dend, dcur + xsize ) ;
+				try
+				{
+					rec= new( dcur ) ctrl( arg... ) ;
+				}
+				catch ( ... )
+				{
+						// put the original objects back
+					relocate( dcur + xsize, dend + xsize, dcur ) ;
+					throw ;
+				}
+				use( xsize ) ;
 			}
 
 	template <class T>
@@ -135,6 +157,14 @@ namespace ctl
 	template <class T>
 		typename tank<T>::const_range	tank<T>::cspan( void ) const noexcept
 		{ return tank<T>::const_range( storage_.get(), storage_.get() + use_ ) ; } ;
+
+	// internal 
+
+	template <class T>
+		void	tank<T>::relocate( data * dstart, data *dlimit, data * zdest )
+		{
+			std::memmove(zdest, dstart, dlimit - dstart) ;
+		}
 
 } ;
 
