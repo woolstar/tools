@@ -24,7 +24,7 @@ namespace ctl
 			// storage
 
 			template < class Tc, class... Args >
-				void	emplace( const_iterator apos, Args&&... arg ) ;
+				iterator	emplace( const_iterator apos, Args&&... arg ) ;
 			template < class Tc, class... Args >
 				void	emplace_back( Args&&... arg ) ;
 			template < class Tc >
@@ -32,7 +32,8 @@ namespace ctl
 			template < class Tc >
 				tank<T> &	operator<<( Tc && aref ) { transfer_back( aref) ;  return * this ; }
 
-			iterator	erase(iterator pos) ;
+			iterator	erase(const_iterator pos) ;
+			iterator	erase(const_iterator astart, const_iterator aend) ;
 
 			// accessors
 
