@@ -101,6 +101,16 @@ int main()
 
 	for ( auto spn= test.span() ; ( spn ) ; ++ spn ) { spn-> action() ; }
 	show( test) ;
+	ioerr << "---------\n" ;
+
+	{
+		auto ptr= test.begin() ;
+		++ ptr ;
+		++ ptr ;
+		test.emplace<test1>(ptr, 40) ;
+	}
+	show( test) ;
+	ioerr << "---------\n" ;
 
 	test.clear() ;
 
@@ -108,6 +118,7 @@ int main()
 	test << test2( "str magic" ) << test2( "and more" ) ;
 
 	show( test) ;
+	ioerr << "---------\n" ;
 
 	fprintf(stderr, "passed %d tests.\n", _passed) ;
 	return 0 ;
