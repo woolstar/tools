@@ -66,6 +66,8 @@ namespace ctl
 				range	operator++() noexcept { step() ;  return * this ; }
 				range	operator++(int) { range rtmp( * this ) ;  step() ;  return rtmp ; }
 
+				operator const_range() const { return const_range( ptr_, limit_ ) ; }
+
 				T &	operator*() const noexcept
 								{
 									auto rec= reinterpret_cast<__detail::tank_ctrl_common<T> *>( ptr_ ) ;
