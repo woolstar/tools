@@ -36,7 +36,7 @@ void tank_base::reserve(size_t asize)
 		unsigned char * pnew = new unsigned char [mgrow] ;
 		
 		// XX
-		std::memcpy(pnew, storage_.get(), use_ ) ;
+		relocate( storage_.get(), storage_.get() + use_, pnew ) ;
 		storage_.reset( pnew) ;
 		total_ = mgrow ;
 	}
