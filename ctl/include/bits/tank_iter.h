@@ -13,6 +13,8 @@ namespace ctl
 				constexpr iterator(data * aptr ) noexcept : __detail::tank_iter_b::tank_iter_b( aptr )
 				{ }
 
+				operator const_iterator() const { return const_iterator( ptr_) ; }
+
 				iterator	operator++() noexcept { step() ;  return * this ; }
 				iterator	operator++(int) { iterator itmp( * this ) ;  step() ;  return itmp ; }
 
@@ -50,7 +52,7 @@ namespace ctl
 								}
 
 			protected:
-				const data *	location(void) const noexcept { return ptr_ ; }
+				data *	location(void) const noexcept { return ptr_ ; }
 				friend class tank<T> ;
 		} ;
 
