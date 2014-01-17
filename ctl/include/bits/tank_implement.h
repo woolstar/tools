@@ -53,7 +53,7 @@ namespace ctl
 
 	template <class T>
 		template <class Tc, class... Args>
-			void tank<T>::emplace(tank<T>::const_iterator apos, Args&&... arg )
+			typename tank<T>::iterator tank<T>::emplace(tank<T>::const_iterator apos, Args&&... arg )
 			{
 				using ctrl = __detail::tank_ctrl<Tc,T> ;
 				size_t xsize = sizeof( ctrl) ;
@@ -64,7 +64,8 @@ namespace ctl
 				dend= storage_.get() + use_ ;
 
 				reserve( xsize) ;
-				relocate( dcur, dend, dcur + xsize ) ;
+				if ( dcur < dend )
+					{ relocate( dcur, dend, dcur + xsize ) ; }
 				try
 				{
 					rec= new( dcur ) ctrl( arg... ) ;
@@ -76,6 +77,7 @@ namespace ctl
 					throw ;
 				}
 				use( xsize ) ;
+				return iterator( dcur) ;
 			}
 
 	template <class T>
