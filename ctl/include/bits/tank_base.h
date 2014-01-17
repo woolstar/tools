@@ -27,6 +27,8 @@ namespace ctl
 				void	use(size_t asz) noexcept
 						{ if ( ( use_ + asz ) <= total_ ) { use_ += asz ; } }
 
+				virtual void relocate( data * asrc, data * alim, data * zdest) = 0 ;
+
 					// storage
 				size_t	use_ = 0, total_ = 0 ;
 				std::unique_ptr<data []>	storage_ ;
