@@ -67,8 +67,6 @@ namespace ctl
 			void	shrink_fit( void ) ;
 
 		private:
-			typedef	__detail::tank_ctrl_common< T>	_ctrlBase ;
-
 			void	relocate(data * asrc, data * alimit, data * ddest ) override ;
 	} ;
 
