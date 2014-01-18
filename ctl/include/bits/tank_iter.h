@@ -62,9 +62,6 @@ namespace ctl
 			public:
 				constexpr range(data * aptr, data * alim ) noexcept : __detail::tank_range_b::tank_range_b( aptr, alim )
 				{ } 
-				constexpr range(const_iterator & afir, const_iterator & alim ) noexcept
-					: __detail::tank_range_b::tank_range_b( afir.location(), alim.location() )
-				{ }
 
 				range	operator++() noexcept { step() ;  return * this ; }
 				range	operator++(int) { range rtmp( * this ) ;  step() ;  return rtmp ; }
@@ -90,6 +87,9 @@ namespace ctl
 			public:
 				constexpr const_range(data * aptr, data * alim ) noexcept : __detail::tank_range_b::tank_range_b( aptr, alim )
 				{ } 
+				constexpr const_range(const_iterator & afir, const_iterator & alim ) noexcept
+					: __detail::tank_range_b::tank_range_b( afir.location(), alim.location() )
+				{ }
 
 				const_range	operator++() noexcept { step() ;  return * this ; }
 				const_range	operator++(int) { const_range rtmp( * this ) ;  step() ;  return rtmp ; }
@@ -104,6 +104,10 @@ namespace ctl
 									auto rec= reinterpret_cast<__detail::tank_ctrl_common<T> *>( ptr_ ) ;
 									return rec-> contain() ;
 								}
+
+			protected:
+				data *	location(void) const noexcept { return ptr_ ; }
+				friend class tank<T> ;
 		} ;
 
 } ;
