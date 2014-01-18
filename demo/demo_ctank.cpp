@@ -20,7 +20,7 @@ using btl::ioerr ;
 	{
 		public:
 			test1(int aval) : m_val( aval) { ioerr << "C test1 <int>\n" ; }
-			~ test1() { ioerr << "D test1\n" ; }
+			~ test1() { ioerr << "D test1, " ; }
 
 			void	action() override { m_val ++ ; }
 			void	show() const override { ioout << btl::format("[t1:show] %8d\n", m_val) ; }
@@ -36,7 +36,7 @@ using btl::ioerr ;
 				strncpy(m_code, acode, sizeof( m_code)) ;
 				ioerr << "C test2 <char*>\n" ;
 			}
-			~ test2() { ioerr << "D test2\n" ; }
+			~ test2() { ioerr << "D test2, " ; }
 
 			void	action() override { }
 			void	show() const override { ioout << "[t2:show] m_code : " << m_code << "\n" ; }
@@ -49,7 +49,7 @@ using btl::ioerr ;
 	{
 		public:
 			fat(const char * astr) { strncpy(str_, astr, sizeof( str_ ) ) ; }
-			~ fat() { ioerr << "D fat\n" ; }
+			~ fat() { ioerr << "D fat, " ; }
 
 			char str_[128] ;
 	} ;
@@ -58,7 +58,7 @@ using btl::ioerr ;
 	{
 		public:
 			test3( int aval, const char * ptr ) : fat( ptr), num_( aval) { }
-			~ test3() { ioerr << "D test3\n" ; }
+			~ test3() { ioerr << "D test3, " ; }
 
 			void	action() override { }
 			void	show() const override { ioout << "[t3] n, fat " << str_ << "\n" ; }
@@ -66,7 +66,7 @@ using btl::ioerr ;
 			int	num_ ;
 	} ;
 
-	Base:: ~ Base() { ioerr << "D base\n" ;  }
+	Base:: ~ Base() { ioerr << "D base.\n" ;  }
 
 	////
 
@@ -116,11 +116,14 @@ int main()
 
 	test.transfer_back( test1( 30) ) ;
 	test << test2( "str magic" ) << test2( "and more" ) ;
+	test << test1(100) << test1(100) << test1(100) << test1(100) << test1(100) << test1(100) ;
 
 	show( test) ;
 	ioerr << "---------\n" ;
 
 	fprintf(stderr, "passed %d tests.\n", _passed) ;
+	ctl::tank<Base>::dotrace() ;
+
 	return 0 ;
 }
 
