@@ -23,7 +23,7 @@ namespace ctl
 				void	reserve(size_t) ;
 				void	shrink(size_t) ;
 
-				void	dotrace( bool atrace = true ) { strace= atrace ; }
+				static void	dotrace( bool atrace = true ) { strace= atrace ; }
 
 			protected:
 				void	use(size_t asz) noexcept
