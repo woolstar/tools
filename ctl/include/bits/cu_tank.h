@@ -33,6 +33,7 @@ namespace ctl
 				tank<T> &	operator<<( Tc && aref ) { transfer_back( aref) ;  return * this ; }
 
 			iterator	erase(const_iterator pos) ;
+			iterator	erase(const_range aspan) ;
 			iterator	erase(const_iterator astart, const_iterator aend) ;
 
 			// accessors
