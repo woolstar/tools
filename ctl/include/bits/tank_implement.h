@@ -129,6 +129,7 @@ namespace ctl
 			while ( arng )
 			{
 				ctrl * rec= static_cast<ctrl *>( (void *) arng.location() ) ;
+				++ arng ;
 				rec-> destroy() ;
 			}
 			dend= arng.location() ;
