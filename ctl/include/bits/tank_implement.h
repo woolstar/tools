@@ -118,6 +118,29 @@ namespace ctl
 			reduce( xsize ) ;
 		}
 
+	template <class T>
+		typename tank<T>::iterator	tank<T>::erase(const_range arng)
+		{
+			using ctrl = __detail::tank_ctrl_common<T> ;
+			data * dstart= arng.location() , * dend ;
+			size_t xsize ;
+
+			while ( arng )
+			{
+				ctrl * rec= static_cast<ctrl *>( arng.location() ) ;
+				rec-> destroy() ;
+			}
+			dend= arng.location() ;
+			xsize= dend - dstart ;
+			relocate( dend, storage_.get() + use_, dstart ) ;
+			reduce( xsize) ;
+		}
+
+		// erase adapter :: two iterators -> range object
+	template <class T>
+		typename tank<T>::iterator	tank<T>::erase(const_iterator astart, const_iterator alim)
+			{ return erase( const_range( astart, alim)) ; }
+  
 		//
 	template <class T>
 		T & tank<T>::at( unsigned int apos )
