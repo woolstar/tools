@@ -26,6 +26,8 @@ namespace ctl
 			protected:
 				void	use(size_t asz) noexcept
 						{ if ( ( use_ + asz ) <= total_ ) { use_ += asz ; } }
+				void	reduce(size_t asz) noexcept
+						{ if ( asz > use_ ) { use_= 0 ; } else { use_ -= asz ; } }
 
 				virtual void relocate( data * asrc, data * alim, data * zdest) = 0 ;
 
