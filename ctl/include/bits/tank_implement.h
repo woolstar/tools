@@ -116,6 +116,7 @@ namespace ctl
 			rec-> destroy() ;
 			relocate( ptr + xsize, storage_.get() + use_, ptr ) ;
 			reduce( xsize ) ;
+			return iterator( ptr) ;
 		}
 
 	template <class T>
@@ -134,6 +135,7 @@ namespace ctl
 			xsize= dend - dstart ;
 			relocate( dend, storage_.get() + use_, dstart ) ;
 			reduce( xsize) ;
+			return iterator( dstart) ;
 		}
 
 		// erase adapter :: two iterators -> range object
