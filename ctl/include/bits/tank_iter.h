@@ -62,11 +62,15 @@ namespace ctl
 			public:
 				constexpr range(data * aptr, data * alim ) noexcept : __detail::tank_range_b::tank_range_b( aptr, alim )
 				{ } 
+				constexpr range(const_iterator & afir, const_iterator & alim ) noexcept
+					: __detail::tank_range_b::tank_range_b( afir.location(), alim.location() )
+				{ }
 
 				range	operator++() noexcept { step() ;  return * this ; }
 				range	operator++(int) { range rtmp( * this ) ;  step() ;  return rtmp ; }
 
 				operator const_range() const { return const_range( ptr_, limit_ ) ; }
+				operator const_iterator() const { return const_iterator( ptr_ ) ; }
 
 				T &	operator*() const noexcept
 								{
