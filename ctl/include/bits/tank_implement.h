@@ -109,9 +109,13 @@ namespace ctl
 	template <class T>
 		typename tank<T>::iterator	tank<T>::erase(const_iterator apos)
 		{
-			using ctrl = tank_ctrl_common<T> ;
-			ctrl * rec = static_cast<ctrl *>( apos.location() ) ;
+			using ctrl = __detail::tank_ctrl_common<T> ;
+			data * ptr= apos.location() ;
+			ctrl * rec = static_cast<ctrl *>( ptr ) ;
+			size_t xsize= rec-> size_ ;
 			rec-> destroy() ;
+			relocate( ptr + xsize, storage_.get() + use_, ptr ) ;
+			reduce( xsize ) ;
 		}
 
 		//
