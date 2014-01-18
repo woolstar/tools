@@ -111,7 +111,7 @@ namespace ctl
 		{
 			using ctrl = __detail::tank_ctrl_common<T> ;
 			data * ptr= apos.location() ;
-			ctrl * rec = static_cast<ctrl *>( ptr ) ;
+			ctrl * rec = static_cast<ctrl *>( (void *) ptr ) ;
 			size_t xsize= rec-> size_ ;
 			rec-> destroy() ;
 			relocate( ptr + xsize, storage_.get() + use_, ptr ) ;
@@ -128,7 +128,7 @@ namespace ctl
 
 			while ( arng )
 			{
-				ctrl * rec= static_cast<ctrl *>( arng.location() ) ;
+				ctrl * rec= static_cast<ctrl *>( (void *) arng.location() ) ;
 				rec-> destroy() ;
 			}
 			dend= arng.location() ;
