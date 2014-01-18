@@ -117,6 +117,15 @@ int main()
 	test.transfer_back( test1( 30) ) ;
 	test << test2( "str magic" ) << test2( "and more" ) ;
 	test << test1(100) << test1(100) << test1(100) << test1(100) << test1(100) << test1(100) ;
+	{
+		auto itr= test.begin() ;
+		++ itr ; ++ itr ; ++ itr ;
+		itr= test.erase( itr) ;
+		itr-> action() ;
+		++ itr ;
+		++ itr ;
+		test.erase( itr, test.end() ) ;
+	}
 
 	show( test) ;
 	ioerr << "---------\n" ;
