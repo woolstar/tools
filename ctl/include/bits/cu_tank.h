@@ -26,9 +26,9 @@ namespace ctl
 			template < class Tc, class... Args >
 				iterator	emplace( const_iterator apos, Args&&... arg ) ;
 			template < class Tc, class... Args >
-				void	emplace_back( Args&&... arg ) ;
+				iterator	emplace_back( Args&&... arg ) ;
 			template < class Tc >
-				void	transfer_back( Tc && aref ) ;
+				iterator	transfer_back( Tc && aref ) ;
 			template < class Tc >
 				tank<T> &	operator<<( Tc && aref ) { transfer_back( aref) ;  return * this ; }
 

@@ -57,13 +57,15 @@ namespace ctl
 			{
 				using ctrl = __detail::tank_ctrl<Tc,T> ;
 				size_t xsize = sizeof( ctrl) ;
+				size_t lcur ;
 				data * dcur, * dend ;
 				ctrl * rec ;
 
-				dcur= apos.location() ;
-				dend= storage_.get() + use_ ;
+				lcur= apos.location() - storage_.get() ;
 
 				reserve( xsize) ;
+				dcur= storage_.get() + lcur ;
+				dend= storage_.get() + use_ ;
 				if ( dcur < dend )
 					{ relocate( dcur, dend, dcur + xsize ) ; }
 				try
@@ -82,28 +84,34 @@ namespace ctl
 
 	template <class T>
 		template <class Tc, class... Args>
-			void tank<T>::emplace_back( Args&&... arg )
+			typename tank<T>::iterator tank<T>::emplace_back( Args&&... arg )
 			{
 				using ctrl = __detail::tank_ctrl<Tc,T> ;
 				size_t xsize = sizeof( ctrl) ;
 				ctrl * rec ;
+				data * dcur ; 
 
 				reserve( xsize) ;
-				rec= new(storage_.get() + use_ ) ctrl( arg... ) ;
+				dcur= storage_.get() + use_ ;
+				rec= new( dcur) ctrl( arg... ) ;
 				use( xsize) ;
+				return iterator( dcur) ;
 			}
 
 	template <class T>
 		template <class Tc>
-			void tank<T>::transfer_back( Tc && aref )
+			typename tank<T>::iterator tank<T>::transfer_back( Tc && aref )
 			{
 				using ctrl = __detail::tank_ctrl<typename std::remove_reference<Tc>::type,T> ;
 				size_t xsize = sizeof( ctrl) ;
 				ctrl * rec ;
+				data * dcur ; 
 
 				reserve( xsize) ;
-				rec= new(storage_.get() + use_ ) ctrl( std::move( aref) ) ;
+				dcur= storage_.get() + use_ ;
+				rec= new( dcur ) ctrl( std::move( aref) ) ;
 				use( xsize) ;
+				return iterator( dcur) ;
 			}
 
 	template <class T>
