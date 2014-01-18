@@ -3,6 +3,8 @@
 
 using ctl::__detail::tank_base ;
 
+	bool tank_base::strace = false ;
+
 tank_base:: ~ tank_base()
 {
 	clear() ;
@@ -20,7 +22,7 @@ void	tank_base::clear( void )
 	for ( ; ( dptr < dlimit ) ; dptr += ctrptr-> size_ )
 	{
 		ctrptr= ( tank_ctrl_base *) dptr ;
-		ctrptr-> trace() ;
+		if ( strace ) { ctrptr-> trace() ; }
 		ctrptr-> destroy() ;
 	}
 }
