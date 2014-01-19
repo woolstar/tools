@@ -51,6 +51,8 @@ namespace ctl
 	// implementation
 	// lots of ugly
 
+	// creates in place
+
 	template <class T>
 		template <class Tc, class... Args>
 			typename tank<T>::iterator tank<T>::emplace(tank<T>::const_iterator apos, Args&&... arg )
@@ -114,6 +116,8 @@ namespace ctl
 				return iterator( dcur) ;
 			}
 
+	// splice 
+
 	template <class T>
 		void tank<T>::splice( const_iterator apos, tank && aother )
 		{
@@ -128,7 +132,7 @@ namespace ctl
 		void	tank<T>::splice( const_iterator apos, tank && aother, const_iterator asrc )
 		{
 			using ctrl = __detail::tank_ctrl_common<T> ;
-			data * ptr= apos.location() ;
+			data * ptr= asrc.location() ;
 			ctrl * rec = static_cast<ctrl *>( (void *) ptr ) ;
 			size_t xsize= rec-> size_ ;
 
@@ -137,6 +141,24 @@ namespace ctl
 			relocate( ptr + xsize, aother.storage_.get(), ptr ) ;
 			aother.reduce( xsize) ;
 		}
+
+	template <class T>
+		void	tank<T>::splice( const_iterator apos, tank && aother, const_range asrc )
+		{
+			data * ptr= asrc.location() ;
+			size_t xsize= asrc.span() ;
+
+			data_splice( apos.location(), ptr, xsize ) ;
+
+			relocate( ptr + xsize, aother.storage_.get(), ptr ) ;
+			aother.reduce( xsize) ;
+		}
+
+	template <class T>
+		void	tank<T>::splice( const_iterator apos, tank && aother, const_iterator asrc, const_iterator alim )
+			{ splice( apos, aother, const_range( asrc, alim) ) ; }
+
+	// erase
 
 	template <class T>
 		typename tank<T>::iterator	tank<T>::erase(const_iterator apos)

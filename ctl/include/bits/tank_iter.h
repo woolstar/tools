@@ -107,6 +107,8 @@ namespace ctl
 
 			protected:
 				data *	location(void) const noexcept { return ptr_ ; }
+				size_t	span(void) const noexcept { return limit_ - ptr_ ; }
+
 				friend class tank<T> ;
 		} ;
 
