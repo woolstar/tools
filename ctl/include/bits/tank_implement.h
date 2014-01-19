@@ -117,29 +117,10 @@ namespace ctl
 	template <class T>
 		void tank<T>::splice( const_iterator apos, tank && aother )
 		{
-			using ctrl = __detail::tank_ctrl_common<T> ;
-			size_t xsize, xtot ;
-			size_t lcur = apos.location() - storage_.get() ;
-			data * dcur, * dend ;
-
 			if ( aother.use_ )
 			{
-				xsize= aother.use_ ;
-				reserve( xsize) ;
-
-				dcur= storage_.get() + lcur, dend= storage_.get() + use_ ;
-				relocate( dcur, dend, dcur + xsize ) ;
-				try
-				{
-					relocate( aother.storage_.get(), aother.storage_.get() + xsize, dcur ) ;
-				}
-				catch ( ... )
-				{
-						// put original objects back
-					relocate( dcur + xsize, dend + xsize, dcur ) ;
-					throw ;
-				}
-				use( xsize) ;
+				data_splice( apos.location(), aother.storage_.get(), aother.use_ ) ;
+				aother.use_= 0 ;
 			}
 		}
 
@@ -263,6 +244,8 @@ namespace ctl
 				relocate( dcur + asz, dend + asz, dcur ) ;
 				throw ;
 			}
+
+			use( asz) ;
 		}
 
 
