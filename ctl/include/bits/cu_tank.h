@@ -32,6 +32,11 @@ namespace ctl
 			template < class Tc >
 				tank<T> &	operator<<( Tc && aref ) { transfer_back( aref) ;  return * this ; }
 
+			void splice( const_iterator apos, tank && other ) ;
+			void splice( const_iterator apos, tank && other, const_iterator asrc ) ;
+			void splice( const_iterator apos, tank && other, const_range aspan ) ;
+			void splice( const_iterator apos, tank && other, const_iterator astart, const_iterator aend ) ;
+
 			iterator	erase(const_iterator pos) ;
 			iterator	erase(const_range aspan) ;
 			iterator	erase(const_iterator astart, const_iterator aend) ;
