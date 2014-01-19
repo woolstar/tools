@@ -67,6 +67,11 @@ namespace ctl
 			void	shrink_fit( void ) ;
 			void	swap( tank& other ) ;
 
+			// helpers
+
+			template< class UnaryPredicate >
+				void remove_if( UnaryPredicate p ) ;
+
 		private:
 			void	relocate(data * asrc, data * alimit, data * ddest ) override ;
 	} ;

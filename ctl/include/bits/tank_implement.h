@@ -214,6 +214,8 @@ namespace ctl
 			std::memmove(zdest, dstart, dlimit - dstart) ;
 		}
 
+	// ops
+
 	template <class T>
 		void	tank<T>::swap( tank & aother )
 		{
@@ -224,6 +226,28 @@ namespace ctl
 			aother.use_= use_, aother.total_= total_ ;
 			use_= tmpu, total_= tmptot ;
 		}
+
+	template <class T>
+		template <class Pred>
+			void	tank<T>::remove_if( Pred p )
+			{
+				using ctrl = __detail::tank_ctrl_common<T> ;
+				data * dstep= storage_.get(), * dnext ;
+				size_t xsize ;
+				ctrl * rec ;
+
+				for ( ; ( dstep < ( storage_.get() + use_ ) ) ; dstep= dnext )
+				{
+					ctrl * rec= static_cast<ctrl *>( (void *) dstep ) ;
+					dnext= dstep + ( xsize= rec-> size_ ) ;
+					if ( p( * ( rec-> contain() ) ) )
+					{
+						relocate( dnext, storage_.get() + use_, dstep ) ;
+						reduce( xsize ) ;
+						dnext= dstep ;
+					}
+				}
+			}
 
 } ;
 
