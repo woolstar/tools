@@ -214,6 +214,17 @@ namespace ctl
 			std::memmove(zdest, dstart, dlimit - dstart) ;
 		}
 
+	template <class T>
+		void	tank<T>::swap( tank & aother )
+		{
+			size_t tmpu, tmptot ;
+			tmpu= aother.use_, tmptot= aother.total_ ;
+
+			std::swap( storage_, aother.storage_ ) ;
+			aother.use_= use_, aother.total_= total_ ;
+			use_= tmpu, total_= tmptot ;
+		}
+
 } ;
 
 #endif

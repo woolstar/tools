@@ -65,6 +65,7 @@ namespace ctl
 			size_t capacity() const noexcept { return total_ ; }
 			
 			void	shrink_fit( void ) ;
+			void	swap( tank& other ) ;
 
 		private:
 			void	relocate(data * asrc, data * alimit, data * ddest ) override ;
