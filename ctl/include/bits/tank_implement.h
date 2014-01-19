@@ -125,6 +125,20 @@ namespace ctl
 		}
 
 	template <class T>
+		void	tank<T>::splice( const_iterator apos, tank && aother, const_iterator asrc )
+		{
+			using ctrl = __detail::tank_ctrl_common<T> ;
+			data * ptr= apos.location() ;
+			ctrl * rec = static_cast<ctrl *>( (void *) ptr ) ;
+			size_t xsize= rec-> size_ ;
+
+			data_splice( apos.location(), ptr, xsize ) ;
+
+			relocate( ptr + xsize, aother.storage_.get(), ptr ) ;
+			aother.reduce( xsize) ;
+		}
+
+	template <class T>
 		typename tank<T>::iterator	tank<T>::erase(const_iterator apos)
 		{
 			using ctrl = __detail::tank_ctrl_common<T> ;
