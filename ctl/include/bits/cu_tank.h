@@ -79,6 +79,7 @@ namespace ctl
 
 		private:
 			void	relocate(data * asrc, data * alimit, data * ddest ) override ;
+			void	data_splice( data * zloc, data * asrc, size_t asz ) ;
 	} ;
 
 } ;

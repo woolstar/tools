@@ -243,6 +243,29 @@ namespace ctl
 			std::memmove(zdest, dstart, dlimit - dstart) ;
 		}
 
+	template <class T>
+		void	tank<T>::data_splice( data * zloc, data * asrc, size_t asz )
+		{
+			size_t lcur= zloc - storage_.get() ;
+			data * dcur, * dend ;
+
+			reserve( asz ) ;
+			dcur= storage_.get() + lcur ;
+			dend= storage_.get() + use_ ;
+			if ( dcur < dend ) { relocate( dcur, dend, dcur + asz ) ; }
+			try
+			{
+				relocate( asrc, asrc + asz, dcur ) ;
+			}
+			catch ( ... )
+			{
+					// put original objects back
+				relocate( dcur + asz, dend + asz, dcur ) ;
+				throw ;
+			}
+		}
+
+
 	// ops
 
 	template <class T>
