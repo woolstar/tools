@@ -72,7 +72,7 @@ namespace ctl
 					{ relocate( dcur, dend, dcur + xsize ) ; }
 				try
 				{
-					rec= new( dcur ) ctrl( std::forward<Args...>( arg... ) ) ;
+					rec= new( dcur ) ctrl( std::forward<Args>( arg )... ) ;
 				}
 				catch ( ... )
 				{
@@ -95,7 +95,7 @@ namespace ctl
 
 				reserve( xsize) ;
 				dcur= storage_.get() + use_ ;
-				rec= new( dcur ) ctrl( std::forward<Args...>( arg... ) ) ;
+				rec= new( dcur ) ctrl( std::forward<Args>( arg )... ) ;
 				use( xsize) ;
 				return iterator( dcur) ;
 			}
