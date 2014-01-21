@@ -1,5 +1,6 @@
 #include <polyco>
 #include <io>
+#include <iterator>
 
 using btl::ioout ;
 using btl::ioerr ;
@@ -119,11 +120,10 @@ int main()
 	test << test1(100) << test1(100) << test1(100) << test1(100) << test1(100) << test1(100) ;
 	{
 		auto itr= test.begin() ;
-		++ itr ; ++ itr ; ++ itr ;
+		std::advance( itr, 3 ) ;
 		itr= test.erase( itr) ;
 		itr-> action() ;
-		++ itr ;
-		++ itr ;
+		std::advance( itr, 2 ) ;
 		test.erase( itr, test.end() ) ;
 	}
 
