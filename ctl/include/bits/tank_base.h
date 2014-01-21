@@ -4,6 +4,8 @@
 #define _CUDETAIL_TANK_BASE
 
 #include <memory>
+#include <iterator>
+#include <cstddef>
 
 namespace ctl
 {
@@ -53,6 +55,8 @@ namespace ctl
 				bool	operator==(const tank_iter_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
 				bool	operator!=(const tank_iter_b & ai ) const noexcept { return ai.ptr_ != ptr_ ; }
 
+				// typedef	std::forward_iterator_tag	iterator_catagory ;
+
 			protected:
 
 				void	step( void) noexcept ;
@@ -80,6 +84,9 @@ namespace ctl
 				bool	operator!=(tank_range_b & arng) const noexcept { return arng.ptr_ != ptr_ ; }
 				bool	operator==(const tank_range_b & arng) const noexcept { return arng.ptr_ == ptr_ ; }
 				bool	operator!=(const tank_range_b & arng) const noexcept { return arng.ptr_ != ptr_ ; }
+
+				typedef std::ptrdiff_t	difference_type ;
+				typedef	std::forward_iterator_tag	iterator_catagory ;
 
 			protected:
 

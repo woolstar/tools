@@ -18,6 +18,13 @@ namespace ctl
 				iterator	operator++() noexcept { step() ;  return * this ; }
 				iterator	operator++(int) { iterator itmp( * this ) ;  step() ;  return itmp ; }
 
+				typedef std::ptrdiff_t	difference_type ;
+				typedef	std::forward_iterator_tag	iterator_catagory ;
+
+				typedef T	value_type ;
+				typedef T *	pointer ;
+				typedef T &	reference ;
+
 				T &	operator*() const noexcept
 								{
 									auto rec= reinterpret_cast<__detail::tank_ctrl_common<T> *>( ptr_ ) ;
@@ -39,6 +46,13 @@ namespace ctl
 
 				const_iterator	operator++() noexcept { step() ;  return * this ; }
 				const_iterator	operator++(int) { const_iterator itmp( * this ) ;  step() ;  return itmp ; }
+
+				typedef std::ptrdiff_t	difference_type ;
+				typedef	std::forward_iterator_tag	iterator_catagory ;
+
+				typedef const T	value_type ;
+				typedef const T *	pointer ;
+				typedef const T &	reference ;
 
 				const T &	operator*() const noexcept
 								{
