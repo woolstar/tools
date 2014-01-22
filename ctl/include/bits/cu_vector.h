@@ -11,7 +11,7 @@ namespace ctl
 	{
 		public:
 			vector() { }
-			vector(size_t asize) : vector_base( asize) { }
+			vector(size_t asize) ;
 
 			typedef	T	base_type ;
 			typedef	T	value_type ;
