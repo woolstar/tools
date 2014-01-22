@@ -55,7 +55,8 @@ namespace ctl
 				bool	operator==(const tank_iter_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
 				bool	operator!=(const tank_iter_b & ai ) const noexcept { return ai.ptr_ != ptr_ ; }
 
-				// typedef	std::forward_iterator_tag	iterator_catagory ;
+				typedef std::ptrdiff_t	difference_type ;
+				typedef	std::forward_iterator_tag	iterator_category ;
 
 			protected:
 
@@ -86,7 +87,7 @@ namespace ctl
 				bool	operator!=(const tank_range_b & arng) const noexcept { return arng.ptr_ != ptr_ ; }
 
 				typedef std::ptrdiff_t	difference_type ;
-				typedef	std::forward_iterator_tag	iterator_catagory ;
+				typedef	std::forward_iterator_tag	iterator_category ;
 
 			protected:
 
