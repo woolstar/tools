@@ -15,12 +15,19 @@
 
 #include <cstddef>
 
+	// tank
+
 #include <bits/tank_base.h>
 #include <bits/tank_control.h>
 
 #include <bits/cu_tank.h>
 #include <bits/tank_iter.h>
 #include <bits/tank_implement.h>
+
+	// vector
+
+#include <bits/vek_base.h>
+#include <bits/cu_vector.h>
 
 #endif
 
