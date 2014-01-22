@@ -10,6 +10,7 @@ using btl::ioerr ;
 
 	////
 
+/*
 	void show( const ctl::vector<Base> & atk ) { for ( const auto & br : atk ) { br.show() ; } }
 
 	void ctest( const ctl::vector<Base> & atk )
@@ -18,6 +19,7 @@ using btl::ioerr ;
 
 		if ( ir ) { ir-> show() ; }
 	}
+*/
 
 int main()
 {
