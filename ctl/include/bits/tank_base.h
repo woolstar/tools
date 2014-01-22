@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <iterator>
+#include <vector>
 #include <cstddef>
 
 namespace ctl
