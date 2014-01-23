@@ -67,6 +67,7 @@ namespace ctl
 			size_t size() const noexcept { return use_ ; }
 			size_t capacity() const noexcept { return total_ ; }
 			
+			void	reserve(unsigned int) ;
 			void	shrink_fit( void ) ;
 			void	swap( vector& other ) ;
 
