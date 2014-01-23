@@ -27,7 +27,10 @@
 	// vector
 
 #include <bits/vek_base.h>
+#include <bits/vek_control.h>
+
 #include <bits/cu_vector.h>
+#include <bits/vek_implement.h>
 
 #endif
 
