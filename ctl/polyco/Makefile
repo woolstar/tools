@@ -1,11 +1,11 @@
 
-CC=gcc
-CXX=g++
-CFLAGS=-std=c++0x -I../include
-
 CC=clang
 CXX=clang++
 CFLAGS=-std=c++11 -I../include
+
+CC=gcc
+CXX=g++
+CFLAGS=-std=c++0x -I../include
 
 OD=../obj
 LIBPATH=../libs
