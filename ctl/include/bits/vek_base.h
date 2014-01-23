@@ -20,14 +20,15 @@ namespace ctl
 				~ vector_base() ;
 
 				void	clear( void) ;
-				void	reserve(size_t) ;
-				void	fit( void ) ;
 
 				static void	dotrace( bool atrace = true ) { strace= atrace ; }
 
 			protected:
 
 				virtual void relocate( data * asrc, data * alim, data * zdest) = 0 ;
+
+				void	reserve(size_t) ;
+				void	shrink(size_t) ;
 
 					// storage
 				size_t	use_ = 0, total_ = 0 ;

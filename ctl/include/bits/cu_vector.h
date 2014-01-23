@@ -64,8 +64,8 @@ namespace ctl
 			// tests
 
 			bool empty() const noexcept { return ! use_ ; }
-			size_t size() const noexcept { return use_ ; }
-			size_t capacity() const noexcept { return total_ ; }
+			size_t size() const noexcept { return offset_.size() ; }
+			size_t capacity() const noexcept { return offset_.capacity() ; }
 			
 			void	reserve(unsigned int) ;
 			void	shrink_fit( void ) ;
