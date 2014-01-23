@@ -48,7 +48,11 @@ namespace ctl
 	template <class T>
 		vector<T>::vector(size_t asize)
 		{
-			// guess at how large N Base are going to be + ctrl ;
+			size_t itemsz= sizeof( __detail::vector_ctrl<T,T> ) ;
+			size_t datsz= asize * itemsz * 1.05 ;
+
+				// guess at how large N Base are going to be + ctrl ;
+			__detail::vector_base::reserve( datsz, asize) ;
 		}
 
 	// internal 
