@@ -24,7 +24,7 @@ namespace ctl
 
 		template < typename T > struct vector_ctrl_common : public vector_ctrl_base
 		{
-			vector_ctrl_common(unsigned int aoff) : tank_ctrl_base( aoff) { }
+			vector_ctrl_common(unsigned int aoff) : vector_ctrl_base( aoff) { }
 
 			T *	contain() noexcept { return reinterpret_cast<T *>( ((vector_base::data *) this ) + base_ ) ; }
 
