@@ -27,7 +27,7 @@ namespace ctl
 
 				virtual void relocate( data * asrc, data * alim, data * zdest) = 0 ;
 
-				void	reserve(size_t) ;
+				void	reserve(size_t adat, size_t anum) ;
 				void	shrink(size_t) ;
 
 					// storage
