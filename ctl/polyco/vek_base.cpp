@@ -15,7 +15,7 @@ void	vector_base::clear( void )
 {
 }
 
-void vector_base::shrink_fit( void )
+void vector_base::shrink( size_t )
 {
 }
 
