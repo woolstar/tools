@@ -14,9 +14,20 @@ namespace ctl
 	} ;
 
 	template <class T>
-		vector::vector(size_t asize)
+		vector<T>::vector(size_t asize)
 		{
 			// guess at how large N Base are going to be + ctrl ;
 		}
+
+	// internal 
+
+	template <class T>
+		void	vector<T>::relocate( data * dstart, data *dlimit, data * zdest )
+		{
+			std::memmove(zdest, dstart, dlimit - dstart) ;
+		}
+
 } ;
+
+#endif
 
