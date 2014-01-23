@@ -9,6 +9,9 @@ namespace ctl
 
 	template <class T> class vector : public __detail::vector_base
 	{
+		protected:
+			using base = __detail::vector_base ;
+
 		public:
 			vector() { }
 			vector(size_t asize) ;
@@ -64,8 +67,8 @@ namespace ctl
 			// tests
 
 			bool empty() const noexcept { return ! use_ ; }
-			size_t size() const noexcept { return offset_.size() ; }
-			size_t capacity() const noexcept { return offset_.capacity() ; }
+			size_t size() const noexcept { return base::offsets_.size() ; }
+			size_t capacity() const noexcept { return base::offsets_.capacity() ; }
 			
 			void	reserve(unsigned int) ;
 			void	shrink_fit( void ) ;
