@@ -15,8 +15,9 @@ namespace ctl
 
 				operator const_iterator() const { return const_iterator( ptr_) ; }
 
-				iterator	operator++() noexcept { step() ;  return * this ; }
+				iterator &	operator++() noexcept { step() ;  return * this ; }
 				iterator	operator++(int) { iterator itmp( * this ) ;  step() ;  return itmp ; }
+
 
 				typedef T	value_type ;
 				typedef T *	pointer ;
@@ -35,4 +36,6 @@ namespace ctl
 		} ;
 
 } ;
+
+#endif
 
