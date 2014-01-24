@@ -29,7 +29,9 @@ namespace ctl
 
 				virtual void relocate( data * asrc, data * alim, data * zdest) = 0 ;
 
+				void	reserve(size_t adat) ;
 				void	reserve(size_t adat, size_t anum) ;
+				void	use( size_t ) ;
 				void	shrink(size_t) ;
 
 					// storage
@@ -43,8 +45,9 @@ namespace ctl
 
 		class	vector_iter_b
 		{
-			using data = vector_base::data ;
-			using off_t = vector_base::off_t ;
+			protected:
+				using data = vector_base::data ;
+				using off_t = vector_base::off_t ;
 
 			public:
 				constexpr vector_iter_b( data * dptr, off_t::iterator itr ) noexcept : ptr_( dptr), it_( itr ) { }
