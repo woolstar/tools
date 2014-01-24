@@ -13,8 +13,19 @@ vector_base:: ~ vector_base()
 
 void	vector_base::clear( void )
 {
-}
+	data * dbase, * dptr ;
+	vector_ctrl_base * ctrl ;
 
+	dbase= storage_.get() ;
+	for ( auto offs : offsets_ )
+	{
+		if ( offs == use_ ) break ;
+
+		ctrl= (vector_ctrl_base *) ( dbase + offs ) ;
+		if ( strace ) { ctrl-> trace() ; }
+		ctrl-> destroy() ;
+	}
+}
 
 
 void vector_base::reserve(size_t dsize)
