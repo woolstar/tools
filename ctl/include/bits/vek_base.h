@@ -23,6 +23,8 @@ namespace ctl
 
 				static void	dotrace( bool atrace = true ) { strace= atrace ; }
 
+				typedef	std::vector<std::ptrdiff_t>	off_t ;
+
 			protected:
 
 				virtual void relocate( data * asrc, data * alim, data * zdest) = 0 ;
