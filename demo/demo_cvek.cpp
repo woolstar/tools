@@ -26,11 +26,13 @@ int main()
 	ctl::vector<Base>	test(1024) ;
 
 	check( test.empty(), true ) ; 
-	check( test.capacity(), 1024 ) ;
+	check( test.capacity(), 1023 ) ;
+
+	test.emplace_back<test1>( 10) ;
 
 	ioerr << "---------\n" ;
 
-	fprintf(stderr, "passed %d tests.\n", _passed) ;
+	fprintf(stderr, "passed %d tests.\n\n", _passed) ;
 	ctl::vector<Base>::dotrace() ;
 
 	return 0 ;
