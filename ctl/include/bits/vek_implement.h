@@ -63,8 +63,17 @@ namespace ctl
 				size_t xsize = sizeof( ctrl ) ;
 				ctrl * rec ;
 				data * dcur ;
+				int n = offsets_.size() - 1 ;
 
 				reserve( xsize ) ;
+				dcur= storage_.get() + use_ ;
+				offsets_[n ]= use_ ;
+
+				rec= new( dcur) ctrl( std::forward<Ar>( arg )... ) ;
+				use( xsize) ;
+				offsets_.push_back( use_ ) ;
+
+				return iterator( dcur, offsets_.back() -1 ) ;
 			}
 
 	// internal 
