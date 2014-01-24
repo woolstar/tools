@@ -43,7 +43,20 @@ namespace ctl
 
 		class	vector_iter_b
 		{
+			using data = vector_base::data ;
 			using off_t = vector_base::off_t ;
+
+			public:
+				constexpr vector_iter_b( data * dptr, off_t::iterator itr ) noexcept : ptr_( dptr), it_( itr ) { }
+
+			protected:
+
+				void	step( void) noexcept ;
+				void	back( void) noexcept ;
+				void	jump( int aoff ) noexcept ;
+
+				data	* ptr_ ;
+				off_t::iterator	 it_ ;
 		} ;
 
 	} ;

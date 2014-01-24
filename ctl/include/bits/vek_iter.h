@@ -10,7 +10,7 @@ namespace ctl
 		class vector<T>::iterator : public __detail::vector_iter_b
 		{
 			public:
-				constexpr iterator(data * aptr ) noexcept : __detail::vector_iter_b::vector_iter_b( aptr )
+				constexpr iterator(data * aptr, off_t::iterator itr ) noexcept : __detail::vector_iter_b::vector_iter_b( aptr, itr )
 				{ }
 
 				operator const_iterator() const { return const_iterator( ptr_) ; }
