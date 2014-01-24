@@ -30,8 +30,8 @@ namespace ctl
 				virtual void relocate( data * asrc, data * alim, data * zdest) = 0 ;
 
 				void	reserve(size_t adat) ;
-				void	reserve(size_t adat, size_t anum) ;
-				void	use( size_t ) ;
+				void	reserve(size_t adat, size_t anum) { reserve( adat) ;  offsets_.reserve( anum) ; }
+				void	use( size_t asz ) noexcept { if ( ( asz + use_ ) > total_ ) { use_= total_ ; } else { use_ += asz ; } }
 				void	shrink(size_t) ;
 
 					// storage
