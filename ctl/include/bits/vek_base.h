@@ -49,6 +49,12 @@ namespace ctl
 			public:
 				constexpr vector_iter_b( data * dptr, off_t::iterator itr ) noexcept : ptr_( dptr), it_( itr ) { }
 
+				bool	operator==(vector_iter_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
+				bool	operator==(const vector_iter_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
+
+				typedef	std::ptrdiff_t					difference_type ;
+				typedef std::random_access_iterator_tag	iterator_category ;
+
 			protected:
 
 				void	step( void) noexcept ;
