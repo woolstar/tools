@@ -20,10 +20,10 @@ namespace ctl
 						vector_ctrl( Ar&&... arg ) : vector_ctrl()
 						{
 							void * mem= & storage_ ;
-							tank_ctrl_common<Tb>::locate( new( mem)T(arg... ) ) ;
+							vector_ctrl_common<Tb>::locate( new( mem)T(arg... ) ) ;
 						}
 
-					using data = tank_ctrl_base::data ;
+					using data = vector_ctrl_base::data ;
 
 					void move( data * zstorage ) override { }
 					void destroy(void) override { ptr()-> ~ T() ; }
@@ -54,6 +54,18 @@ namespace ctl
 				// guess at how large N Base are going to be + ctrl ;
 			__detail::vector_base::reserve( datsz, asize) ;
 		}
+
+	template <class T>
+		template <class Tc, class... Ar>
+			typename vector<T>::iterator	vector<T>::emplace_back( Ar&&... arg )
+			{
+				using ctrl = __detail::vector_ctrl<Tc, T> ;
+				size_t xsize = sizeof( ctrl ) ;
+				ctrl * rec ;
+				data * dcur ;
+
+				reserve( xsize ) ;
+			}
 
 	// internal 
 
