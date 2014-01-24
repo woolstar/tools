@@ -15,7 +15,9 @@ void	vector_base::clear( void )
 {
 }
 
-void vector_base::reserve(size_t dsize, size_t nsize )
+
+
+void vector_base::reserve(size_t dsize)
 {
 	size_t mtot= use_ + dsize ;
 
@@ -29,8 +31,6 @@ void vector_base::reserve(size_t dsize, size_t nsize )
 		storage_.reset( pnew) ;
 		total_ = mgrow ;
 	}
-
-	offsets_.reserve( nsize ) ;
 }
 
 void vector_base::shrink( size_t )
