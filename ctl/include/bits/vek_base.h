@@ -41,6 +41,11 @@ namespace ctl
 				static bool	strace ;
 		} ;
 
+		class	vector_iter_b
+		{
+			using off_t = vector_base::off_t ;
+		} ;
+
 	} ;
 } ;
 
