@@ -16,7 +16,7 @@ namespace ctl
 			public:
 				typedef unsigned char	data ;
 
-				vector_base() { }
+				vector_base() : offsets_ { 0 } { }
 				~ vector_base() ;
 
 				void	clear( void) ;
