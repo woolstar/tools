@@ -68,6 +68,31 @@ namespace ctl
 				off_t::iterator	 it_ ;
 		} ;
 
+		class	vector_range_b
+		{
+			protected:
+				using data = vector_base::data ;
+				using off_t = vector_base::off_t ;
+
+			public:
+				vector_range_b( data * dptr, const data * dend, off_t & off ) : ptr_( dptr), pend_( dend ), it_( off.begin() ), ite_( off.end() ) {}
+
+				bool	operator==(vector_range_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
+				bool	operator==(const vector_range_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
+
+			protected:
+
+				void	step( void) noexcept ;
+				void	back( void) noexcept ;
+				void	jump( int aoff ) noexcept ;
+
+				data		* ptr_ ;
+				const data	* pend_ ;
+
+				off_t::iterator			it_ ;
+				const off_t::iterator	ite_ ;
+
+		} ;
 	} ;
 } ;
 
