@@ -77,6 +77,27 @@ namespace ctl
 			}
 
 	template <class T>
+		template <class Tc>
+			typename vector<T>::iterator	vector<T>::transfer_back( Tc && aref )
+			{
+				using ctrl = __detail::vector_ctrl<typename std::remove_reference<Tc>::type, T> ;
+				size_t xsize = sizeof( ctrl ) ;
+				ctrl * rec ;
+				data * dcur ;
+				int n = offsets_.size() - 1 ;
+
+				reserve( xsize ) ;
+				dcur= storage_.get() + use_ ;
+				offsets_[n ]= use_ ;
+
+				rec= new( dcur) ctrl( std::forward<Tc>( aref )) ;
+				use( xsize ) ;
+				offsets_.push_back( use_ ) ;
+
+				return iterator( dcur, offsets_.end() -1 ) ;
+			}
+
+	template <class T>
 		void vector<T>::reserve(unsigned int anum)
 		{
 			size_t itemsz, datsz ;
