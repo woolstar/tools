@@ -73,7 +73,7 @@ namespace ctl
 				use( xsize) ;
 				offsets_.push_back( use_ ) ;
 
-				return iterator( dcur, offsets_.back() -1 ) ;
+				return iterator( dcur, offsets_.end() -1 ) ;
 			}
 
 	// internal 
