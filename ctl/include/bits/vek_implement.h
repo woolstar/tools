@@ -46,13 +46,13 @@ namespace ctl
 	} ;
 
 	template <class T>
-		vector<T>::vector(size_t asize)
+		vector<T>::vector(size_t anum)
 		{
 			size_t itemsz= sizeof( __detail::vector_ctrl<T,T> ) ;
-			size_t datsz= asize * itemsz * 1.05 ;
+			size_t datsz= anum * itemsz * 1.05 ;
 
 				// guess at how large N Base are going to be + ctrl ;
-			__detail::vector_base::reserve( datsz, asize) ;
+			__detail::vector_base::reserve( datsz, anum) ;
 		}
 
 	template <class T>
@@ -75,6 +75,17 @@ namespace ctl
 
 				return iterator( dcur, offsets_.end() -1 ) ;
 			}
+
+	template <class T>
+		void vector<T>::reserve(unsigned int anum)
+		{
+			size_t itemsz, datsz ;
+
+			itemsz= ( use_ && ( offsets_.size() > 1 )) ? ( use_ / ( offsets_.size() -1 ) ) : ( 1.04 * sizeof( __detail::vector_ctrl<T,T> ) ) ;
+			datsz= anum * itemsz ;
+
+			__detail::vector_base::reserve( datsz, anum) ;
+		}
 
 	// internal 
 
