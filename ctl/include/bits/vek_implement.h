@@ -73,7 +73,7 @@ namespace ctl
 				use( xsize) ;
 				offsets_.push_back( use_ ) ;
 
-				return iterator( dcur, offsets_.end() -1 ) ;
+				return iterator( storage_.get(), offsets_.end() -1 ) ;
 			}
 
 	template <class T>
@@ -94,7 +94,7 @@ namespace ctl
 				use( xsize ) ;
 				offsets_.push_back( use_ ) ;
 
-				return iterator( dcur, offsets_.end() -1 ) ;
+				return iterator( storage_.get(), offsets_.end() -1 ) ;
 			}
 
 	template <class T>

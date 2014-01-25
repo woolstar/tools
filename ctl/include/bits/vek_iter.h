@@ -10,10 +10,10 @@ namespace ctl
 		class vector<T>::iterator : public __detail::vector_iter_b
 		{
 			public:
-				constexpr iterator(data * aptr, off_t::iterator itr ) noexcept : __detail::vector_iter_b::vector_iter_b( aptr, itr )
+				constexpr iterator(data * abase, off_t::iterator itr ) noexcept : __detail::vector_iter_b::vector_iter_b( abase, itr )
 				{ }
 
-				operator const_iterator() const { return const_iterator( ptr_) ; }
+				operator const_iterator() const { return const_iterator( pbase_, it_) ; }
 
 				iterator &	operator++() noexcept { step() ;  return * this ; }
 				iterator	operator++(int) { iterator itmp( * this ) ;  step() ;  return itmp ; }
@@ -25,12 +25,12 @@ namespace ctl
 
 				T &	operator*() const noexcept
 								{
-									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( ptr_ ) ;
+									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( pbase_ + ( * it_ ) ) ;
 									return * ( rec-> contain() ) ;
 								}
 				T *	operator->() const noexcept
 								{
-									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( ptr_ ) ;
+									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( pbase_ + ( * it_ ) ) ;
 									return rec-> contain() ;
 								}
 		} ;
@@ -39,18 +39,18 @@ namespace ctl
 		class vector<T>::range : public __detail::vector_range_b
 		{
 			public:
-				range( data * aptr, data * aend, off_t & aoff ) : __detail::vector_range_b( aptr, aend, aoff ) { }
+				range( data * abase, off_t & aoff ) : __detail::vector_range_b( abase, aoff ) { }
 
 				range &	operator++() noexcept { step() ;  return * this ; }
 
 				T &	operator*() const noexcept
 								{
-									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( ptr_ ) ;
+									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( pbase_ + ( * it_ ) ) ;
 									return * ( rec-> contain() ) ;
 								}
 				T *	operator->() const noexcept
 								{
-									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( ptr_ ) ;
+									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( pbase_ + ( * it_ ) ) ;
 									return rec-> contain() ;
 								}
 		} ;
