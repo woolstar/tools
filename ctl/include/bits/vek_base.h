@@ -50,21 +50,26 @@ namespace ctl
 				using off_t = vector_base::off_t ;
 
 			public:
-				constexpr vector_iter_b( data * dptr, off_t::iterator itr ) noexcept : ptr_( dptr), it_( itr ) { }
+				constexpr vector_iter_b( data * const dbase, off_t::iterator itr ) noexcept : pbase_( dbase), it_( itr ) { }
 
-				bool	operator==(vector_iter_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
-				bool	operator==(const vector_iter_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
+				bool	operator==(vector_iter_b & ai ) const noexcept { return ai.it_ == it_ ; }
+				bool	operator==(const vector_iter_b & ai ) const noexcept { return ai.it_ == it_ ; }
+
+				bool	operator<(vector_iter_b & ai) const noexcept { return it_ < ai.it_ ; }
+				bool	operator<=(vector_iter_b & ai) const noexcept { return it_ <= ai.it_ ; }
+				bool	operator>(vector_iter_b & ai) const noexcept { return it_ > ai.it_ ; }
+				bool	operator>=(vector_iter_b & ai) const noexcept { return it_ >= ai.it_ ; }
 
 				typedef	std::ptrdiff_t					difference_type ;
 				typedef std::random_access_iterator_tag	iterator_category ;
 
 			protected:
 
-				void	step( void) noexcept ;
-				void	back( void) noexcept ;
-				void	jump( int aoff ) noexcept ;
+				void	step( void) noexcept { ++ it_ ; }
+				void	back( void) noexcept { -- it_ ; }
+				void	jump( int aoff ) noexcept { it_ += aoff ; }
 
-				data	* ptr_ ;
+				data * const pbase_ ;
 				off_t::iterator	 it_ ;
 		} ;
 
@@ -75,10 +80,12 @@ namespace ctl
 				using off_t = vector_base::off_t ;
 
 			public:
-				vector_range_b( data * dptr, const data * dend, off_t & off ) : ptr_( dptr), pend_( dend ), it_( off.begin() ), ite_( off.end() ) {}
+				vector_range_b( data * const dbase, off_t & off )
+					: pbase_( dbase), it_( off.begin() ), itb_( off.begin() ), ite_( off.end() )
+					{ }
 
-				bool	operator==(vector_range_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
-				bool	operator==(const vector_range_b & ai ) const noexcept { return ai.ptr_ == ptr_ ; }
+				bool	operator==(vector_range_b & ai ) const noexcept { return ai.it_ == it_ ; }
+				bool	operator==(const vector_range_b & ai ) const noexcept { return ai.it_ == it_ ; }
 
 			protected:
 
@@ -86,11 +93,10 @@ namespace ctl
 				void	back( void) noexcept ;
 				void	jump( int aoff ) noexcept ;
 
-				data		* ptr_ ;
-				const data	* pend_ ;
+				data	* const pbase_ ;
 
 				off_t::iterator			it_ ;
-				const off_t::iterator	ite_ ;
+				const off_t::iterator	itb_, ite_ ;
 
 		} ;
 	} ;
