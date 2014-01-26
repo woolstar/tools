@@ -15,7 +15,7 @@ namespace ctl
 
 				operator const_iterator() const { return const_iterator( ptr_) ; }
 
-				iterator	operator++() noexcept { step() ;  return * this ; }
+				iterator &	operator++() noexcept { step() ;  return * this ; }
 				iterator	operator++(int) { iterator itmp( * this ) ;  step() ;  return itmp ; }
 
 				typedef T	value_type ;
@@ -41,8 +41,8 @@ namespace ctl
 				constexpr const_iterator(data * aptr ) noexcept : __detail::tank_iter_b::tank_iter_b( aptr )
 				{ }
 
-				const_iterator	operator++() noexcept { step() ;  return * this ; }
-				const_iterator	operator++(int) { const_iterator itmp( * this ) ;  step() ;  return itmp ; }
+				const_iterator &	operator++() noexcept { step() ;  return * this ; }
+				const_iterator		operator++(int) { const_iterator itmp( * this ) ;  step() ;  return itmp ; }
 
 				typedef const T	value_type ;
 				typedef const T *	pointer ;
@@ -71,7 +71,7 @@ namespace ctl
 				constexpr range(data * aptr, data * alim ) noexcept : __detail::tank_range_b::tank_range_b( aptr, alim )
 				{ } 
 
-				range	operator++() noexcept { step() ;  return * this ; }
+				range &	operator++() noexcept { step() ;  return * this ; }
 				range	operator++(int) { range rtmp( * this ) ;  step() ;  return rtmp ; }
 
 				operator const_range() const { return const_range( ptr_, limit_ ) ; }
@@ -99,8 +99,8 @@ namespace ctl
 					: __detail::tank_range_b::tank_range_b( afir.location(), alim.location() )
 				{ }
 
-				const_range	operator++() noexcept { step() ;  return * this ; }
-				const_range	operator++(int) { const_range rtmp( * this ) ;  step() ;  return rtmp ; }
+				const_range	&	operator++() noexcept { step() ;  return * this ; }
+				const_range		operator++(int) { const_range rtmp( * this ) ;  step() ;  return rtmp ; }
 
 				const T &	operator*() const noexcept
 								{
