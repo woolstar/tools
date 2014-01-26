@@ -36,6 +36,31 @@ namespace ctl
 		} ;
 
 	template <class T>
+		class vector<T>::const_iterator : public __detail::vector_iter_b
+		{
+				constexpr const_iterator(data * abase, off_t::iterator itr ) noexcept : __detail::vector_iter_b::vector_iter_b( abase, itr )
+				{ }
+
+				const_iterator &	operator++() noexcept { step() ;  return * this ; }
+				const_iterator		operator++(int) { const_iterator itmp( * this ) ;  step() ;  return itmp ; }
+
+				typedef const T	value_type ;
+				typedef const T *	pointer ;
+				typedef const T &	reference ;
+
+				const T &	operator*() const noexcept
+								{
+									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( pbase_ + ( * it_ ) ) ;
+									return * ( rec-> contain() ) ;
+								}
+				const T *	operator->() const noexcept
+								{
+									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( pbase_ + ( * it_ ) ) ;
+									return rec-> contain() ;
+								}
+		} ;
+
+	template <class T>
 		class vector<T>::range : public __detail::vector_range_b
 		{
 			public:
