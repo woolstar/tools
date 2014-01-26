@@ -29,6 +29,7 @@ int main()
 	check( test.capacity(), 1023 ) ;
 
 	test.emplace_back<test1>( 10) ;
+	test << test1(20) << test1(21) << test1(22) ;
 
 	ioerr << "---------\n" ;
 
