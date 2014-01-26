@@ -108,6 +108,19 @@ namespace ctl
 			__detail::vector_base::reserve( datsz, anum) ;
 		}
 
+	// iter
+
+	template <class T>
+		typename vector<T>::iterator	vector<T>::begin( void ) noexcept
+		{ return vector<T>::iterator( storage_.get(), offsets_.begin() ) ; } ;
+
+	template <class T>
+		typename vector<T>::const_iterator	vector<T>::begin( void ) const noexcept
+		{ return vector<T>::const_iterator( storage_.get(), offsets_.begin() ) ; } ;
+	template <class T>
+		typename vector<T>::const_iterator	vector<T>::cbegin( void ) const noexcept
+		{ return vector<T>::const_iterator( storage_.get(), offsets_.cbegin() ) ; } ;
+
 	// internal 
 
 	template <class T>
