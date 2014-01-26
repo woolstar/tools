@@ -121,6 +121,17 @@ namespace ctl
 		typename vector<T>::const_iterator	vector<T>::cbegin( void ) const noexcept
 		{ return vector<T>::const_iterator( storage_.get(), offsets_.cbegin() ) ; } ;
 
+	template <class T>
+		typename vector<T>::iterator	vector<T>::end( void ) noexcept
+		{ return vector<T>::iterator( storage_.get(), offsets_.end() -1 ) ; } ;
+
+	template <class T>
+		typename vector<T>::const_iterator	vector<T>::end( void ) const noexcept
+		{ return vector<T>::const_iterator( storage_.get(), offsets_.end() - 1 ) ; } ;
+	template <class T>
+		typename vector<T>::const_iterator	vector<T>::cend( void ) const noexcept
+		{ return vector<T>::const_iterator( storage_.get(), offsets_.cend() - 1 ) ; } ;
+
 	// internal 
 
 	template <class T>
