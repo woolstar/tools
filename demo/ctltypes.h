@@ -16,7 +16,7 @@ class	test1 : public Base
 		~ test1() { ioerr << "D test1, " ; }
 
 		void	action() override { m_val ++ ; }
-		void	show() const override { ioout << btl::format("[t1:show] %8d\n", m_val) ; }
+		void	show() const override { ioout << btl::format("[t1:%4d]", m_val) ; }
 
 		int	m_val ;
 } ;
@@ -32,7 +32,7 @@ class	test2 : public Base
 		~ test2() { ioerr << "D test2, " ; }
 
 		void	action() override { }
-		void	show() const override { ioout << "[t2:show] m_code : " << m_code << "\n" ; }
+		void	show() const override { ioout << "[t2:" << m_code << "]" ; }
 
 	private:
 		char m_code[10] ;
@@ -54,7 +54,7 @@ class test3 : public Base, public fat
 		~ test3() { ioerr << "D test3, " ; }
 
 		void	action() override { }
-		void	show() const override { ioout << "[t3] n, fat " << str_ << "\n" ; }
+		void	show() const override { ioout << "[t3:n," << str_ << "]" ; }
 
 		int	num_ ;
 } ;
