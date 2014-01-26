@@ -50,7 +50,7 @@ namespace ctl
 				using off_t = vector_base::off_t ;
 
 			public:
-				constexpr vector_iter_b( data * const dbase, off_t::iterator itr ) noexcept : pbase_( dbase), it_( itr ) { }
+				constexpr vector_iter_b( data * const dbase, off_t::const_iterator itr ) noexcept : pbase_( dbase), it_( itr ) { }
 
 				bool	operator==(vector_iter_b & ai ) const noexcept { return ai.it_ == it_ ; }
 				bool	operator==(const vector_iter_b & ai ) const noexcept { return ai.it_ == it_ ; }
@@ -72,7 +72,7 @@ namespace ctl
 				void	jump( int aoff ) noexcept { it_ += aoff ; }
 
 				data * const pbase_ ;
-				off_t::iterator	 it_ ;
+				off_t::const_iterator	 it_ ;
 		} ;
 
 		class	vector_range_b
