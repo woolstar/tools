@@ -38,6 +38,7 @@ namespace ctl
 	template <class T>
 		class vector<T>::const_iterator : public __detail::vector_iter_b
 		{
+			public:
 				constexpr const_iterator(data * abase, off_t::iterator itr ) noexcept : __detail::vector_iter_b::vector_iter_b( abase, itr )
 				{ }
 
