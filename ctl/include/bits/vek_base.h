@@ -54,6 +54,8 @@ namespace ctl
 
 				bool	operator==(vector_iter_b & ai ) const noexcept { return ai.it_ == it_ ; }
 				bool	operator==(const vector_iter_b & ai ) const noexcept { return ai.it_ == it_ ; }
+				bool	operator!=(vector_iter_b & ai ) const noexcept { return ai.it_ != it_ ; }
+				bool	operator!=(const vector_iter_b & ai ) const noexcept { return ai.it_ != it_ ; }
 
 				bool	operator<(vector_iter_b & ai) const noexcept { return it_ < ai.it_ ; }
 				bool	operator<=(vector_iter_b & ai) const noexcept { return it_ <= ai.it_ ; }
