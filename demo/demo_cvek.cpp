@@ -10,9 +10,9 @@ using btl::ioerr ;
 
 	////
 
-/*
 	void show( const ctl::vector<Base> & atk ) { for ( const auto & br : atk ) { br.show() ; } }
 
+/*
 	void ctest( const ctl::vector<Base> & atk )
 	{
 		auto ir= atk.span() ;
@@ -30,6 +30,8 @@ int main()
 
 	test.emplace_back<test1>( 10) ;
 	test << test1(20) << test1(21) << test1(22) ;
+
+	show( test) ;
 
 	ioerr << "---------\n" ;
 
