@@ -81,6 +81,26 @@ namespace ctl
 								}
 		} ;
 
+	template <class T>
+		class vector<T>::const_range : public __detail::vector_range_b
+		{
+			public:
+				const_range( data * abase, const off_t & aoff ) : __detail::vector_range_b( abase, aoff ) { }
+
+				range &	operator++() noexcept { step() ;  return * this ; }
+
+				const T &	operator*() const noexcept
+								{
+									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( pbase_ + ( * it_ ) ) ;
+									return * ( rec-> contain() ) ;
+								}
+				const T *	operator->() const noexcept
+								{
+									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( pbase_ + ( * it_ ) ) ;
+									return rec-> contain() ;
+								}
+		} ;
+
 } ;
 
 #endif
