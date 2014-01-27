@@ -82,7 +82,7 @@ namespace ctl
 				using off_t = vector_base::off_t ;
 
 			public:
-				vector_range_b( data * const dbase, off_t & off )
+				vector_range_b( data * const dbase, const off_t & off )
 					: pbase_( dbase), it_( off.begin() ), itb_( off.begin() ), ite_( off.end() )
 					{ }
 
@@ -97,8 +97,8 @@ namespace ctl
 
 				data	* const pbase_ ;
 
-				off_t::iterator			it_ ;
-				const off_t::iterator	itb_, ite_ ;
+				off_t::const_iterator			it_ ;
+				const off_t::const_iterator	itb_, ite_ ;
 
 		} ;
 	} ;
