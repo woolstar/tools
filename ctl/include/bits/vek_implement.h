@@ -97,15 +97,27 @@ namespace ctl
 				return iterator( storage_.get(), offsets_.end() -1 ) ;
 			}
 
+	// erase
+
 	template <class T>
-		void vector<T>::reserve(unsigned int anum)
+		typename vector<T>::iterator	vector<T>::erase( const_iterator apos )
 		{
-			size_t itemsz, datsz ;
+			using ctrl = __detail::vector_ctrl_common<T> ;
+			data * ptr ;
+			ctrl * rec= static_cast<ctrl *>( (void *) ( ptr= apos.location()) ) ;
+			off_t::const_iterator itit= apos.iter() ;
+			size_t xsize= *( itit +1 ) - * ( itit ) ;
 
-			itemsz= ( use_ && ( offsets_.size() > 1 )) ? ( use_ / ( offsets_.size() -1 ) ) : ( 1.04 * sizeof( __detail::vector_ctrl<T,T> ) ) ;
-			datsz= anum * itemsz ;
+			rec-> destroy() ;
+			relocate( ptr + xsize, storage_.get() + use_, ptr ) ;
+			reduce( xsize ) ;
 
-			__detail::vector_base::reserve( datsz, anum) ;
+				// remove from offsets_ iterator and reduce ick
+			auto itpost= offsets_.erase( itit ) ;
+			auto itend= offsets_.cend() ;
+			for ( auto itstep = itpost ; ( itstep != itend ) ; ++ itstep ) { ( * itstep ) -= xsize ; } 
+
+			return iterator( storage_.get(), itpost ) ;
 		}
 
 	// iter
@@ -142,6 +154,19 @@ namespace ctl
 	template <class T>
 		typename vector<T>::const_range	vector<T>::cspan( void ) const noexcept
 		{ return vector<T>::const_range( storage_.get(), offsets_ ) ; }
+
+	//
+
+	template <class T>
+		void vector<T>::reserve(unsigned int anum)
+		{
+			size_t itemsz, datsz ;
+
+			itemsz= ( use_ && ( offsets_.size() > 1 )) ? ( use_ / ( offsets_.size() -1 ) ) : ( 1.04 * sizeof( __detail::vector_ctrl<T,T> ) ) ;
+			datsz= anum * itemsz ;
+
+			__detail::vector_base::reserve( datsz, anum) ;
+		}
 
 	// internal 
 
