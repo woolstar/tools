@@ -77,6 +77,9 @@ namespace ctl
 
 		class	vector_range_b
 		{
+			private:
+				class	IsValid { void operator delete(void *) ; } ;
+
 			protected:
 				using data = vector_base::data ;
 				using off_t = vector_base::off_t ;
@@ -85,6 +88,11 @@ namespace ctl
 				vector_range_b( data * const dbase, const off_t & off )
 					: pbase_( dbase), it_( off.begin() ), itb_( off.begin() ), ite_( off.end() )
 					{ }
+
+				operator const IsValid *() const noexcept {
+					static IsValid _sentinal ;
+					return (it_ != ite_ ) ? & _sentinal : nullptr ;
+				}
 
 				bool	operator==(vector_range_b & ai ) const noexcept { return ai.it_ == it_ ; }
 				bool	operator==(const vector_range_b & ai ) const noexcept { return ai.it_ == it_ ; }
