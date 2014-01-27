@@ -59,6 +59,11 @@ namespace ctl
 									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( pbase_ + ( * it_ ) ) ;
 									return rec-> contain() ;
 								}
+
+			protected:
+				data *	location(void) const noexcept { return pbase_ + ( * it_ ) ; }
+				size_t	size(void) const noexcept { return *( it_ + 1) - ( * it_ ) ; }
+				friend class vector<T> ;
 		} ;
 
 	template <class T>
