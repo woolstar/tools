@@ -132,6 +132,17 @@ namespace ctl
 		typename vector<T>::const_iterator	vector<T>::cend( void ) const noexcept
 		{ return vector<T>::const_iterator( storage_.get(), offsets_.cend() - 1 ) ; } ;
 
+	template <class T>
+		typename vector<T>::range	vector<T>::span( void ) noexcept
+		{ return vector<T>::range( storage_.get(), offsets_ ) ; }
+
+	template <class T>
+		typename vector<T>::const_range	vector<T>::span( void ) const noexcept
+		{ return vector<T>::const_range( storage_.get(), offsets_ ) ; }
+	template <class T>
+		typename vector<T>::const_range	vector<T>::cspan( void ) const noexcept
+		{ return vector<T>::const_range( storage_.get(), offsets_ ) ; }
+
 	// internal 
 
 	template <class T>
