@@ -12,14 +12,12 @@ using btl::ioerr ;
 
 	void show( const ctl::vector<Base> & atk ) { for ( const auto & br : atk ) { br.show() ; } }
 
-/*
 	void ctest( const ctl::vector<Base> & atk )
 	{
 		auto ir= atk.span() ;
 
 		if ( ir ) { ir-> show() ; }
 	}
-*/
 
 int main()
 {
@@ -30,10 +28,10 @@ int main()
 
 	test.emplace_back<test1>( 10) ;
 	test << test1(20) << test1(21) << test1(22) ;
+	check( test.size(), 4 ) ;
 
-	show( test) ;
-
-	ioerr << "---------\n" ;
+	show( test) ;  ioerr << "\n---------\n" ;
+	ctest( test ) ;  ioerr << "\n" ;
 
 	fprintf(stderr, "passed %d tests.\n\n", _passed) ;
 	ctl::vector<Base>::dotrace() ;
