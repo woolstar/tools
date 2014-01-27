@@ -105,15 +105,18 @@ namespace ctl
 			using ctrl = __detail::vector_ctrl_common<T> ;
 			data * ptr ;
 			ctrl * rec= static_cast<ctrl *>( (void *) ( ptr= apos.location()) ) ;
-			off_t::const_iterator itit= apos.iter() ;
-			size_t xsize= *( itit +1 ) - * ( itit ) ;
+
+				// horrible hack for libstd deficit
+				// current implementation does not allow erase(const_iterator), so recreate plain iterator
+			off_t::iterator itx= offsets_.begin() + ( apos.iter() - offsets_.begin() ) ;
+			size_t xsize= *( itx +1 ) - * ( itx ) ;
 
 			rec-> destroy() ;
 			relocate( ptr + xsize, storage_.get() + use_, ptr ) ;
 			reduce( xsize ) ;
 
 				// remove from offsets_ iterator and reduce ick
-			auto itpost= offsets_.erase( itit ) ;
+			auto itpost= offsets_.erase( itx ) ;
 			auto itend= offsets_.cend() ;
 			for ( auto itstep = itpost ; ( itstep != itend ) ; ++ itstep ) { ( * itstep ) -= xsize ; } 
 
