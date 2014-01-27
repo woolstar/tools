@@ -18,6 +18,8 @@ namespace ctl
 				iterator &	operator++() noexcept { step() ;  return * this ; }
 				iterator	operator++(int) { iterator itmp( * this ) ;  step() ;  return itmp ; }
 
+				iterator &	operator+=(int aval) noexcept { jump( aval) ;  return * this ; }
+				iterator &	operator-=(int aval) noexcept { jump( - aval) ;  return * this ; }
 
 				typedef T	value_type ;
 				typedef T *	pointer ;
@@ -45,6 +47,9 @@ namespace ctl
 				const_iterator &	operator++() noexcept { step() ;  return * this ; }
 				const_iterator		operator++(int) { const_iterator itmp( * this ) ;  step() ;  return itmp ; }
 
+				const_iterator &	operator+=(int aval) noexcept { jump( aval) ;  return * this ; }
+				const_iterator &	operator-=(int aval) noexcept { jump( - aval) ;  return * this ; }
+
 				typedef const T	value_type ;
 				typedef const T *	pointer ;
 				typedef const T &	reference ;
@@ -61,8 +66,9 @@ namespace ctl
 								}
 
 			protected:
-				data *	location(void) const noexcept { return pbase_ + ( * it_ ) ; }
-				size_t	size(void) const noexcept { return *( it_ + 1) - ( * it_ ) ; }
+				data *					location(void) const noexcept { return pbase_ + ( * it_ ) ; }
+				off_t::const_iterator &	iter(void) noexcept { return it_ ; }
+
 				friend class vector<T> ;
 		} ;
 
