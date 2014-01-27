@@ -30,6 +30,10 @@ int main()
 	test << test1(20) << test1(21) << test1(22) ;
 	check( test.size(), 4 ) ;
 
+	auto x= test.begin() ;
+	x += 2 ;
+	test.erase( x ) ;
+
 	show( test) ;  ioerr << "\n---------\n" ;
 	ctest( test ) ;  ioerr << "\n" ;
 
