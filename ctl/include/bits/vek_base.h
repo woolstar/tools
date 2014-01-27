@@ -32,6 +32,7 @@ namespace ctl
 				void	reserve(size_t adat) ;
 				void	reserve(size_t adat, size_t anum) { reserve( adat) ;  offsets_.reserve( anum) ; }
 				void	use( size_t asz ) noexcept { if ( ( asz + use_ ) > total_ ) { use_= total_ ; } else { use_ += asz ; } }
+				void	reduce( size_t asz ) noexcept { if ( asz > use_ ) { use_= 0 ; } else { use_ -= asz ; } }
 				void	shrink(size_t) ;
 
 					// storage
