@@ -88,6 +88,8 @@ namespace ctl
 			public:
 				range( data * abase, off_t & aoff ) : __detail::vector_range_b( abase, aoff ) { }
 
+				operator const_range() const { return const_range( pbase_, it_, itb_, ite_ ) ; }
+
 				range &	operator++() noexcept { step() ;  return * this ; }
 
 				T &	operator*() const noexcept
@@ -108,6 +110,8 @@ namespace ctl
 			public:
 				const_range( data * abase, const off_t & aoff ) : __detail::vector_range_b( abase, aoff ) { }
 				const_range( const_iterator & afir, const_iterator & alim ) : __detail::vector_range_b( afir, alim ) { }
+
+				operator const_iterator() const { return const_iterator( pbase_, it_ ) ; }
 
 				range &	operator++() noexcept { step() ;  return * this ; }
 
