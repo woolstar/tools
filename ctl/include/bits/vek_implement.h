@@ -165,6 +165,11 @@ namespace ctl
 			return iterator( storage_.get(), itpost ) ;
 		}
 
+		// erase adapter :: to iterators -> range object
+	template <class T>
+		typename vector<T>::iterator	vector<T>::erase( const_iterator astart, const_iterator aend )
+			{ return erase( const_span( astart, aend ) ) ; }
+
 	// iter
 
 	template <class T>
