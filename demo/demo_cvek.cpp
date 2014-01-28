@@ -33,12 +33,24 @@ int main()
 	check( test.size(), 4 ) ;
 
 	show( test) ;  ioerr << "\n---------\n" ;
-	auto x= test.begin() ;
-	x += 2 ;
-	test.erase( x ) ;
+	{
+		auto ix= test.begin() ;
+		ix += 2 ;
+		test.erase( ix ) ;
+	}
 
 	show( test) ;  ioerr << "\n---------\n" ;
 	ctest( test ) ;  ioerr << "\n" ;
+
+	test << test1( 25) << test1( 26) << test1(30) << test1(32) << test1( 64) ;
+	show( test) ;  ioerr << "\n---------\n" ;
+
+	{
+		auto ix= test.cbegin() ;
+		ix += 2 ;
+		test.erase( ix, ix + 3 ) ;
+	}
+	show( test) ;  ioerr << "\n---------\n" ;
 
 	fprintf(stderr, "passed %d tests.\n\n", _passed) ;
 	ctl::vector<Base>::dotrace() ;
