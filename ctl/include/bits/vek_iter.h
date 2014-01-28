@@ -121,6 +121,13 @@ namespace ctl
 									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( pbase_ + ( * it_ ) ) ;
 									return rec-> contain() ;
 								}
+
+
+			protected:
+				const off_t::const_iterator &	ibegin(void) const noexcept { return itb_ ; }
+				const off_t::const_iterator &	iend(void) const noexcept { return ite_ ; }
+
+				friend class vector<T> ;
 		} ;
 
 } ;
