@@ -91,6 +91,11 @@ namespace ctl
 				operator const_range() const { return const_range( pbase_, it_, itb_, ite_ ) ; }
 
 				range &	operator++() noexcept { step() ;  return * this ; }
+				range & operator--() noexcept { back() ;  return * this ; }
+				range &	operator+=(int aval) noexcept { jump( aval) ;  return * this ; }
+				range &	operator-=(int aval) noexcept { jump( -aval) ;  return * this ; }
+
+				range 	remain(void) const { return range( pbase_, it_, it_, ite_ ) ; }
 
 				T &	operator*() const noexcept
 								{
@@ -102,6 +107,9 @@ namespace ctl
 									auto rec= reinterpret_cast<__detail::vector_ctrl_common<T> *>( pbase_ + ( * it_ ) ) ;
 									return rec-> contain() ;
 								}
+
+				iterator	begin(void) const { return iterator( pbase_, itb_ ) ; }
+				iterator	end(void) const { return iterator( pbase_, ite_ ) ; }
 		} ;
 
 	template <class T>
@@ -126,6 +134,8 @@ namespace ctl
 									return rec-> contain() ;
 								}
 
+				const_iterator	begin(void) const { return const_iterator( pbase_, itb_ ) ; }
+				const_iterator	end(void) const { return const_iterator( pbase_, ite_ ) ; }
 
 			protected:
 				const off_t::const_iterator &	ibegin(void) const noexcept { return itb_ ; }
