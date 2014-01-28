@@ -168,7 +168,7 @@ namespace ctl
 		// erase adapter :: to iterators -> range object
 	template <class T>
 		typename vector<T>::iterator	vector<T>::erase( const_iterator astart, const_iterator aend )
-			{ return erase( const_span( astart, aend ) ) ; }
+			{ return erase( const_range( astart, aend ) ) ; }
 
 	// iter
 
