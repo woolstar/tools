@@ -8,6 +8,8 @@ using btl::ioerr ;
 #include "check.cpp"
 #include "ctltypes.h"
 
+	template<typename T> T const& as_const( T& t ) { return t ; }	// decorate with constness
+
 	////
 
 	void show( const ctl::vector<Base> & atk ) { for ( const auto & br : atk ) { br.show() ; } }
@@ -30,6 +32,7 @@ int main()
 	test << test1(20) << test1(21) << test1(22) ;
 	check( test.size(), 4 ) ;
 
+	show( test) ;  ioerr << "\n---------\n" ;
 	auto x= test.begin() ;
 	x += 2 ;
 	test.erase( x ) ;
