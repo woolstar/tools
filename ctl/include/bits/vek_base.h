@@ -107,9 +107,14 @@ namespace ctl
 
 			protected:
 
-				void	step( void) noexcept ;
-				void	back( void) noexcept ;
-				void	jump( int aoff ) noexcept ;
+				void	step( void) noexcept { if ( it_ != ite_ ) { ++ it_ ; } }
+				void	back( void) noexcept { if ( it_ != itb_ ) { -- it_ ; } }
+				void	jump( int aoff ) noexcept 
+						{
+							it_ += aoff ;
+							if ( aoff > 0 ) { if (it_ > ite_) { it_ = ite_ ; } }
+								else { if ( it_ < itb_ ) { it_ = itb_ ; } }
+						}
 
 				data	* const pbase_ ;
 
