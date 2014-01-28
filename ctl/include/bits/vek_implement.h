@@ -137,11 +137,11 @@ namespace ctl
 #if 1
 				// horrible hack for libstd deficit
 				// current implementation does not allow erase(const_iterator), so recreate plain iterator
-			off_t::iterator itx= offsets_.begin() + ( aspan.istart() - offsets_.begin() ) ;
+			off_t::iterator itx= offsets_.begin() + ( aspan.ibegin() - offsets_.begin() ) ;
 			off_t::iterator itz= offsets_.begin() + ( aspan.iend() - offsets_.begin() ) ;
 #else
 				// for compliant implementations
-			auto itx= aspan.istart() ;
+			auto itx= aspan.ibegin() ;
 			auto itz= aspan.iend() ;
 #endif
 
