@@ -21,6 +21,11 @@ namespace ctl
 				iterator &	operator+=(int aval) noexcept { jump( aval) ;  return * this ; }
 				iterator &	operator-=(int aval) noexcept { jump( - aval) ;  return * this ; }
 
+				iterator	operator+(difference_type adelt)
+							{ return const_iterator( pbase_, it_ + adelt ) ; }
+				iterator	operator-(difference_type adelt)
+							{ return const_iterator( pbase_, it_ - adelt ) ; }
+
 				typedef T	value_type ;
 				typedef T *	pointer ;
 				typedef T &	reference ;
@@ -49,6 +54,11 @@ namespace ctl
 
 				const_iterator &	operator+=(int aval) noexcept { jump( aval) ;  return * this ; }
 				const_iterator &	operator-=(int aval) noexcept { jump( - aval) ;  return * this ; }
+
+				const_iterator		operator+(difference_type adelt)
+									{ return const_iterator( pbase_, it_ + adelt ) ; }
+				const_iterator		operator-(difference_type adelt)
+									{ return const_iterator( pbase_, it_ - adelt ) ; }
 
 				typedef const T	value_type ;
 				typedef const T *	pointer ;
