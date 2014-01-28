@@ -129,6 +129,42 @@ namespace ctl
 			return iterator( storage_.get(), itpost ) ;
 		}
 
+	template <class T>
+		typename vector<T>::iterator	vector<T>::erase( const_range aspan )
+		{
+			using ctrl = __detail::vector_ctrl_common<T> ;
+
+#if 1
+				// horrible hack for libstd deficit
+				// current implementation does not allow erase(const_iterator), so recreate plain iterator
+			off_t::iterator itx= offsets_.begin() + ( aspan.istart() - offsets_.begin() ) ;
+			off_t::iterator itz= offsets_.begin() + ( aspan.iend() - offsets_.begin() ) ;
+#else
+				// for compliant implementations
+			auto itx= aspan.istart() ;
+			auto itz= aspan.iend() ;
+#endif
+
+			data * dbase = storage_.get(), * dstart = dbase + ( * itx ), * dend = dbase + ( * itz ) ;
+			dend= dbase + ( * itz ) ;
+			size_t xsize= ( * itz ) - ( * itx ) ;
+
+			for ( auto itstep= itx ; ( itstep != itz ) ; ++ itstep )
+			{
+				ctrl * rec= static_cast<ctrl *>( (void *) ( dbase + ( * itstep )) ) ;
+				rec-> destroy() ;
+			}
+
+			relocate( dend, dbase + use_, dstart ) ;
+			reduce( xsize ) ;
+
+			auto itpost= offsets_.erase( itx, itz ) ; 
+			auto itend= offsets_.cend() ;
+			for ( auto itstep= itpost ; ( itstep != itend ) ; ++ itstep ) { ( * itstep ) -= xsize ; }
+
+			return iterator( storage_.get(), itpost ) ;
+		}
+
 	// iter
 
 	template <class T>
