@@ -44,6 +44,8 @@ namespace ctl
 				static bool	strace ;
 		} ;
 
+		class	vector_range_b ;
+
 		class	vector_iter_b
 		{
 			protected:
@@ -74,6 +76,8 @@ namespace ctl
 
 				data * const pbase_ ;
 				off_t::const_iterator	 it_ ;
+
+				friend vector_range_b ;
 		} ;
 
 		class	vector_range_b
@@ -88,6 +92,9 @@ namespace ctl
 			public:
 				vector_range_b( data * const dbase, const off_t & off )
 					: pbase_( dbase), it_( off.begin() ), itb_( off.begin() ), ite_( off.end() )
+					{ }
+				vector_range_b( vector_iter_b & afir, vector_iter_b & alim )
+					: pbase_( afir.pbase_ ), it_( afir.it_ ), itb_( afir.it_ ), ite_( alim.it_ )
 					{ }
 
 				operator const IsValid *() const noexcept {
