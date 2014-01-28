@@ -106,9 +106,15 @@ namespace ctl
 			data * ptr ;
 			ctrl * rec= static_cast<ctrl *>( (void *) ( ptr= apos.location()) ) ;
 
+#if 1
 				// horrible hack for libstd deficit
 				// current implementation does not allow erase(const_iterator), so recreate plain iterator
 			off_t::iterator itx= offsets_.begin() + ( apos.iter() - offsets_.begin() ) ;
+#else
+				// for compliant implementations
+			auto itx= apos.iter() ;
+#endif
+
 			size_t xsize= *( itx +1 ) - * ( itx ) ;
 
 			rec-> destroy() ;
