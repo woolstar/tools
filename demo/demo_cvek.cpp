@@ -52,6 +52,18 @@ int main()
 	}
 	show( test) ;  ioerr << "\n---------\n" ;
 
+	test << test1( 100) << test1( 101) << test1( 102)  ;
+	show( test) ;  ioerr << "\n---------\n" ;
+
+	{
+		auto ir= test.span() ;
+		ir += 5 ;
+
+		for ( const auto & x : ir.remain() ) { x.show() ; }  ioerr << "\n\n" ;
+		test.erase( ir.remain() ) ;
+	}
+	show( test) ;  ioerr << "\n---------\n" ;
+
 	fprintf(stderr, "passed %d tests.\n\n", _passed) ;
 	ctl::vector<Base>::dotrace() ;
 
