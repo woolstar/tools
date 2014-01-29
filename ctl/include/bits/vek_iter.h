@@ -143,10 +143,14 @@ namespace ctl
 				const_iterator	end(void) const { return const_iterator( pbase_, ite_ ) ; }
 
 			protected:
+				using oit = off_t::const_iterator ;
+				const_range( data * abase, oit apt, const oit & abegin, const oit & aend ) : __detail::vector_range_b( abase, apt, abegin, aend) { }
+
 				const off_t::const_iterator &	ibegin(void) const noexcept { return itb_ ; }
 				const off_t::const_iterator &	iend(void) const noexcept { return ite_ ; }
 
 				friend class vector<T> ;
+
 		} ;
 
 } ;
