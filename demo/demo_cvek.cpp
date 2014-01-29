@@ -2,6 +2,9 @@
 #include <io>
 #include <iterator>
 
+#include <random>
+#include <algorithm>
+
 using btl::ioout ;
 using btl::ioerr ;
 
@@ -53,6 +56,13 @@ int main()
 	show( test) ;  ioerr << "\n---------\n" ;
 
 	test << test1( 100) << test1( 101) << test1( 102)  ;
+
+	{
+		std::random_device	rd ;
+		std::mt19937 rgen( rd() ) ;
+
+		std::shuffle( test.begin(), test.end(), rgen) ;
+	}
 	show( test) ;  ioerr << "\n---------\n" ;
 
 	{
