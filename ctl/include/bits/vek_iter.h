@@ -26,6 +26,8 @@ namespace ctl
 				iterator	operator-(difference_type adelt)
 							{ return iterator( pbase_, it_ - adelt ) ; }
 
+				long		operator-(const iterator & ait ) { return it_ - ait.it_ ; }
+
 				typedef T	value_type ;
 				typedef T *	pointer ;
 				typedef T &	reference ;
@@ -152,6 +154,11 @@ namespace ctl
 				friend class vector<T> ;
 
 		} ;
+
+	template <class T>
+		long
+			operator-(typename ctl::vector<T>::iterator & ia, typename ctl::vector<T>::iterator & ib) noexcept
+				{ return ia.it_ - ib.it_ ; }
 
 } ;
 
