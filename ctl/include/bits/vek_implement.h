@@ -220,11 +220,18 @@ namespace ctl
 
 	// internal 
 
+	template <typename T>
+		void	iter_swap( typename vector<T>::iterator &, typename vector<T>::iterator & ) 
+		{
+			printf("ctl::vector::iterator::swap\n") ;
+		}
+
 	template <class T>
 		void	vector<T>::relocate( data * dstart, data *dlimit, data * zdest )
 		{
 			std::memmove(zdest, dstart, dlimit - dstart) ;
 		}
+
 
 } ;
 
