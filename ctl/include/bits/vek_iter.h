@@ -110,6 +110,11 @@ namespace ctl
 
 				iterator	begin(void) const { return iterator( pbase_, itb_ ) ; }
 				iterator	end(void) const { return iterator( pbase_, ite_ ) ; }
+
+			protected:
+				using oit = off_t::const_iterator ;
+
+				range( data * abase, oit apt, const oit & abegin, const oit & aend ) : __detail::vector_range_b( abase, apt, abegin, aend ) { }
 		} ;
 
 	template <class T>
