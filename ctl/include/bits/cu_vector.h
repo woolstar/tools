@@ -19,8 +19,12 @@ namespace ctl
 			typedef	T	base_type ;
 			typedef	T	value_type ;
 
-			class	iterator ;
-			class	const_iterator ;
+			class	iterator_engine ;
+			class	const_iterator_engine ;
+
+			typedef	iterator<iterator_engine, vector>	iterator ;
+			typedef	iterator<const_iterator_engine, vector>	const_iterator ;
+
 			class	range ;
 			class	const_range ;
 
