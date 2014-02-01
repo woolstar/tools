@@ -309,6 +309,9 @@ namespace ctl
 				size_t xsize ;
 				ctrl * rec ;
 
+					// very simple strategy, for each item
+					// if delete, destroy then move all the rest of memory down
+					// O(n^2) on relocation
 				for ( ; ( dstep < ( storage_.get() + use_ ) ) ; dstep= dnext )
 				{
 					ctrl * rec= static_cast<ctrl *>( (void *) dstep ) ;
