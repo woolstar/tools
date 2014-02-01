@@ -315,6 +315,7 @@ namespace ctl
 					dnext= dstep + ( xsize= rec-> size_ ) ;
 					if ( p( * ( rec-> contain() ) ) )
 					{
+						rec-> destroy() ;
 						relocate( dnext, storage_.get() + use_, dstep ) ;
 						reduce( xsize ) ;
 						dnext= dstep ;
