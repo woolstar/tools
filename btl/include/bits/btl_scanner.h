@@ -65,16 +65,11 @@ namespace btl
 					return * this ;
 				}
 
-		private:
-			class	IsValid { void operator delete(void *) ; } ;
-
-		public:
-
 				// test active/done
-			bool	hasdata(void) const { return ptr_ != limit_ ; }
-			bool	active(void) const { return hasdata() ; }
-			operator const IsValid *() const { static IsValid _sentinal ;  return hasdata() ? & _sentinal : nullptr ; }
-			// bool	operator()(void) const { return hasdata() ; }
+			bool	hasdata(void) const noexcept { return ptr_ != limit_ ; }
+			bool	active(void) const noexcept { return hasdata() ; }
+
+			explicit operator boot() const noexcept { return hasdata() ; }
 
 			bool	done(void) const { return ptr_ == limit_ ; }
 
