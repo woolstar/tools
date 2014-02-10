@@ -22,8 +22,8 @@ namespace ctl
 			class	iterator_engine ;
 			class	const_iterator_engine ;
 
-			typedef	iterator<iterator_engine, vector>	iterator ;
-			typedef	iterator<const_iterator_engine, vector>	const_iterator ;
+			typedef	ctl::iterator<iterator_engine, vector>	iterator ;
+			typedef	ctl::iterator<const_iterator_engine, vector>	const_iterator ;
 
 			class	range ;
 			class	const_range ;
