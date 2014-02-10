@@ -69,7 +69,7 @@ namespace btl
 			bool	hasdata(void) const noexcept { return ptr_ != limit_ ; }
 			bool	active(void) const noexcept { return hasdata() ; }
 
-			explicit operator boot() const noexcept { return hasdata() ; }
+			explicit operator bool() const noexcept { return hasdata() ; }
 
 			bool	done(void) const { return ptr_ == limit_ ; }
 
