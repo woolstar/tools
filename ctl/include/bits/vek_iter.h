@@ -7,23 +7,23 @@ namespace ctl
 {
 
 	template <class T>
-		class vector<T>::iterator : public __detail::vector_iter_b
+		class vector<T>::iterator_engine : public __detail::vector_iter_b
 		{
 			public:
-				constexpr iterator(data * abase, off_t::const_iterator itr ) noexcept : __detail::vector_iter_b::vector_iter_b( abase, itr )
+				constexpr iterator_engine(data * abase, off_t::const_iterator itr ) noexcept : __detail::vector_iter_b::vector_iter_b( abase, itr )
 				{ }
 
-				operator const_iterator() const { return const_iterator( pbase_, it_) ; }
+				operator const_iterator_engine() const { return const_iterator_engine( pbase_, it_) ; }
 
-				iterator &	operator++() noexcept { step() ;  return * this ; }
-				iterator	operator++(int) { iterator itmp( * this ) ;  step() ;  return itmp ; }
+				iterator_engine &	operator++() noexcept { step() ;  return * this ; }
+				iterator_engine	operator++(int) { iterator itmp( * this ) ;  step() ;  return itmp ; }
 
-				iterator &	operator+=(int aval) noexcept { jump( aval) ;  return * this ; }
-				iterator &	operator-=(int aval) noexcept { jump( - aval) ;  return * this ; }
+				iterator_engine &	operator+=(int aval) noexcept { jump( aval) ;  return * this ; }
+				iterator_engine &	operator-=(int aval) noexcept { jump( - aval) ;  return * this ; }
 
-				iterator	operator+(difference_type adelt)
+				iterator_engine	operator+(difference_type adelt)
 							{ return iterator( pbase_, it_ + adelt ) ; }
-				iterator	operator-(difference_type adelt)
+				iterator_engine	operator-(difference_type adelt)
 							{ return iterator( pbase_, it_ - adelt ) ; }
 
 				long		operator-(const iterator & ait ) { return it_ - ait.it_ ; }
@@ -45,22 +45,22 @@ namespace ctl
 		} ;
 
 	template <class T>
-		class vector<T>::const_iterator : public __detail::vector_iter_b
+		class vector<T>::const_iterator_engine : public __detail::vector_iter_b
 		{
 			public:
-				constexpr const_iterator(data * abase, off_t::const_iterator itr ) noexcept : __detail::vector_iter_b::vector_iter_b( abase, itr )
+				constexpr const_iterator_engine(data * abase, off_t::const_iterator itr ) noexcept : __detail::vector_iter_b::vector_iter_b( abase, itr )
 				{ }
 
-				const_iterator &	operator++() noexcept { step() ;  return * this ; }
-				const_iterator		operator++(int) { const_iterator itmp( * this ) ;  step() ;  return itmp ; }
+				const_iterator_engine &	operator++() noexcept { step() ;  return * this ; }
+				const_iterator_engine		operator++(int) { const_iterator_engine itmp( * this ) ;  step() ;  return itmp ; }
 
-				const_iterator &	operator+=(int aval) noexcept { jump( aval) ;  return * this ; }
-				const_iterator &	operator-=(int aval) noexcept { jump( - aval) ;  return * this ; }
+				const_iterator_engine &	operator+=(int aval) noexcept { jump( aval) ;  return * this ; }
+				const_iterator_engine &	operator-=(int aval) noexcept { jump( - aval) ;  return * this ; }
 
-				const_iterator		operator+(difference_type adelt)
-									{ return const_iterator( pbase_, it_ + adelt ) ; }
-				const_iterator		operator-(difference_type adelt)
-									{ return const_iterator( pbase_, it_ - adelt ) ; }
+				const_iterator_engine		operator+(difference_type adelt)
+									{ return const_iterator_engine( pbase_, it_ + adelt ) ; }
+				const_iterator_engine		operator-(difference_type adelt)
+									{ return const_iterator_engine( pbase_, it_ - adelt ) ; }
 
 				typedef const T	value_type ;
 				typedef const T *	pointer ;
