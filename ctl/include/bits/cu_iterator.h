@@ -3,6 +3,8 @@
 #ifndef	_CU_BITS_ITER
 #define	_CU_BITS_ITER	1
 
+#include <iterator>
+
 namespace ctl
 {
 		// top level iterator because of limitations in C++ type deduction
@@ -13,7 +15,7 @@ namespace ctl
 		protected:
 			Iter	it_ ;
 
-			typedef	iterator_traits<Iter>	traits_t ;
+			typedef	std::iterator_traits<Iter>	traits_t ;
 
 		public:
 			typedef	Iter	iterator_type ;
@@ -34,7 +36,7 @@ namespace ctl
 			reference	operator[](const difference_type& aind) { return it_[ aind] ; }
 
 			iterator &	operator++() { ++ it_ ;  return * this ; }
-			iterator &	operator--() { -- it ;  return * this ; }
+			iterator &	operator--() { -- it_ ;  return * this ; }
 			iterator	operator++(int) { return iterator( it_ ++ ) ; }
 			iterator	operator--(int) { return iterator( it_ -- ) ; }
 
