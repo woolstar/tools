@@ -29,6 +29,10 @@ namespace ctl
 
 			explicit	iterator(const Iter ait) : it_( ait ) { }
 
+				// makes a const version -- no safeties
+			template <typename UIter>
+				iterator( iterator<UIter, TContainer> ait ) : it_( ait ) { }
+
 				// type erasure interface
 
 			reference	operator*() const { return * it_ ; }
@@ -42,6 +46,9 @@ namespace ctl
 
 			iterator &	operator+=(const difference_type& adelt) { it_ += adelt ;  return * this ; }
 			iterator	operator+=(const difference_type& adelt) const { return iterator( it_ + adelt ) ; }
+
+			iterator	operator+(const difference_type& adelt) { return iterator( it_ + adelt ) ; }
+			iterator	operator-(const difference_type& adelt) { return iterator( it_ - adelt ) ; }
 
 			const Iter& base() const { return it_ ; }
 	} ;
