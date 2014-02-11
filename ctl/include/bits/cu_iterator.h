@@ -4,6 +4,7 @@
 #define	_CU_BITS_ITER	1
 
 #include <iterator>
+#include <utility>
 
 namespace ctl
 {
@@ -28,6 +29,9 @@ namespace ctl
 			constexpr iterator() : it_( Iter()) { }
 
 			explicit	iterator(const Iter ait) : it_( ait ) { }
+
+			template <class... Arg>
+				explicit	iterator(Arg&&... ar) : it_( std::forward<Arg>( ar)... ) { }
 
 				// makes a const version -- no safeties
 			template <typename UIter>
