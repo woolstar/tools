@@ -100,9 +100,10 @@ namespace ctl
 	// erase
 
 	template <class T>
-		typename vector<T>::iterator	vector<T>::erase( const_iterator apos )
+		typename vector<T>::iterator	vector<T>::erase( const_iterator ait )
 		{
 			using ctrl = __detail::vector_ctrl_common<T> ;
+			const_iterator_engine apos = ait.base() ;
 			data * ptr ;
 			ctrl * rec= static_cast<ctrl *>( (void *) ( ptr= apos.location()) ) ;
 
