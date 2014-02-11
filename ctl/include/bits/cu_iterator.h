@@ -35,7 +35,7 @@ namespace ctl
 
 				// makes a const version -- no safeties
 			template <typename UIter>
-				iterator( iterator<UIter, TContainer> ait ) : it_( ait ) { }
+				iterator( iterator<UIter, TContainer> ait ) : it_( ait.base() ) { }
 
 				// type erasure interface
 
