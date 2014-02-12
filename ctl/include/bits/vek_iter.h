@@ -22,9 +22,9 @@ namespace ctl
 				iterator_engine &	operator-=(int aval) noexcept { jump( - aval) ;  return * this ; }
 
 				iterator_engine	operator+(difference_type adelt)
-							{ return iterator( pbase_, it_ + adelt ) ; }
+							{ return iterator_engine( pbase_, it_ + adelt ) ; }
 				iterator_engine	operator-(difference_type adelt)
-							{ return iterator( pbase_, it_ - adelt ) ; }
+							{ return iterator_engine( pbase_, it_ - adelt ) ; }
 
 				long		operator-(const iterator & ait ) { return it_ - ait.it_ ; }
 
