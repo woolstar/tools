@@ -94,7 +94,7 @@ namespace ctl
 				vector_range_b( data * const dbase, const off_t & off )
 					: pbase_( dbase), it_( off.begin() ), itb_( off.begin() ), ite_( off.end() -1 )
 					{ }
-				vector_range_b( vector_iter_b & afir, vector_iter_b & alim )
+				vector_range_b( const vector_iter_b & afir, const vector_iter_b & alim )
 					: pbase_( afir.pbase_ ), it_( afir.it_ ), itb_( afir.it_ ), ite_( alim.it_ )
 					{ }
 				vector_range_b( data * const dbase, oit_t apt, const oit_t & abegin, const oit_t & aend )
