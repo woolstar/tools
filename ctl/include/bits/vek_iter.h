@@ -124,7 +124,7 @@ namespace ctl
 		{
 			public:
 				const_range( data * abase, const off_t & aoff ) : __detail::vector_range_b( abase, aoff ) { }
-				const_range( const_iterator & afir, const_iterator & alim ) : __detail::vector_range_b( afir, alim ) { }
+				const_range( const_iterator & afir, const_iterator & alim ) : __detail::vector_range_b( afir.base(), alim.base() ) { }
 
 				operator const_iterator() const { return const_iterator( pbase_, it_ ) ; }
 
@@ -154,11 +154,6 @@ namespace ctl
 				friend class vector<T> ;
 
 		} ;
-
-	template <class T>
-		long
-			operator-(typename ctl::vector<T>::iterator & ia, typename ctl::vector<T>::iterator & ib) noexcept
-				{ return ia.it_ - ib.it_ ; }
 
 } ;
 
