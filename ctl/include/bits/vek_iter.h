@@ -26,7 +26,7 @@ namespace ctl
 				iterator_engine	operator-(difference_type adelt)
 							{ return iterator_engine( pbase_, it_ - adelt ) ; }
 
-				long		operator-(const iterator & ait ) { return it_ - ait.it_ ; }
+				long		operator-(const iterator_engine & ait ) const noexcept { return it_ - ait.it_ ; }
 
 				typedef T	value_type ;
 				typedef T *	pointer ;
@@ -61,6 +61,8 @@ namespace ctl
 									{ return const_iterator_engine( pbase_, it_ + adelt ) ; }
 				const_iterator_engine		operator-(difference_type adelt)
 									{ return const_iterator_engine( pbase_, it_ - adelt ) ; }
+
+				long		operator-(const iterator_engine & ait ) const noexcept { return it_ - ait.it_ ; }
 
 				typedef const T	value_type ;
 				typedef const T *	pointer ;
