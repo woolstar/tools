@@ -15,6 +15,14 @@
 
 #include <cstddef>
 
+ 	// forwards
+
+namespace ctl
+{
+	template <class T> class tank ;
+	template <class T> class vector ;
+} ;
+
 	// iterator - adapter for stl
 
 #include <bits/cu_iterator.h>
