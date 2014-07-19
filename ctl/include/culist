@@ -1,0 +1,39 @@
+// <list> -*- C++ -*-
+
+/***
+  * Copyright (C) 2014
+  * Video Bits
+  *
+  **/
+
+/** @file include/list
+ *  This is the Poly Container list header
+ */
+
+#ifndef _CTL_LIST
+#define _CTL_LIST	1
+
+#include <cstddef>
+
+ 	// forwards
+
+namespace ctl
+{
+	template <class T> class list ;
+} ;
+
+	// iterator - adapter for stl
+
+#include <bits/cu_iterator.h>
+#include <bits/iter_implement.h>
+
+	// list
+
+#include <bits/list_base.h>
+
+#include <bits/cu_list.h>
+#include <bits/list_iter.h>
+#include <bits/list_impl.h>
+
+#endif
+
