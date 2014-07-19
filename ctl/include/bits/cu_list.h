@@ -1,7 +1,7 @@
 // cu_list -*- C++ -*-
 
-#ifndef	_CU_BITS_TANK
-#define _CU_BITS_TANK
+#ifndef	_CU_BITS_LIST
+#define _CU_BITS_LIST
 
 namespace ctl
 {
@@ -58,11 +58,13 @@ namespace ctl
 			const_range	span(void) const noexcept ;
 			const_range	cspan(void) const noexcept ;
 
-			// tests
+			// iterators+
 
-			bool empty() const noexcept { return ! use_ ; }
-			
-			void	shrink_fit( void ) ;
+			// ghost_range	ghspan(void) noexcept ;
+
+			// modifier
+
+			void	erase() ;
 			void	swap( list& other ) ;
 
 			// helpers
