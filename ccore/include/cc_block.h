@@ -65,7 +65,7 @@ namespace ccore
 		protected:
 				// create an initial zero size block
 				// mostly to help build
-			block(void const * aptr ) : ptr_(aptr), far_( aptr ) { }
+			explicit block(void const * aptr ) : ptr_(aptr), far_( aptr ) { }
 
 			void const	* ptr_ { nullptr },
 						* far_ { nullptr } ;
