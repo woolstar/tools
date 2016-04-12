@@ -1,11 +1,5 @@
 
-CC=gcc
-CXX=g++
-CFLAGS=-std=c++0x -I../include
-
-CC=clang
-CXX=clang++
-CFLAGS=-std=c++11 -I../include
+CFLAGS=-std=c++11 -I../include $(LOCAL_CFLAGS)
 
 OD=../obj
 LIBPATH=../libs
