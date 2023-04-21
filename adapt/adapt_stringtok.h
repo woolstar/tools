@@ -36,7 +36,7 @@ class	StringTokenize
       void              load( std::string_view ) ;
 
       std::string_view  operator*() const
-                        { return std::string_view( _string + _curi, ( _nexti - _curi ) ) ; }
+                        { return _active ? std::string_view( _string + _curi, ( _nexti - _curi ) ) : "" ; }
 
       StringTokenize    begin() const { return * this ; }
       StringTokenize    end()   const { return StringTokenize() ; }

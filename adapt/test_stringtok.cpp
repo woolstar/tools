@@ -9,13 +9,14 @@ namespace Adapt {
 namespace test {
 
 using namespace ::testing ;
+using namespace std ;
 
 TEST( Tokenize, example_usage )
 {
     int   counttok = 0 ;
     int   countperiod = 0 ;
 
-    const std::string   teststring = "a b cd. e" ;
+    const string   teststring = "a b cd. e" ;
       // sequence should be "a" "b" "cd" "." "e"
 
     for ( auto s : StringTokenize( teststring ) )
@@ -41,7 +42,7 @@ TEST( Tokenize, empty )
     EXPECT_FALSE( test ) ;
 }
 
-TEST( Tokenize, also_empty )
+TEST( Tokenize, still_empty )
 {
     StringTokenize  test ;
 
@@ -49,6 +50,11 @@ TEST( Tokenize, also_empty )
     EXPECT_FALSE( test ) ;
 
     test= "" ;
+      // still empty
+    EXPECT_EQ( * test, "" ) ;
+    EXPECT_FALSE( test ) ;
+
+    test= string_view() ;
       // still empty
     EXPECT_EQ( * test, "" ) ;
     EXPECT_FALSE( test ) ;
