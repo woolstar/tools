@@ -10,6 +10,7 @@ target_include_directories (
       gtest-unit PUBLIC
 	"${PROJECT_BINARY_DIR}"
 	"${PROJECT_SOURCE_DIR}/adapt" 
+	"${PROJECT_SOURCE_DIR}/funct" 
       )
 
 add_test ( NAME gtest-unit COMMAND $<TARGET_FILE:gtest-unit> )

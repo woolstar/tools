@@ -29,6 +29,7 @@ class	Job
                      } ;
 
         _thread = std::thread( runner ) ;
+	spinup() ;
       }
 
       explicit operator bool() const { return is_running ; }
