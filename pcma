@@ -63,6 +63,7 @@ sub build_target
   $param .= " -n -v" if $n ;
 
   system( "ninja $param $t" ) ;
+  exit $? if $? ;
 }
 
 {
