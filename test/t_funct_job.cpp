@@ -12,7 +12,7 @@ using namespace ::testing ;
 using namespace std ;
 
 
-TEST( Tokenize, example_usage )
+TEST( Job, example_usage )
 {
     Job   runner ;
     
@@ -24,10 +24,35 @@ TEST( Tokenize, example_usage )
     EXPECT_FALSE( runner ) ;
 }
 
-TEST( Tokenize, setup )
+#if __cplusplus >= 202002L
+
+TEST(JobJ, example_usage )
+{
+    JobJ  jrunner ;
+
+    jrunner.launch( [](auto token){ int i ;  while ( ! token.stop_requested() ) { i ++ ; } } ) ;
+    EXPECT_TRUE( jrunner ) ;
+
+    jrunner.stop() ;
+    jrunner.wait() ;
+    EXPECT_FALSE( jrunner ) ;
+}
+
+#endif
+
+TEST( Job, setup )
 {
     Job   runner ;
 }
+
+#if __cplusplus >= 202002L
+
+TEST( JobJ, setup )
+{
+    JobJ  jrunner ;
+}
+
+#endif
 
 }
 }

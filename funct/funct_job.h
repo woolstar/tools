@@ -45,6 +45,32 @@ class	Job
       void    spinup() ;
 } ;
 
+#if __cplusplus >= 202002L
+
+class   JobJ
+{
+    public:
+      ~ JobJ() ;
+
+      void    launch( auto function )
+      {
+        _thread= std::jthread( function ) ;
+        _token= _thread.get_stop_token() ;
+      }
+
+      explicit operator bool() const { return _thread.joinable() ; }
+      bool              active() const { return _token.stop_possible() ; }
+
+      void              stop() { _thread.request_stop() ; }
+      void              wait() ;
+
+    protected:
+      std::jthread      _thread ;
+      std::stop_token   _token ;
+} ;
+
+#endif
+
 }
 }
 

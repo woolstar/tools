@@ -35,6 +35,22 @@ Job::spinup()
     }
 }
 
+#if __cplusplus >= 202002L
+
+JobJ:: ~ JobJ()
+{
+    stop() ;
+    wait() ;
+}
+
+void
+JobJ::wait()
+{
+    if ( _thread.joinable() ) { _thread.join() ; }
+}
+
+#endif
+
 }
 }
 
