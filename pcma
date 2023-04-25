@@ -1,0 +1,78 @@
+#!/usr/bin/perl -s
+
+  use 5.024 ;
+
+  use vars qw($x $n $i) ;
+
+  # -x rebuild all
+  # -n show commands
+  # -i incremental (ignore cmakefile changes)
+
+
+##
+
+sub load_file
+{
+    my($filename, $data) = @_;
+    local($/, *IN);
+    if (open(IN, $filename))
+    {
+        $data = <IN>;
+        close IN;
+    }
+    $data;
+}
+
+##
+
+sub locate_root
+{
+  while ( 1 )
+  {
+    die "no cmake" unless -f "CMakeLists.txt" ;
+    my $cn= load_file( 'CMakeLists.txt' ) ;
+    return if ( $cn =~ /project\s*\(/ ) ;
+    chdir( '..' ) ;
+  }
+}
+
+sub construct
+{
+  return if $i ;  # no rebuild
+  return unless $x or ! -d 'build' ;
+
+  $x= 1 ;
+  system( "rm -fr build" ) ;
+  mkdir( "build" ) ;
+}
+
+sub cmake
+{
+  chdir( 'build' ) ;
+  return if $i ;
+
+  system( "cmake -GNinja .." ) ;
+}
+
+sub build_target
+{
+  my ( $t ) = @_ ;
+  my $param ;
+
+  $param .= " -j4" unless $i ;
+  $param .= " -n -v" if $n ;
+
+  system( "ninja $param $t" ) ;
+}
+
+{
+  & locate_root ;
+  & construct ;
+  & cmake ;
+
+  my ( $target )= @ARGV ;
+  $target //= 'all' ;
+  build_target( $target ) ;
+  build_target( 'test' ) ;
+}
+
