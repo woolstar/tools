@@ -10,4 +10,5 @@ enable_testing ()
 add_subdirectory( "adapt" )
 add_subdirectory( "funct" )
 add_subdirectory( "test" )
+add_subdirectory( "bench" )
 
