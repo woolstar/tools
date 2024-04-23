@@ -38,7 +38,7 @@ struct test_block
             
           for ( auto & s : local )
           {
-            ele.emplace( move( s ) ) ;
+            ele.emplace( std::move( s ) ) ;
               // after each insert, thrash some memory
             thrash.emplace_back( Gen::block() ) ;
           }
