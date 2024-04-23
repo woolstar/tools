@@ -3,6 +3,7 @@ cmake_minimum_required( VERSION 3.20.0 )
 add_executable( gtest-unit
 		t_adapt_stringtok.cpp
                 t_funct_job.cpp
+		t_static.cpp t_static2.cpp
 	      )
 
 target_link_libraries( gtest-unit PUBLIC gtest gtest_main adapt funct )
