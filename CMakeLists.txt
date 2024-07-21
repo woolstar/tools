@@ -9,6 +9,7 @@ enable_testing ()
 
 add_subdirectory( "adapt" )
 add_subdirectory( "funct" )
+add_subdirectory( "serialz" )
 add_subdirectory( "test" )
 add_subdirectory( "bench" )
 
