@@ -1,4 +1,4 @@
-// ser_buildtools.h
+// serz_buildtools.h
 
 #ifndef SER_BUILDTOOLS_DEF
 #define SER_BUILDTOOLS_DEF 1

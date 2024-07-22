@@ -1,4 +1,4 @@
-// ser_buildsz.h
+// serz_buildsz.h
 
 #ifndef SER_BUILDSZ_DEF
 #define SER_BUILDSZ_DEF  1

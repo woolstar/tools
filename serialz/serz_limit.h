@@ -1,4 +1,4 @@
-// ser_limit.h
+// serz_limit.h
 
 #ifndef SER_LIMIT_DEF
 #define SER_LIMIT_DEF 1
