@@ -1,5 +1,6 @@
 
 #include "serialize.h"
+#include "serz_buildsz.h"
 #include "serz_buildstr.h"
 #include "serz_buildtools.h"
 #include "serz_variable.h"
@@ -52,6 +53,26 @@ TEST( Serialize, wrap )
     EXPECT_EQ( test.size(), ( sizeof( val ) + sizeof( uint16_t ) + sizeof( pt ) ) ) ;
     EXPECT_EQ( ** test, val ) ;
     EXPECT_EQ( *( * test + sizeof(val)), sizeof( pt ) ) ;
+}
+
+TEST( Serialize, repeatable )
+{
+    int val = 20 ;
+    point pt( 100, 200 ) ;
+
+    auto pack = [&](auto & ser) 
+               {
+                  ser << val
+                      << VariableStruct<uint16_t>( pt ) ;
+               } ;
+
+    Serialize< BuildTools< BuildSz >>  testsz ;
+    pack( testsz ) ;
+
+    Serialize< BuildTools< BuildString >> test ;
+    pack( test ) ;
+
+    ASSERT_EQ( testsz.size(), test.size() );
 }
 
 }

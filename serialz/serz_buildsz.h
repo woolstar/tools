@@ -11,9 +11,12 @@ namespace Serialize {
 class   BuildSz
 {
     public:
-	void	add( const char *, size_t sz ) { size += sz ; }
+      void	add( const char *, size_t sz ) { size_ += sz ; }
 
-	size_t	size = 0 ;
+      size_t	size() const { return size_ ; }
+
+    protected:
+      size_t	size_ = 0 ;
 } ;
 
 }
