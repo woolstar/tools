@@ -8,7 +8,9 @@ add_library( serialz
 	     serz_limit.cpp
 	     serz_buildsz.h
 	     serz_buildbuf.h
+	     serz_buildstr.cpp
 	     serz_buildtools.h
+	     serz_variable.h
 	     serialize.h
 	     deserz_limit.h
 	     deserialize.h
