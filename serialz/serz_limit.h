@@ -1,7 +1,7 @@
 // serz_limit.h
 
-#ifndef SER_LIMIT_DEF
-#define SER_LIMIT_DEF 1
+#ifndef SERZ_LIMIT_DEF
+#define SERZ_LIMIT_DEF 1
 
 #include <utility>
 #include <stddef.h>

@@ -1,7 +1,7 @@
 // serz_buildsz.h
 
-#ifndef SER_BUILDSZ_DEF
-#define SER_BUILDSZ_DEF  1
+#ifndef SERZ_BUILDSZ_DEF
+#define SERZ_BUILDSZ_DEF  1
 
 #include <stddef.h>
 #include <string>

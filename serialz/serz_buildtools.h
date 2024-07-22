@@ -1,7 +1,7 @@
 // serz_buildtools.h
 
-#ifndef SER_BUILDTOOLS_DEF
-#define SER_BUILDTOOLS_DEF 1
+#ifndef SERZ_BUILDTOOLS_DEF
+#define SERZ_BUILDTOOLS_DEF 1
 
 #include <memory>
 #include <boost/endian/conversion.hpp>

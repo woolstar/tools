@@ -1,7 +1,7 @@
 // serz_variable.h
 
-#ifndef SER_VARIABLE_DEF
-#define SER_VARIABLE_DEF 1
+#ifndef SERZ_VARIABLE_DEF
+#define SERZ_VARIABLE_DEF 1
 
 #include <stddef.h>
 #include <string_view>
