@@ -4,6 +4,7 @@
 #define SER_BUILDTOOLS_DEF 1
 
 #include <memory>
+#include <boost/endian/conversion.hpp>
 
 
 namespace Wool {
@@ -16,15 +17,31 @@ struct	Block
 } ;
 
 template <typename BASEBUILD>
-class BuildTool : public BASEBUILD
+class BuildTools : public BASEBUILD
 {
     public:
-	template <typename INTEGRAL>
-	void	add( INTEGRAL v ) { add( & v, sizeof(v) ) ; }
+      using BASEBUILD::BASEBUILD ;
 
-	void	add( const auto * ptr, size_t sz ) { BASEBUILD::add( (char *) ptr, sz ) ; }
+      template <typename INTEGRAL>
+      void	add( INTEGRAL v ) { add( (const char *) & v, sizeof(v) ) ; }
 
-	void	steal( const Block & block ) { add( block.data.get(), block.sz ) ; }
+      void	add( const auto * ptr, size_t sz ) { BASEBUILD::add( (const char *) ptr, sz ) ; }
+
+      void	steal( const Block & block ) { add( block.data.get(), block.sz ) ; }
+} ;
+
+template <typename BASEBUILD>
+class BuildEndian : public BASEBUILD
+{
+    public:
+      template <typename ...ARGS>
+      BuildEndian(ARGS&& ...args) : BASEBUILD( std::forward<ARGS>( args )... ) {}
+
+      template <typename INTEGRAL>
+      void      add( INTEGRAL v ) {
+                  boost::endian::native_to_big_inplace( v ) ;
+                  BASEBUILD::add( (const char * ) & v, sizeof( v ) ) ;
+                }
 } ;
 
 }

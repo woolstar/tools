@@ -28,7 +28,7 @@ TEST( SerzSZ, basic )
 
 TEST( SerzSZ, tools )
 {
-    BuildTool<BuildSz>  test ;
+    BuildTools<BuildSz>  test ;
 
     test.add( 4L ) ;
     EXPECT_EQ( test.size, sizeof( long )) ;

@@ -4,7 +4,7 @@ add_executable( gtest-unit
 		t_adapt_stringtok.cpp
                 t_funct_job.cpp
 		t_static.cpp t_static2.cpp
-		t_serz_limit.cpp t_serz_sz.cpp
+		t_serz_limit.cpp t_serz_sz.cpp t_serz_buf.cpp
 	      )
 
 target_link_libraries( gtest-unit PUBLIC gtest gtest_main adapt funct serialz )
