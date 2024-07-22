@@ -26,3 +26,10 @@ Code libraries, templates and executables
 	and expanding these tools, but I moved on to other fields.  Rescuing ancient archives now
 	and trying to at least document my creations.
 
+* bench
+	benchmark flatset vs set in busy memory environment.
+	(no surprise, flatset wins by a lot.)
+
+* serialize
+	Low level templates for assembling integral, strings, and structs into binary streams.
+
