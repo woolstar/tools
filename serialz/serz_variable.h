@@ -20,7 +20,7 @@ class	Variable
         Variable( std::string_view str ) : Variable( str.data(), str.size() ) {}
 
 	template <typename BLOCK>
-	void	serialize( BLOCK & block ) {
+	void	serialize( BLOCK & block ) const {
                   block.add( sz_ ) ;
                   block.add( data_, sz_ ) ;
 		}
