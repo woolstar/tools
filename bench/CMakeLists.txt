@@ -11,5 +11,11 @@ add_executable( bench-struct
 	      )
 
 target_link_libraries( bench-struct PUBLIC gen benchmark::benchmark )
-target_compile_options( gen PUBLIC -O2 )
+target_compile_options( bench-struct PUBLIC -O2 )
 
+add_executable( bench-mask
+                bm_masksearch.cpp
+              )
+
+target_link_libraries( bench-mask PUBLIC gen benchmark::benchmark )
+target_compile_options( bench-mask PUBLIC -O2 )

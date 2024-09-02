@@ -49,6 +49,20 @@ Gen::group( int n )
     return result ;
 }
 
+vector<uint8_t>
+Gen::bytes( int n )
+{
+    static mt19937  rgen( random() ) ;
+    uniform_int_distribution<int> u_bytes(0, 255) ;
+    vector< uint8_t > result ;
+
+    result.reserve( n ) ;
+    for ( int i= n ; ( i-- ) ; ) {
+      result.push_back( u_bytes( rgen ) ) ;
+    }
+    return result ;
+}
+
 string
 Gen::block()
 {
