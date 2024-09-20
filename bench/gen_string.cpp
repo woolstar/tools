@@ -63,6 +63,27 @@ Gen::bytes( int n )
     return result ;
 }
 
+vector<string>
+Gen::alpha( int n, int len )
+{
+    static mt19937  rgen( random() ) ;
+    uniform_int_distribution<int> u_char(97, 123) ;  // a-z
+    string  tmp ;
+    vector<string>  result ;
+
+    result.reserve( n ) ;
+    for ( int i= n; ( i-- ) ; ) {
+        tmp.clear() ;
+        tmp.reserve( len ) ;
+        for ( int j= len; ( j -- ) ; ) {
+          tmp += u_char( rgen ) ;
+        }
+        result.emplace_back( move( tmp ) ) ;
+    }
+
+    return result ;
+}
+
 string
 Gen::block()
 {

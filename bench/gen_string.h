@@ -16,6 +16,9 @@ struct Gen
     	// expand a group of labels by duplication into a search set (with shuffling)
     static std::vector<std::string>   searches( const std::vector<std::string> & src, int n ) ;
 
+	// construct a group (n) of alpha strings (length len)
+    static std::vector<std::string>   alpha( int n = 10, int len = 16 ) ;
+
     	// construct random bytes
     static std::vector<uint8_t>       bytes( int n=16 ) ;
 
