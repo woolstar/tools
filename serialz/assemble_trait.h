@@ -45,15 +45,17 @@ struct AssembleEngine< vector<char>>
     using Engine = AssembleVec ;
 } ;
 
-template <typename ASSEMBLE>
+template <typename ASSEMBLE, typename COUNTER = int>
 class Assemble
 {
     public:
         Assemble( ASSEMBLE & x ) : assemble_( x) {}
+        Assemble( ASSEMBLE & x, COUNTER ) : assemble_( x ) {}
 
-        void add( char c ) { assemble_.add( c) ; }
+        void add( char c ) { assemble_.add( c) ;  ct_ ++ ; }
 
         AssembleEngine<ASSEMBLE>::Engine assemble_ ;
+        COUNTER ct_ = 0 ;
 } ;
 
 void test()
@@ -67,4 +69,6 @@ void test()
     Assemble axv( b ) ;
     axv.add( 'v' ) ;
 
+    Assemble avxl( b, 0ULL ) ;
+    avx.add( 'u' ) ;
 }
