@@ -27,3 +27,11 @@ add_executable( bench-longest
 target_link_libraries( bench-longest PUBLIC gen benchmark::benchmark )
 target_compile_options( bench-longest PUBLIC -O2 )
 
+##
+
+add_executable( bench-palindrome
+                bm_palindrome.cpp
+              )
+
+target_link_libraries( bench-palindrome PUBLIC benchmark::benchmark )
+target_compile_options( bench-palindrome PUBLIC -O2 )
